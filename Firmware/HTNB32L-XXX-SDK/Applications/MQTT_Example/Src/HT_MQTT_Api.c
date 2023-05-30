@@ -1,0 +1,101 @@
+/**
+ *
+ * Copyright (c) 2023 HT Micron Semicondutors S.A.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
+#include "HT_MQTT_Api.h"
+#include "HT_Fsm.h"
+
+extern volatile uint8_t subscribe_callback;
+
+static MQTTPacket_connectData connectData = MQTTPacket_connectData_initializer;
+
+void HT_MQTT_Init(MQTTClient *mqtt_client, Network *mqtt_network, uint32_t command_timeout_ms, uint8_t *sendbuf, uint32_t sendbuf_size, uint8_t *readbuf, uint32_t readbuf_size) {
+    NetworkInit(mqtt_network);
+
+    MQTTClientInit(mqtt_client, mqtt_network, command_timeout_ms, (unsigned char *)sendbuf, sendbuf_size, 
+                                                    (unsigned char *)readbuf, readbuf_size);
+}
+
+uint8_t HT_MQTT_Connect(MQTTClient *mqtt_client, Network *mqtt_network, char *addr, int32_t port, uint32_t send_timeout, uint32_t rcv_timeout, char *clientID, 
+                                        char *username, char *password, uint8_t mqtt_version, uint32_t keep_alive_interval) {
+
+    connectData.MQTTVersion = mqtt_version;
+    connectData.clientID.cstring = clientID;
+    connectData.username.cstring = username;
+    connectData.password.cstring = password;
+    connectData.keepAliveInterval = keep_alive_interval;
+
+    if((NetworkSetConnTimeout(mqtt_network, send_timeout, rcv_timeout)) != 0) {
+        mqtt_client->keepAliveInterval = connectData.keepAliveInterval;
+        mqtt_client->ping_outstanding = 1;
+
+    } else {
+
+        if ((NetworkConnect(mqtt_network, addr, port)) != 0) {
+            mqtt_client->keepAliveInterval = connectData.keepAliveInterval;
+            mqtt_client->ping_outstanding = 1;
+            
+            return 1;
+
+        } else {
+            if ((MQTTConnect(mqtt_client, &connectData)) != 0) {
+                mqtt_client->ping_outstanding = 1;
+    
+                return 1;
+    
+            } else {
+                mqtt_client->ping_outstanding = 0;
+            }
+        }
+
+        if(mqtt_client->ping_outstanding == 0) {
+            if ((MQTTStartRECVTask(mqtt_client)) != SUCCESS){
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+
+void HT_MQTT_Publish(MQTTClient *mqtt_client, char *topic, uint8_t *payload, uint32_t len, enum QoS qos, uint8_t retained, uint16_t id, uint8_t dup) {
+    MQTTMessage message;
+
+    message.qos = qos;
+    message.retained = retained;
+    message.id = id;
+    message.dup = dup;
+    message.payload = payload;
+    message.payloadlen = len;
+
+    MQTTPublish(mqtt_client, topic, &message);
+}
+
+void HT_MQTT_SubscribeCallback(MessageData *msg) {
+    printf("Subscribe received: ");
+    printf(msg->message->payload);
+    printf("\n");
+
+    subscribe_callback = 1;
+    HT_FSM_SetSubscribeBuff((uint8_t *)msg->message->payload, (uint8_t)msg->message->payloadlen);
+
+    memset(msg->message->payload, 0, msg->message->payloadlen);
+}
+
+void HT_MQTT_Subscribe(MQTTClient *mqtt_client, char *topic, enum QoS qos) {
+    MQTTSubscribe(mqtt_client, (const char *)topic, qos, HT_MQTT_SubscribeCallback);
+}
+
+/************************ HT Micron Semicondutors S.A *****END OF FILE****/

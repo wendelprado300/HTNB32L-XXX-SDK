@@ -1,0 +1,205 @@
+2023-05-10 14:06:16,532 INFO     [FlashTop]    init
+2023-05-10 14:06:16,543 [Process-25352] INFO     [FlashTop]    do_main: cmd loadpara
+2023-05-10 14:06:16,543 [Process-25352] INFO     [Para]    exe path: C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.1\SDK_Public\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug
+2023-05-10 14:06:16,552 [Process-25352] INFO     [Para]    update digest file :C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.1\SDK_Public\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\cfg.digest, digest:b'\x11\xcb\xe7\xc8\xfe\x96\xb4\xd8\x6d\x1f\xba\x4e\x44\xf9\xec\xbd\x3c\xc9\xfa\xf1\xfc\x8e\x6c\xa6\x6d\xb4\x3e\x50\xe8\x37\x00\x4b' 
+2023-05-10 14:06:16,552 [Process-25352] INFO     [Para]    LoadPara from cfgfile(C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.1\SDK_Public\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\htnb32l.ini) 
+2023-05-10 14:06:16,554 [Process-25352] WARNING  [Para]    Load para curdigest b'\x11\xcb\xe7\xc8\xfe\x96\xb4\xd8\x6d\x1f\xba\x4e\x44\xf9\xec\xbd\x3c\xc9\xfa\xf1\xfc\x8e\x6c\xa6\x6d\xb4\x3e\x50\xe8\x37\x00\x4b'
+2023-05-10 14:06:16,556 [Process-25352] INFO     [FlashTop]    Load para sync success
+2023-05-10 14:06:16,557 [Process-25352] INFO     [FlashToolCLI]    Burnbatch Start, burn imglist ['bootloader', 'system'].
+2023-05-10 14:06:16,557 [Process-25352] INFO     [FlashTop]    do_main: cmd burnag, Thread0[36800]
+2023-05-10 14:06:16,558 [Process-25352] INFO     [Thread0]    ProcessStart[36800]
+2023-05-10 14:06:17,576 [Process-25352] INFO     [Thread0]    ResetBoard(Normal Mod) finish
+2023-05-10 14:06:17,577 [Process-25352] INFO     [Thread0]    args.ser.port :COM5
+2023-05-10 14:06:17,583 [Process-25352] INFO     [Image]    SetBaud 921600
+2023-05-10 14:06:17,586 [Process-25352] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.1\SDK_Public\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\agentboot.bin start
+2023-05-10 14:06:17,586 [Process-25352] INFO     [Thread0]    image size=28568, hdsize=272
+2023-05-10 14:06:17,587 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:17,592 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:17,635 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:17,639 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:20,508 [Process-25352] INFO     [Thread0]    TryDownload agentboot success
+2023-05-10 14:06:20,509 [Process-25352] INFO     [Thread0]    agbaud: 921600
+2023-05-10 14:06:20,512 [Process-25352] INFO     [Thread0]    Burn OK!
+2023-05-10 14:06:20,513 [Process-25352] INFO     [Thread0]    ProcessEnd[36800]
+2023-05-10 14:06:20,514 [Process-25352] INFO     [FlashTop]    do_main: cmd burnone, Thread0[36800]
+2023-05-10 14:06:20,515 [Process-25352] INFO     [Thread0]    ProcessStart[36800]
+2023-05-10 14:06:20,518 [Process-25352] INFO     [Thread0]    args.ser.port :COM5
+2023-05-10 14:06:20,520 [Process-25352] INFO     [Thread0]    agentboot is downloaded already
+2023-05-10 14:06:20,521 [Process-25352] INFO     [Thread0]    TryDownload agentboot skip
+2023-05-10 14:06:20,522 [Process-25352] INFO     [Thread0]    agbaud: 921600
+2023-05-10 14:06:20,524 [Process-25352] INFO     [Thread0]    LPC Preamble Send
+2023-05-10 14:06:20,526 [Process-25352] INFO     [Thread0]    LPC Preamble Received Rsp
+2023-05-10 14:06:20,528 [Process-25352] INFO     [Thread0]    LPCSetSyncStat(1)
+2023-05-10 14:06:20,528 [Process-25352] INFO     [Thread0]    LPCSyncDetect: success
+2023-05-10 14:06:20,529 [Process-25352] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader)
+2023-05-10 14:06:20,529 [Process-25352] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader), burnaddr(0x0), imgid(0x4f424d49)
+2023-05-10 14:06:20,529 [Process-25352] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.1\SDK_Public\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin 
+2023-05-10 14:06:20,538 [Process-25352] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.1\SDK_Public\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin start
+2023-05-10 14:06:20,539 [Process-25352] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2023-05-10 14:06:20,545 [Process-25352] INFO     [Thread0]    LPCBurnOneTrig success
+2023-05-10 14:06:20,545 [Process-25352] INFO     [Thread0]    DLDPreSync Preamble Send
+2023-05-10 14:06:21,067 [Process-25352] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2023-05-10 14:06:21,069 [Process-25352] INFO     [Thread0]    image size=29248, hdsize=272
+2023-05-10 14:06:21,070 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:21,071 [Process-25352] INFO     [Thread0]    imginfo.size=29248, RemainLen=29248, Offset=0
+2023-05-10 14:06:21,073 [Process-25352] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2023-05-10 14:06:21,074 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:21,075 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:21,083 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:21,094 [Process-25352] INFO     [Thread0]    imginfo.size=29248, RemainLen=28976, Offset=272
+2023-05-10 14:06:21,096 [Process-25352] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2023-05-10 14:06:21,097 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:21,097 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:21,606 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:22,218 [Process-25352] INFO     [Thread0]    imginfo.size=29248, RemainLen=0, Offset=272
+2023-05-10 14:06:22,219 [Process-25352] INFO     [Thread0]    {bootloader.bin-percent files transferred   100%}
+2023-05-10 14:06:22,220 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:22,222 [Process-25352] INFO     [Thread0]    TryDownload success
+2023-05-10 14:06:22,223 [Process-25352] INFO     [Thread0]    Burn OK!
+2023-05-10 14:06:22,224 [Process-25352] INFO     [Thread0]    ProcessEnd[36800]
+2023-05-10 14:06:22,224 [Process-25352] INFO     [FlashTop]    do_main: cmd burnone, Thread0[36800]
+2023-05-10 14:06:22,225 [Process-25352] INFO     [Thread0]    ProcessStart[36800]
+2023-05-10 14:06:22,226 [Process-25352] INFO     [Thread0]    args.ser.port :COM5
+2023-05-10 14:06:22,229 [Process-25352] INFO     [Thread0]    agentboot is downloaded already
+2023-05-10 14:06:22,229 [Process-25352] INFO     [Thread0]    TryDownload agentboot skip
+2023-05-10 14:06:22,230 [Process-25352] INFO     [Thread0]    agbaud: 921600
+2023-05-10 14:06:22,232 [Process-25352] INFO     [Thread0]    LPC Preamble Send
+2023-05-10 14:06:22,239 [Process-25352] INFO     [Thread0]    LPC Preamble Received Rsp
+2023-05-10 14:06:22,240 [Process-25352] INFO     [Thread0]    LPCSyncDetect: success
+2023-05-10 14:06:22,241 [Process-25352] INFO     [Thread0]    DownloadBurnOne imgtype(system)
+2023-05-10 14:06:22,241 [Process-25352] INFO     [Thread0]    DownloadBurnOne imgtype(system), burnaddr(0x0), imgid(0x444b4249)
+2023-05-10 14:06:22,242 [Process-25352] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.1\SDK_Public\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/MQTT_Example/MQTT_Example.bin 
+2023-05-10 14:06:22,265 [Process-25352] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.1\SDK_Public\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/MQTT_Example/MQTT_Example.bin start
+2023-05-10 14:06:22,266 [Process-25352] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2023-05-10 14:06:22,273 [Process-25352] INFO     [Thread0]    LPCBurnOneTrig success
+2023-05-10 14:06:22,273 [Process-25352] INFO     [Thread0]    DLDPreSync Preamble Send
+2023-05-10 14:06:22,791 [Process-25352] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2023-05-10 14:06:22,793 [Process-25352] INFO     [Thread0]    image size=1447584, hdsize=272
+2023-05-10 14:06:22,794 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:22,794 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=1447584, Offset=0
+2023-05-10 14:06:22,796 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   0%}
+2023-05-10 14:06:22,797 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:22,798 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:22,806 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:22,819 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=1447312, Offset=272
+2023-05-10 14:06:22,820 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   0%}
+2023-05-10 14:06:22,820 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:22,821 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:22,933 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:24,099 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=1381776, Offset=65808
+2023-05-10 14:06:24,101 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   4%}
+2023-05-10 14:06:24,102 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:24,103 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:24,152 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:25,325 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=1316240, Offset=131344
+2023-05-10 14:06:25,326 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   9%}
+2023-05-10 14:06:25,326 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:25,327 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:25,370 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:26,535 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=1250704, Offset=196880
+2023-05-10 14:06:26,536 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   13%}
+2023-05-10 14:06:26,537 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:26,538 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:26,586 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:27,761 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=1185168, Offset=262416
+2023-05-10 14:06:27,764 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   18%}
+2023-05-10 14:06:27,767 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:27,768 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:27,799 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:28,970 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=1119632, Offset=327952
+2023-05-10 14:06:28,974 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   22%}
+2023-05-10 14:06:28,977 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:28,979 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:29,021 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:30,192 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=1054096, Offset=393488
+2023-05-10 14:06:30,193 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   27%}
+2023-05-10 14:06:30,194 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:30,195 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:30,237 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:31,400 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=988560, Offset=459024
+2023-05-10 14:06:31,402 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   31%}
+2023-05-10 14:06:31,404 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:31,406 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:31,465 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:32,628 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=923024, Offset=524560
+2023-05-10 14:06:32,630 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   36%}
+2023-05-10 14:06:32,631 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:32,632 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:32,680 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:33,841 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=857488, Offset=590096
+2023-05-10 14:06:33,843 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   40%}
+2023-05-10 14:06:33,844 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:33,846 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:33,891 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:35,054 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=791952, Offset=655632
+2023-05-10 14:06:35,056 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   45%}
+2023-05-10 14:06:35,058 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:35,059 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:35,106 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:36,270 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=726416, Offset=721168
+2023-05-10 14:06:36,273 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   49%}
+2023-05-10 14:06:36,275 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:36,277 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:36,318 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:37,487 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=660880, Offset=786704
+2023-05-10 14:06:37,488 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   54%}
+2023-05-10 14:06:37,488 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:37,489 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:37,531 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:38,696 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=595344, Offset=852240
+2023-05-10 14:06:38,698 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   58%}
+2023-05-10 14:06:38,699 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:38,700 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:38,744 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:39,908 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=529808, Offset=917776
+2023-05-10 14:06:39,911 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   63%}
+2023-05-10 14:06:39,913 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:39,914 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:39,956 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:41,124 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=464272, Offset=983312
+2023-05-10 14:06:41,126 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   67%}
+2023-05-10 14:06:41,128 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:41,129 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:41,169 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:42,337 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=398736, Offset=1048848
+2023-05-10 14:06:42,338 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   72%}
+2023-05-10 14:06:42,339 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:42,339 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:42,382 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:43,548 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=333200, Offset=1114384
+2023-05-10 14:06:43,554 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   76%}
+2023-05-10 14:06:43,559 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:43,562 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:43,597 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:44,768 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=267664, Offset=1179920
+2023-05-10 14:06:44,769 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   81%}
+2023-05-10 14:06:44,770 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:44,770 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:44,811 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:45,982 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=202128, Offset=1245456
+2023-05-10 14:06:45,985 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   86%}
+2023-05-10 14:06:45,987 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:45,989 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:46,025 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:47,187 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=136592, Offset=1310992
+2023-05-10 14:06:47,190 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   90%}
+2023-05-10 14:06:47,194 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:47,196 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:47,240 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:48,410 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=71056, Offset=1376528
+2023-05-10 14:06:48,413 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   95%}
+2023-05-10 14:06:48,414 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:48,416 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:48,453 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:49,623 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=5520, Offset=1442064
+2023-05-10 14:06:49,626 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   99%}
+2023-05-10 14:06:49,627 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:49,629 [Process-25352] INFO     [Thread0]    Preamble Send
+2023-05-10 14:06:49,748 [Process-25352] INFO     [Thread0]    Preamble Received Rsp
+2023-05-10 14:06:49,993 [Process-25352] INFO     [Thread0]    imginfo.size=1447584, RemainLen=0, Offset=1442064
+2023-05-10 14:06:49,994 [Process-25352] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   100%}
+2023-05-10 14:06:49,995 [Process-25352] INFO     [Thread0]    
+2023-05-10 14:06:49,996 [Process-25352] INFO     [Thread0]    TryDownload success
+2023-05-10 14:06:49,997 [Process-25352] INFO     [Thread0]    Burn OK!
+2023-05-10 14:06:49,998 [Process-25352] INFO     [Thread0]    ProcessEnd[36800]
+2023-05-10 14:06:49,998 [Process-25352] INFO     [FlashToolCLI]    Burnbatch OK, imglist ['bootloader', 'system']

@@ -1,0 +1,109 @@
+
+/*
+    Developed by: Hêndrick Bataglin Gonçalves, HT Micron Advanced R&D.
+    Brief: Configurable launch settings. Feel free to adapt it according to your needs.
+*/
+
+{
+    "version": "0.2.0",
+    "projectName": "HTNB32L-XXX-OpenCPU",
+    "configurations": [
+        {
+            "name": "Debug - MQTT_Example",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/Build/MQTT_Example/MQTT_Example.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "CORTEX-M3",
+            "interface": "swd",
+            "runToEntryPoint": "main_entry",
+            //"runToMain": true, // else it starts at reset handler - not interested
+            "preLaunchTask": "Debug - MQTT_Example", // configured in tasks.json
+            // "preLaunchCommands": ["Build all"], // you can execute command instead of task
+            //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
+            "swoConfig":
+            {
+                "enabled": true,
+                "cpuFrequency": 160000000,
+                "swoFrequency": 4000000,
+                "source": "probe",
+                "decoders":
+                [
+                    {
+                        "label": "ITM port 0 output",
+                        "type": "console",
+                        "port": 0,
+                        "showOnStartup": true,
+                        "encoding": "ascii"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Debug - Driver_Example",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/Build/Driver_Example/Driver_Example.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "CORTEX-M3",
+            "interface": "swd",
+            "runToEntryPoint": "main_entry",
+            //"runToMain": true, // else it starts at reset handler - not interested
+            "preLaunchTask": "Debug - Driver_Example", // configured in tasks.json
+            // "preLaunchCommands": ["Build all"], // you can execute command instead of task
+            //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
+            "swoConfig":
+            {
+                "enabled": true,
+                "cpuFrequency": 160000000,
+                "swoFrequency": 4000000,
+                "source": "probe",
+                "decoders":
+                [
+                    {
+                        "label": "ITM port 0 output",
+                        "type": "console",
+                        "port": 0,
+                        "showOnStartup": true,
+                        "encoding": "ascii"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Debug - Sleep_Example",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/Build/Sleep_Example/Sleep_Example.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "CORTEX-M3",
+            "interface": "swd",
+            "runToEntryPoint": "main_entry",
+            //"runToMain": true, // else it starts at reset handler - not interested
+            "preLaunchTask": "Debug - Sleep_Example", // configured in tasks.json
+            // "preLaunchCommands": ["Build all"], // you can execute command instead of task
+            //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
+            "swoConfig":
+            {
+                "enabled": true,
+                "cpuFrequency": 160000000,
+                "swoFrequency": 4000000,
+                "source": "probe",
+                "decoders":
+                [
+                    {
+                        "label": "ITM port 0 output",
+                        "type": "console",
+                        "port": 0,
+                        "showOnStartup": true,
+                        "encoding": "ascii"
+                    }
+                ]
+            }
+        },
+       
+    ]
+}
