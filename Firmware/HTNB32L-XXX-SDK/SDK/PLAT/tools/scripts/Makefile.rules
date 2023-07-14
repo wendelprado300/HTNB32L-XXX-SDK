@@ -8,6 +8,7 @@ BUILDDIR ?= ../../Build/$(PROJECT)
 endif
 
 LIBDIR   ?= $(TOP)/SDK/PLAT/prebuild
+HT_LIBDIR := $(TOP)/HT_Prebuild/Libs
 
 #-------------------------------------------------------------------------------
 #		Rules
@@ -18,6 +19,7 @@ include $(TOP)/SDK/PLAT/driver/Makefile.inc
 include $(TOP)/SDK/PLAT/os/Makefile.inc
 include $(TOP)/SDK/PLAT/middleware/developed/Makefile.inc
 include $(TOP)/SDK/PLAT/middleware/thirdparty/Makefile.inc
+include $(TOP)/HT_Prebuild/Makefile.inc
 
 ifeq ($(BUILD_USE_PREBUILD_LIB),n)
 ifeq ($(BUILD_FW),y)
@@ -49,8 +51,7 @@ vpath %.S $(TOP)
 OBJS := $(addprefix $(BUILDDIR)/, $(obj-y))
 HT_DRIVER_LIB := $(addprefix $(BUILDDIR)/,$(ht_app_api-y))
 HT_STARTUP_OBJS := $(addprefix $(BUILDDIR)/,$(ht_startup_lib-y))
-
-STATIC_LIB_NAME := -llibqcx212.a
+HT_MODULAR_LIBRARIES := $(addprefix $(BUILDDIR)/,$(ht_prebuild_libraries))
 
 -include $(OBJS:.o=.d)
 
@@ -96,8 +97,8 @@ $(BUILDDIR)/%.o: %.S
 	$(ECHO) ASM $<
 	$(Q)$(CC) $(CFLAGS) $(CFLAGS_CPU) $(CFLAGS_INC) $(CFLAGS_DEFS) $(DEPFLAGS) -c $< -o $@
 
-$(BUILDDIR)/$(BINNAME).elf: Lib/libqcx212.a $(OBJS) $(HT_STARTUP_OBJS) $(HT_DRIVER_LIB) $(linker-script-y)
-	$(Q)$(CC) $(LDFLAGS) $(CFLAGS_CPU) $(CFLAGS_DEFS) -T$(linker-script-y) -Wl,-Map,$(BUILDDIR)/$(BINNAME).map -o $@ $(OBJS) -Wl,--start-group $(HT_DRIVER_LIB) $(HT_STARTUP_OBJS) Lib/libqcx212.a $(PREBUILDLIBS) -Wl,--end-group -Wl,--no-undefined
+$(BUILDDIR)/$(BINNAME).elf: $(HT_MODULAR_LIBRARIES) $(OBJS) $(HT_STARTUP_OBJS) $(HT_DRIVER_LIB) $(linker-script-y)
+	$(Q)$(CC) $(LDFLAGS) $(CFLAGS_CPU) $(CFLAGS_DEFS) -T$(linker-script-y) -Wl,-Map,$(BUILDDIR)/$(BINNAME).map -o $@ $(OBJS) -Wl,--start-group $(HT_DRIVER_LIB) $(HT_STARTUP_OBJS) $(HT_MODULAR_LIBRARIES) $(PREBUILDLIBS) -Wl,--end-group -Wl,--no-undefined
 	@echo 'Finished building target: $@'
 	@echo ' '
 

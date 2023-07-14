@@ -80,14 +80,6 @@ uint8_t getHighTempThreshold(void);
 uint8_t * getSdkMajorVerion(void);
 uint32_t getUnilogUartPort(void);
 
-#ifdef UINILOG_FEATURE_ENABLE
-
-void logToolCommandHandle(uint32_t event, uint8_t *cmd_buffer, uint32_t len);
-uint8_t* getUnilogRecvBuffer(void);
-void SetUnilogUart(usart_port_t port, uint32_t baudrate, bool startRecv);
-
-#endif
-
 
 #ifdef __cplusplus
 }

@@ -20,6 +20,7 @@
 #include "plat_config.h"
 #include "debug_log.h"
 #include "unilog_qcx212.h"
+#include "HT_uart_unilog.h"
 
 void GPR_SetUartClk(void) {
     GPR_ClockDisable(GPR_UART0FuncClk);

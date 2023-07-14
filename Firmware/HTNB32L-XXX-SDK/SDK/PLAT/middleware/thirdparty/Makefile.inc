@@ -1,7 +1,3 @@
-ifeq ($(THIRDPARTY_MQTT_ENABLE),y)
-include $(TOP)/SDK/PLAT/middleware/thirdparty/mqtt/Makefile.inc
-endif
-
 ifeq ($(THIRDPARTY_RTT_ENABLE),y)
 include $(TOP)/SDK/PLAT/middleware/thirdparty/RTT/Makefile.inc
 endif
@@ -10,11 +6,9 @@ ifeq ($(THIRDPARTY_CISONENET_ENABLE),y)
 include $(TOP)/SDK/PLAT/middleware/thirdparty/cis_onenet/Makefile.inc
 endif
 
-
 ifeq ($(THIRDPARTY_WAKAAMA_ENABLE),y)
 include $(TOP)/SDK/PLAT/middleware/thirdparty/wakaama/Makefile.inc
 endif
-
 
 ifeq ($(THIRDPARTY_CTWING1_5_ENABLE),y)
 include $(TOP)/SDK/PLAT/middleware/thirdparty/ctlwm2m/V1.5/Makefile.inc
@@ -66,10 +60,6 @@ endif
 
 ifeq ($(THIRDPARTY_ABUP_FOTA_ENABLE),y)
 include $(TOP)/SDK/PLAT/middleware/thirdparty/abup/Makefile.inc
-endif
-
-ifeq ($(THIRDPARTY_CJSON_ENABLE),y)
-include $(TOP)/SDK/PLAT/middleware/thirdparty/cjson/Makefile.inc
 endif
 
 ifeq ($(findstring y, $(THIRDPARTY_CMCC_DM_ENABLE)$(THIRDPARTY_CTCC_DM_ENABLE)$(THIRDPARTY_CUCC_DM_ENABLE)), y)

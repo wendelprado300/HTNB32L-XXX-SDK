@@ -247,13 +247,13 @@ in order to check the oficial pinout.
 #define RTE_SPI0_SSN_FUNC               PAD_MuxAlt2
 
 #define RTE_SPI0_MOSI_PAD_ID               22
-#define RTE_SPI0_MOSI_FUNC              PAD_MuxAlt2
+#define RTE_SPI0_MOSI_FUNC              PAD_MuxAlt1
 
 #define RTE_SPI0_MISO_PAD_ID               23
-#define RTE_SPI0_MISO_FUNC              PAD_MuxAlt2
+#define RTE_SPI0_MISO_FUNC              PAD_MuxAlt1
 
 #define RTE_SPI0_SCLK_PAD_ID               24
-#define RTE_SPI0_SCLK_FUNC              PAD_MuxAlt2
+#define RTE_SPI0_SCLK_FUNC              PAD_MuxAlt1
 
 #define RTE_SPI0_SSN_GPIO_INSTANCE      1
 #define RTE_SPI0_SSN_GPIO_INDEX         0

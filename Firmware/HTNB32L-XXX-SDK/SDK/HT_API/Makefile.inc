@@ -18,6 +18,10 @@ ifeq ($(DRIVER_USART_ENABLE), y)
 ht_app_api-y   += SDK/HT_API/Driver_UART/Src/bsp_usart.o \
                 SDK/HT_API/Driver_UART/Src/HT_hal_uart.o
 
+ifeq ($(UART_UNILOG_ENABLE), y)
+ht_app_api-y   += SDK/HT_API/Driver_UART/Src/HT_uart_unilog.o
+endif
+
 endif
 
 ifeq ($(DRIVER_SPI_ENABLE), y)

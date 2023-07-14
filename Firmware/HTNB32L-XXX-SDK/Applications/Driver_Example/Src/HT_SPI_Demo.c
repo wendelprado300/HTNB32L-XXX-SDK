@@ -40,7 +40,7 @@ static void HT_SPI_AppInit(void);
 static void HT_SPI_AppInit(void) {
     spi_handle.cb_event = NULL;
     spi_handle.ctrl = (ARM_SPI_MODE_MASTER | ARM_SPI_CPOL0_CPHA0 | ARM_SPI_DATA_BITS(TRANSFER_DATA_WIDTH) |
-                                  ARM_SPI_MSB_LSB | ARM_SPI_SS_MASTER_SW);
+                                  ARM_SPI_MSB_LSB | ARM_SPI_SS_MASTER_UNUSED);
 
 
     spi_handle.power_state = ARM_POWER_FULL;

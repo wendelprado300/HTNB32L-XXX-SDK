@@ -409,7 +409,7 @@ static void HT_FSM_PushButtonHandleState(void) {
 }
 
 static void HT_FSM_WaitForButtonState(void) {
-    // If some button was pressed, change to the next state, else check if a new message was received
+    // If some button was pressed, change to the next state, else keep the same state
     state = !button_irqn ? HT_CHECK_SOCKET_STATE : HT_PUSH_BUTTON_HANDLE_STATE;
 }
 

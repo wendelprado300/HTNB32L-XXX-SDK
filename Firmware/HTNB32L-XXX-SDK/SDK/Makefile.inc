@@ -9,10 +9,10 @@ HT_DRIVER_OBJ := $(addprefix $(BUILDDIR)/,$(ht_app_api-y))
 -include $(HT_DRIVER_OBJ:.o=.d)
 
 ifneq ($(HT_DRIVER_OBJ),)
-ht_app_api-y += ht_libdriver.a
+ht_app_api-y += libHTDriver.a
 endif
 
-$(BUILDDIR)/ht_libdriver.a: $(HT_DRIVER_OBJ)
+$(BUILDDIR)/libHTDriver.a: $(HT_DRIVER_OBJ)
 	@mkdir -p $(dir $@)
 	$(ECHO) AR $@
 	$(Q)$(AR) -cr $@ $^
@@ -23,9 +23,9 @@ $(BUILDDIR)/ht_libdriver.a: $(HT_DRIVER_OBJ)
 HT_STARTUP_OBJS := $(addprefix $(BUILDDIR)/,$(ht_startup_lib-y))
 -include $(HT_STARTUP_OBJS:.o=.d)
 
-ht_startup_lib-y += ht_libstartup.a
+ht_startup_lib-y += libHTStartup.a
 
-$(BUILDDIR)/ht_libstartup.a: $(HT_STARTUP_OBJS)
+$(BUILDDIR)/libHTStartup.a: $(HT_STARTUP_OBJS)
 	@mkdir -p $(dir $@)
 	$(ECHO) AR $@
 	$(Q)$(AR) -cr $@ $^

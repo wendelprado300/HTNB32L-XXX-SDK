@@ -14,6 +14,8 @@
  */
 
 #include "main.h"
+#include "ps_lib_api.h"
+#include "flash_qcx212.h"
 
 static StaticTask_t             initTask;
 static uint8_t                    appTaskStack[INIT_TASK_STACK_SIZE];
@@ -24,9 +26,33 @@ static uint32_t                   gCellID = 0;
 static NmAtiSyncRet             gNetworkInfo;
 static uint8_t                    mqttEpSlpHandler = 0xff;
 
+static volatile uint8_t simReady = 0;
+
 trace_add_module(APP, P_INFO);
 
 extern void mqtt_demo_onenet(void);
+
+static void HT_SetConnectioParameters(void) {
+    uint8_t cid = 0;
+    PsAPNSetting apnSetting;
+    int32_t ret;
+    uint8_t networkMode = 0; //nb-iot network mode
+    uint8_t bandNum = 1;
+    uint8_t band = 28;
+    volatile uint8_t orderBand[10] = {0};
+
+    ret = appSetBandModeSync(networkMode, bandNum, &band);
+    if(ret == CMS_RET_SUCC) {
+        printf("SetBand Result: %d\n", ret);
+    }
+
+    apnSetting.cid = 0;
+    apnSetting.apnLength = strlen("nbiot.gsim");
+    strcpy((char *)apnSetting.apnStr, "nbiot.gsim");
+    apnSetting.pdnType = CMI_PS_PDN_TYPE_IP_V4V6;
+    ret = appSetAPNSettingSync(&apnSetting, &cid);
+    printf("appSetAPNSettingSync: 0x%02X\n", ret);
+}
 
 static void sendQueueMsg(uint32_t msgId, uint32_t xTickstoWait) {
     eventCallbackMessage_t *queueMsg = NULL;
@@ -53,6 +79,7 @@ static INT32 registerPSUrcCallback(urcID_t eventID, void *param, uint32_t paramL
         {
             imsi = (CmiSimImsiStr *)param;
             memcpy(gImsi, imsi->contents, imsi->length);
+            simReady = 1;
             break;
         }
         case NB_URC_ID_MM_SIGQ:
@@ -97,15 +124,14 @@ static void HT_MQTTExampleTask(void *arg){
     uint8_t psmMode = 0, actType = 0;
     uint16_t tac = 0;
     uint32_t tauTime = 0, activeTime = 0, cellID = 0, nwEdrxValueMs = 0, nwPtwMs = 0;
-    
     uint32_t uart_cntrl = (ARM_USART_MODE_ASYNCHRONOUS | ARM_USART_DATA_BITS_8 | ARM_USART_PARITY_NONE | 
                                 ARM_USART_STOP_BITS_1 | ARM_USART_FLOW_CONTROL_NONE);
+
+    eventCallbackMessage_t *queueItem = NULL;
 
     HT_UART_InitPrint(HT_UART1, GPR_UART1ClkSel_26M, uart_cntrl, 115200);
     printf("HTNB32L-XXX MQTT Example!\n");
     printf("Trying to connect...\n");
-
-    eventCallbackMessage_t *queueItem = NULL;
 
     registerPSEventCallback(NB_GROUP_ALL_MASK, registerPSUrcCallback);
     psEventQueueHandle = xQueueCreate(APP_EVENT_QUEUE_SIZE, sizeof(eventCallbackMessage_t*));
@@ -118,6 +144,9 @@ static void HT_MQTTExampleTask(void *arg){
     slpManApplyPlatVoteHandle("EP_MQTT",&mqttEpSlpHandler);
     slpManPlatVoteDisableSleep(mqttEpSlpHandler, SLP_ACTIVE_STATE); //SLP_SLP2_STATE 
     QCOMM_TRACE(UNILOG_MQTT, mqttAppTask1, P_INFO, 0, "first time run mqtt example");
+
+    while(!simReady);
+    HT_SetConnectioParameters();
 
     while (1)
     {
