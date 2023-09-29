@@ -28,6 +28,13 @@
             "args": ["-j4", "gccall", "TARGET=qcx212_0h00", "V=0", "PROJECT=Sleep_Example"]
         },
         {
+            "label": "Compile - Slpman_Example",
+            "group": "build",
+            "type": "shell",
+            "command": "make",
+            "args": ["-j4", "gccall", "TARGET=qcx212_0h00", "V=0", "PROJECT=Slpman_Example"]
+        },
+        {
             "label": "Debug - MQTT_Example",
             "group": "build",
             "type": "shell",
@@ -68,6 +75,20 @@
             "type": "shell",
             "command": "python",
             "args": ["Debug/Scripts/debug.py", "Sleep_Example"]
+        },
+        {
+            "label": "Run - Slpman_Example",
+            "group": "build",
+            "type": "shell",
+            "command": "python",
+            "args": ["Debug/Scripts/debug.py", "Slpman_Example"]
+        },
+        {
+            "label": "Debug - Slpman_Example",
+            "group": "build",
+            "type": "shell",
+            "command": "python",
+            "args": ["Debug/Scripts/debug.py", "Slpman_Example"]
         },
         {
             "label": "COM Select",

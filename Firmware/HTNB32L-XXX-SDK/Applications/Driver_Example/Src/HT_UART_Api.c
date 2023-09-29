@@ -1,7 +1,7 @@
 
 /**
  *
- * Copyright (c) 2023 HT Micron Semicondutors S.A.
+ * Copyright (c) 2023 HT Micron Semicondutores S.A.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -22,4 +22,4 @@ void print_uart(char *str) {
     UsartPrintHandle->SendPolling(str, strlen(str));
 }
 
-/************************ HT Micron Semicondutors S.A *****END OF FILE****/
+/************************ HT Micron Semicondutores S.A *****END OF FILE****/

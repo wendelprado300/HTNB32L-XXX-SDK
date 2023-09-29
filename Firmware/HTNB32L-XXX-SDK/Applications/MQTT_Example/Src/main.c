@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2023 HT Micron Semicondutors S.A.
+ * Copyright (c) 2023 HT Micron Semicondutores S.A.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -39,7 +39,6 @@ static void HT_SetConnectioParameters(void) {
     uint8_t networkMode = 0; //nb-iot network mode
     uint8_t bandNum = 1;
     uint8_t band = 28;
-    volatile uint8_t orderBand[10] = {0};
 
     ret = appSetBandModeSync(networkMode, bandNum, &band);
     if(ret == CMS_RET_SUCC) {
@@ -241,4 +240,4 @@ void main_entry(void) {
 
 }
 
-/************************ HT Micron Semicondutors S.A *****END OF FILE****/
+/************************ HT Micron Semicondutores S.A *****END OF FILE****/

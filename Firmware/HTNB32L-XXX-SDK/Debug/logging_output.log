@@ -1,205 +1,95 @@
-2023-07-13 13:56:06,226 INFO     [FlashTop]    init
-2023-07-13 13:56:06,239 [Process-30420] INFO     [FlashTop]    do_main: cmd loadpara
-2023-07-13 13:56:06,239 [Process-30420] INFO     [Para]    exe path: C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.2\HTNB32L-XXX-SDK\Debug
-2023-07-13 13:56:06,242 [Process-30420] INFO     [Para]    update digest file :C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.2\HTNB32L-XXX-SDK\Debug\cfg.digest, digest:b'\x11\xcb\xe7\xc8\xfe\x96\xb4\xd8\x6d\x1f\xba\x4e\x44\xf9\xec\xbd\x3c\xc9\xfa\xf1\xfc\x8e\x6c\xa6\x6d\xb4\x3e\x50\xe8\x37\x00\x4b' 
-2023-07-13 13:56:06,243 [Process-30420] INFO     [Para]    LoadPara from cfgfile(C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.2\HTNB32L-XXX-SDK\Debug\htnb32l.ini) 
-2023-07-13 13:56:06,244 [Process-30420] WARNING  [Para]    Load para curdigest b'\x11\xcb\xe7\xc8\xfe\x96\xb4\xd8\x6d\x1f\xba\x4e\x44\xf9\xec\xbd\x3c\xc9\xfa\xf1\xfc\x8e\x6c\xa6\x6d\xb4\x3e\x50\xe8\x37\x00\x4b'
-2023-07-13 13:56:06,246 [Process-30420] INFO     [FlashTop]    Load para sync success
-2023-07-13 13:56:06,247 [Process-30420] INFO     [FlashToolCLI]    Burnbatch Start, burn imglist ['bootloader', 'system'].
-2023-07-13 13:56:06,248 [Process-30420] INFO     [FlashTop]    do_main: cmd burnag, Thread0[46184]
-2023-07-13 13:56:06,249 [Process-30420] INFO     [Thread0]    ProcessStart[46184]
-2023-07-13 13:56:07,275 [Process-30420] INFO     [Thread0]    ResetBoard(Normal Mod) finish
-2023-07-13 13:56:07,276 [Process-30420] INFO     [Thread0]    args.ser.port :COM5
-2023-07-13 13:56:07,280 [Process-30420] INFO     [Image]    SetBaud 921600
-2023-07-13 13:56:07,283 [Process-30420] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.2\HTNB32L-XXX-SDK\Debug\agentboot.bin start
-2023-07-13 13:56:07,284 [Process-30420] INFO     [Thread0]    image size=28568, hdsize=272
-2023-07-13 13:56:07,285 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:07,289 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:07,333 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:07,338 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:10,218 [Process-30420] INFO     [Thread0]    TryDownload agentboot success
-2023-07-13 13:56:10,220 [Process-30420] INFO     [Thread0]    agbaud: 921600
-2023-07-13 13:56:10,224 [Process-30420] INFO     [Thread0]    Burn OK!
-2023-07-13 13:56:10,225 [Process-30420] INFO     [Thread0]    ProcessEnd[46184]
-2023-07-13 13:56:10,226 [Process-30420] INFO     [FlashTop]    do_main: cmd burnone, Thread0[46184]
-2023-07-13 13:56:10,228 [Process-30420] INFO     [Thread0]    ProcessStart[46184]
-2023-07-13 13:56:10,229 [Process-30420] INFO     [Thread0]    args.ser.port :COM5
-2023-07-13 13:56:10,232 [Process-30420] INFO     [Thread0]    agentboot is downloaded already
-2023-07-13 13:56:10,232 [Process-30420] INFO     [Thread0]    TryDownload agentboot skip
-2023-07-13 13:56:10,233 [Process-30420] INFO     [Thread0]    agbaud: 921600
-2023-07-13 13:56:10,236 [Process-30420] INFO     [Thread0]    LPC Preamble Send
-2023-07-13 13:56:10,238 [Process-30420] INFO     [Thread0]    LPC Preamble Received Rsp
-2023-07-13 13:56:10,240 [Process-30420] INFO     [Thread0]    LPCSetSyncStat(1)
-2023-07-13 13:56:10,242 [Process-30420] INFO     [Thread0]    LPCSyncDetect: success
-2023-07-13 13:56:10,242 [Process-30420] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader)
-2023-07-13 13:56:10,243 [Process-30420] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader), burnaddr(0x0), imgid(0x4f424d49)
-2023-07-13 13:56:10,243 [Process-30420] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.2\HTNB32L-XXX-SDK\Debug\bootloader.bin 
-2023-07-13 13:56:10,245 [Process-30420] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.2\HTNB32L-XXX-SDK\Debug\bootloader.bin start
-2023-07-13 13:56:10,246 [Process-30420] INFO     [Thread0]    LPCBurnOneTrig start       			******
-2023-07-13 13:56:10,252 [Process-30420] INFO     [Thread0]    LPCBurnOneTrig success
-2023-07-13 13:56:10,252 [Process-30420] INFO     [Thread0]    DLDPreSync Preamble Send
-2023-07-13 13:56:10,786 [Process-30420] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
-2023-07-13 13:56:10,788 [Process-30420] INFO     [Thread0]    image size=29248, hdsize=272
-2023-07-13 13:56:10,789 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:10,790 [Process-30420] INFO     [Thread0]    imginfo.size=29248, RemainLen=29248, Offset=0
-2023-07-13 13:56:10,792 [Process-30420] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
-2023-07-13 13:56:10,793 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:10,794 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:10,803 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:10,817 [Process-30420] INFO     [Thread0]    imginfo.size=29248, RemainLen=28976, Offset=272
-2023-07-13 13:56:10,818 [Process-30420] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
-2023-07-13 13:56:10,819 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:10,820 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:11,320 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:11,935 [Process-30420] INFO     [Thread0]    imginfo.size=29248, RemainLen=0, Offset=272
-2023-07-13 13:56:11,938 [Process-30420] INFO     [Thread0]    {bootloader.bin-percent files transferred   100%}
-2023-07-13 13:56:11,939 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:11,943 [Process-30420] INFO     [Thread0]    TryDownload success
-2023-07-13 13:56:11,945 [Process-30420] INFO     [Thread0]    Burn OK!
-2023-07-13 13:56:11,946 [Process-30420] INFO     [Thread0]    ProcessEnd[46184]
-2023-07-13 13:56:11,947 [Process-30420] INFO     [FlashTop]    do_main: cmd burnone, Thread0[46184]
-2023-07-13 13:56:11,949 [Process-30420] INFO     [Thread0]    ProcessStart[46184]
-2023-07-13 13:56:11,952 [Process-30420] INFO     [Thread0]    args.ser.port :COM5
-2023-07-13 13:56:11,956 [Process-30420] INFO     [Thread0]    agentboot is downloaded already
-2023-07-13 13:56:11,958 [Process-30420] INFO     [Thread0]    TryDownload agentboot skip
-2023-07-13 13:56:11,960 [Process-30420] INFO     [Thread0]    agbaud: 921600
-2023-07-13 13:56:11,963 [Process-30420] INFO     [Thread0]    LPC Preamble Send
-2023-07-13 13:56:11,972 [Process-30420] INFO     [Thread0]    LPC Preamble Received Rsp
-2023-07-13 13:56:11,973 [Process-30420] INFO     [Thread0]    LPCSyncDetect: success
-2023-07-13 13:56:11,975 [Process-30420] INFO     [Thread0]    DownloadBurnOne imgtype(system)
-2023-07-13 13:56:11,976 [Process-30420] INFO     [Thread0]    DownloadBurnOne imgtype(system), burnaddr(0x0), imgid(0x444b4249)
-2023-07-13 13:56:11,977 [Process-30420] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.2\HTNB32L-XXX-SDK\Debug\../Build/MQTT_Example/MQTT_Example.bin 
-2023-07-13 13:56:12,016 [Process-30420] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\SDK_v0.2\HTNB32L-XXX-SDK\Debug\../Build/MQTT_Example/MQTT_Example.bin start
-2023-07-13 13:56:12,017 [Process-30420] INFO     [Thread0]    LPCBurnOneTrig start       			******
-2023-07-13 13:56:12,023 [Process-30420] INFO     [Thread0]    LPCBurnOneTrig success
-2023-07-13 13:56:12,024 [Process-30420] INFO     [Thread0]    DLDPreSync Preamble Send
-2023-07-13 13:56:12,550 [Process-30420] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
-2023-07-13 13:56:12,552 [Process-30420] INFO     [Thread0]    image size=1448128, hdsize=272
-2023-07-13 13:56:12,553 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:12,555 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=1448128, Offset=0
-2023-07-13 13:56:12,556 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   0%}
-2023-07-13 13:56:12,557 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:12,558 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:12,568 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:12,583 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=1447856, Offset=272
-2023-07-13 13:56:12,584 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   0%}
-2023-07-13 13:56:12,585 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:12,586 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:12,693 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:13,859 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=1382320, Offset=65808
-2023-07-13 13:56:13,863 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   4%}
-2023-07-13 13:56:13,865 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:13,867 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:13,915 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:15,084 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=1316784, Offset=131344
-2023-07-13 13:56:15,086 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   9%}
-2023-07-13 13:56:15,089 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:15,091 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:15,135 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:16,305 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=1251248, Offset=196880
-2023-07-13 13:56:16,309 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   13%}
-2023-07-13 13:56:16,312 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:16,317 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:16,359 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:17,528 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=1185712, Offset=262416
-2023-07-13 13:56:17,531 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   18%}
-2023-07-13 13:56:17,533 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:17,534 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:17,575 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:18,752 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=1120176, Offset=327952
-2023-07-13 13:56:18,753 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   22%}
-2023-07-13 13:56:18,754 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:18,755 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:18,793 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:19,960 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=1054640, Offset=393488
-2023-07-13 13:56:19,964 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   27%}
-2023-07-13 13:56:19,966 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:19,968 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:20,010 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:21,185 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=989104, Offset=459024
-2023-07-13 13:56:21,185 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   31%}
-2023-07-13 13:56:21,185 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:21,186 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:21,229 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:22,394 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=923568, Offset=524560
-2023-07-13 13:56:22,395 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   36%}
-2023-07-13 13:56:22,396 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:22,396 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:22,446 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:23,621 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=858032, Offset=590096
-2023-07-13 13:56:23,624 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   40%}
-2023-07-13 13:56:23,625 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:23,626 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:23,662 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:24,839 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=792496, Offset=655632
-2023-07-13 13:56:24,840 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   45%}
-2023-07-13 13:56:24,840 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:24,841 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:24,884 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:26,054 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=726960, Offset=721168
-2023-07-13 13:56:26,058 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   49%}
-2023-07-13 13:56:26,060 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:26,062 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:26,101 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:27,279 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=661424, Offset=786704
-2023-07-13 13:56:27,282 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   54%}
-2023-07-13 13:56:27,283 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:27,285 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:27,321 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:28,492 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=595888, Offset=852240
-2023-07-13 13:56:28,494 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   58%}
-2023-07-13 13:56:28,495 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:28,496 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:28,541 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:29,710 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=530352, Offset=917776
-2023-07-13 13:56:29,713 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   63%}
-2023-07-13 13:56:29,716 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:29,718 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:29,758 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:30,932 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=464816, Offset=983312
-2023-07-13 13:56:30,933 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   67%}
-2023-07-13 13:56:30,934 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:30,934 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:30,976 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:32,150 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=399280, Offset=1048848
-2023-07-13 13:56:32,153 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   72%}
-2023-07-13 13:56:32,156 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:32,158 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:32,194 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:33,359 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=333744, Offset=1114384
-2023-07-13 13:56:33,362 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   76%}
-2023-07-13 13:56:33,363 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:33,365 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:33,416 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:34,587 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=268208, Offset=1179920
-2023-07-13 13:56:34,591 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   81%}
-2023-07-13 13:56:34,593 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:34,594 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:34,637 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:35,818 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=202672, Offset=1245456
-2023-07-13 13:56:35,819 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   86%}
-2023-07-13 13:56:35,819 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:35,819 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:35,860 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:37,031 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=137136, Offset=1310992
-2023-07-13 13:56:37,033 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   90%}
-2023-07-13 13:56:37,035 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:37,036 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:37,082 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:38,247 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=71600, Offset=1376528
-2023-07-13 13:56:38,251 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   95%}
-2023-07-13 13:56:38,253 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:38,255 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:38,299 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:39,462 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=6064, Offset=1442064
-2023-07-13 13:56:39,462 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   99%}
-2023-07-13 13:56:39,462 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:39,463 [Process-30420] INFO     [Thread0]    Preamble Send
-2023-07-13 13:56:39,592 [Process-30420] INFO     [Thread0]    Preamble Received Rsp
-2023-07-13 13:56:39,855 [Process-30420] INFO     [Thread0]    imginfo.size=1448128, RemainLen=0, Offset=1442064
-2023-07-13 13:56:39,859 [Process-30420] INFO     [Thread0]    {MQTT_Example.bin-percent files transferred   100%}
-2023-07-13 13:56:39,861 [Process-30420] INFO     [Thread0]    
-2023-07-13 13:56:39,866 [Process-30420] INFO     [Thread0]    TryDownload success
-2023-07-13 13:56:39,869 [Process-30420] INFO     [Thread0]    Burn OK!
-2023-07-13 13:56:39,872 [Process-30420] INFO     [Thread0]    ProcessEnd[46184]
-2023-07-13 13:56:39,874 [Process-30420] INFO     [FlashToolCLI]    Burnbatch OK, imglist ['bootloader', 'system']
+2023-09-29 11:16:11,644 INFO     [FlashTop]    init
+2023-09-29 11:16:11,675 [Process-1216] INFO     [FlashTop]    do_main: cmd loadpara
+2023-09-29 11:16:11,676 [Process-1216] INFO     [Para]    exe path: C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug
+2023-09-29 11:16:11,690 [Process-1216] INFO     [Para]    update digest file :C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\cfg.digest, digest:b'\x73\x8f\x87\xb5\x2d\x73\x71\xe9\xa4\xde\x1e\xc3\x73\x80\x2e\xad\x7c\xd8\x7b\x18\x6c\x1b\xef\xb3\xe0\x44\xeb\xef\x42\x30\xd4\xdb' 
+2023-09-29 11:16:11,692 [Process-1216] INFO     [Para]    LoadPara from cfgfile(C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\htnb32l.ini) 
+2023-09-29 11:16:11,693 [Process-1216] WARNING  [Para]    Load para curdigest b'\x73\x8f\x87\xb5\x2d\x73\x71\xe9\xa4\xde\x1e\xc3\x73\x80\x2e\xad\x7c\xd8\x7b\x18\x6c\x1b\xef\xb3\xe0\x44\xeb\xef\x42\x30\xd4\xdb'
+2023-09-29 11:16:11,695 [Process-1216] INFO     [FlashTop]    Load para sync success
+2023-09-29 11:16:11,696 [Process-1216] INFO     [FlashToolCLI]    Burnbatch Start, burn imglist ['bootloader', 'system'].
+2023-09-29 11:16:11,697 [Process-1216] INFO     [FlashTop]    do_main: cmd burnag, Thread0[8688]
+2023-09-29 11:16:11,698 [Process-1216] INFO     [Thread0]    ProcessStart[8688]
+2023-09-29 11:16:12,733 [Process-1216] INFO     [Thread0]    ResetBoard(Normal Mod) finish
+2023-09-29 11:16:12,842 [Process-1216] INFO     [Thread0]    args.ser.port :COM8
+2023-09-29 11:16:12,853 [Process-1216] INFO     [Image]    SetBaud 921600
+2023-09-29 11:16:12,854 [Process-1216] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\agentboot.bin start
+2023-09-29 11:16:12,854 [Process-1216] INFO     [Thread0]    image size=28568, hdsize=272
+2023-09-29 11:16:12,855 [Process-1216] INFO     [Thread0]    Preamble Send
+2023-09-29 11:16:12,865 [Process-1216] INFO     [Thread0]    Preamble Received Rsp
+2023-09-29 11:16:12,978 [Process-1216] INFO     [Thread0]    Preamble Send
+2023-09-29 11:16:12,994 [Process-1216] INFO     [Thread0]    Preamble Received Rsp
+2023-09-29 11:16:16,160 [Process-1216] INFO     [Thread0]    TryDownload agentboot success
+2023-09-29 11:16:16,282 [Process-1216] INFO     [Thread0]    agbaud: 921600
+2023-09-29 11:16:16,408 [Process-1216] INFO     [Thread0]    Burn OK!
+2023-09-29 11:16:16,411 [Process-1216] INFO     [Thread0]    ProcessEnd[8688]
+2023-09-29 11:16:16,413 [Process-1216] INFO     [FlashTop]    do_main: cmd burnone, Thread0[8688]
+2023-09-29 11:16:16,417 [Process-1216] INFO     [Thread0]    ProcessStart[8688]
+2023-09-29 11:16:16,421 [Process-1216] INFO     [Thread0]    args.ser.port :COM8
+2023-09-29 11:16:16,434 [Process-1216] INFO     [Thread0]    agentboot is downloaded already
+2023-09-29 11:16:16,435 [Process-1216] INFO     [Thread0]    TryDownload agentboot skip
+2023-09-29 11:16:16,562 [Process-1216] INFO     [Thread0]    agbaud: 921600
+2023-09-29 11:16:16,577 [Process-1216] INFO     [Thread0]    LPC Preamble Send
+2023-09-29 11:16:16,591 [Process-1216] INFO     [Thread0]    LPC Preamble Received Rsp
+2023-09-29 11:16:16,593 [Process-1216] INFO     [Thread0]    LPCSetSyncStat(1)
+2023-09-29 11:16:16,593 [Process-1216] INFO     [Thread0]    LPCSyncDetect: success
+2023-09-29 11:16:16,594 [Process-1216] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader)
+2023-09-29 11:16:16,595 [Process-1216] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader), burnaddr(0x0), imgid(0x4f424d49)
+2023-09-29 11:16:16,595 [Process-1216] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin 
+2023-09-29 11:16:16,602 [Process-1216] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin start
+2023-09-29 11:16:16,603 [Process-1216] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2023-09-29 11:16:16,625 [Process-1216] INFO     [Thread0]    LPCBurnOneTrig success
+2023-09-29 11:16:16,626 [Process-1216] INFO     [Thread0]    DLDPreSync Preamble Send
+2023-09-29 11:16:17,152 [Process-1216] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2023-09-29 11:16:17,155 [Process-1216] INFO     [Thread0]    image size=29248, hdsize=272
+2023-09-29 11:16:17,156 [Process-1216] INFO     [Thread0]    
+2023-09-29 11:16:17,157 [Process-1216] INFO     [Thread0]    imginfo.size=29248, RemainLen=29248, Offset=0
+2023-09-29 11:16:17,158 [Process-1216] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2023-09-29 11:16:17,159 [Process-1216] INFO     [Thread0]    
+2023-09-29 11:16:17,160 [Process-1216] INFO     [Thread0]    Preamble Send
+2023-09-29 11:16:17,184 [Process-1216] INFO     [Thread0]    Preamble Received Rsp
+2023-09-29 11:16:17,279 [Process-1216] INFO     [Thread0]    imginfo.size=29248, RemainLen=28976, Offset=272
+2023-09-29 11:16:17,280 [Process-1216] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2023-09-29 11:16:17,281 [Process-1216] INFO     [Thread0]    
+2023-09-29 11:16:17,281 [Process-1216] INFO     [Thread0]    Preamble Send
+2023-09-29 11:16:17,775 [Process-1216] INFO     [Thread0]    Preamble Received Rsp
+2023-09-29 11:16:18,337 [Process-1216] INFO     [Thread0]    imginfo.size=29248, RemainLen=0, Offset=272
+2023-09-29 11:16:18,338 [Process-1216] INFO     [Thread0]    {bootloader.bin-percent files transferred   100%}
+2023-09-29 11:16:18,338 [Process-1216] INFO     [Thread0]    
+2023-09-29 11:16:18,351 [Process-1216] INFO     [Thread0]    TryDownload success
+2023-09-29 11:16:18,478 [Process-1216] INFO     [Thread0]    Burn OK!
+2023-09-29 11:16:18,478 [Process-1216] INFO     [Thread0]    ProcessEnd[8688]
+2023-09-29 11:16:18,479 [Process-1216] INFO     [FlashTop]    do_main: cmd burnone, Thread0[8688]
+2023-09-29 11:16:18,479 [Process-1216] INFO     [Thread0]    ProcessStart[8688]
+2023-09-29 11:16:18,481 [Process-1216] INFO     [Thread0]    args.ser.port :COM8
+2023-09-29 11:16:18,497 [Process-1216] INFO     [Thread0]    agentboot is downloaded already
+2023-09-29 11:16:18,497 [Process-1216] INFO     [Thread0]    TryDownload agentboot skip
+2023-09-29 11:16:18,617 [Process-1216] INFO     [Thread0]    agbaud: 921600
+2023-09-29 11:16:18,625 [Process-1216] INFO     [Thread0]    LPC Preamble Send
+2023-09-29 11:16:18,639 [Process-1216] INFO     [Thread0]    LPC Preamble Received Rsp
+2023-09-29 11:16:18,641 [Process-1216] INFO     [Thread0]    LPCSyncDetect: success
+2023-09-29 11:16:18,641 [Process-1216] INFO     [Thread0]    DownloadBurnOne imgtype(system)
+2023-09-29 11:16:18,641 [Process-1216] INFO     [Thread0]    DownloadBurnOne imgtype(system), burnaddr(0x0), imgid(0x444b4249)
+2023-09-29 11:16:18,642 [Process-1216] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/Driver_Example/HTNB32L-XXX-Driver_Example.bin 
+2023-09-29 11:16:18,644 [Process-1216] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/Driver_Example/HTNB32L-XXX-Driver_Example.bin start
+2023-09-29 11:16:18,645 [Process-1216] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2023-09-29 11:16:18,655 [Process-1216] INFO     [Thread0]    LPCBurnOneTrig success
+2023-09-29 11:16:18,656 [Process-1216] INFO     [Thread0]    DLDPreSync Preamble Send
+2023-09-29 11:16:19,183 [Process-1216] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2023-09-29 11:16:19,184 [Process-1216] INFO     [Thread0]    image size=43240, hdsize=272
+2023-09-29 11:16:19,184 [Process-1216] INFO     [Thread0]    
+2023-09-29 11:16:19,184 [Process-1216] INFO     [Thread0]    imginfo.size=43240, RemainLen=43240, Offset=0
+2023-09-29 11:16:19,185 [Process-1216] INFO     [Thread0]    {HTNB32L-XXX-Driver_Example.bin-percent files transferred   0%}
+2023-09-29 11:16:19,185 [Process-1216] INFO     [Thread0]    
+2023-09-29 11:16:19,186 [Process-1216] INFO     [Thread0]    Preamble Send
+2023-09-29 11:16:19,198 [Process-1216] INFO     [Thread0]    Preamble Received Rsp
+2023-09-29 11:16:19,294 [Process-1216] INFO     [Thread0]    imginfo.size=43240, RemainLen=42968, Offset=272
+2023-09-29 11:16:19,295 [Process-1216] INFO     [Thread0]    {HTNB32L-XXX-Driver_Example.bin-percent files transferred   0%}
+2023-09-29 11:16:19,296 [Process-1216] INFO     [Thread0]    
+2023-09-29 11:16:19,296 [Process-1216] INFO     [Thread0]    Preamble Send
+2023-09-29 11:16:19,726 [Process-1216] INFO     [Thread0]    Preamble Received Rsp
+2023-09-29 11:16:20,438 [Process-1216] INFO     [Thread0]    imginfo.size=43240, RemainLen=0, Offset=272
+2023-09-29 11:16:20,441 [Process-1216] INFO     [Thread0]    {HTNB32L-XXX-Driver_Example.bin-percent files transferred   100%}
+2023-09-29 11:16:20,442 [Process-1216] INFO     [Thread0]    
+2023-09-29 11:16:20,448 [Process-1216] INFO     [Thread0]    TryDownload success
+2023-09-29 11:16:20,578 [Process-1216] INFO     [Thread0]    Burn OK!
+2023-09-29 11:16:20,579 [Process-1216] INFO     [Thread0]    ProcessEnd[8688]
+2023-09-29 11:16:20,579 [Process-1216] INFO     [FlashToolCLI]    Burnbatch OK, imglist ['bootloader', 'system']

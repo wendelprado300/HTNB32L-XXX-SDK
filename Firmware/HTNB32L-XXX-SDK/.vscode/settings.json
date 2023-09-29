@@ -1,6 +1,9 @@
 {
     "makefile.extensionOutputFolder": "./.vscode",
     "files.associations": {
+        "*.rules": "makefile",
+        "*.vars": "makefile",
+        "*.inc": "makefile",
         "ht_mqttclient.h": "c",
         "ht_ps_event_callback.h": "c",
         "ht_mqtt_api.h": "c",
@@ -42,7 +45,13 @@
         "bsp.h": "c",
         "ht_sleep_api.h": "c",
         "ht_sleep_example.h": "c",
-        "ht_fsm.h": "c"
+        "ht_fsm.h": "c",
+        "random": "c",
+        "ps_lib_api.h": "c",
+        "lfs_port.h": "c",
+        "ostask.h": "c",
+        "ht_bsp_custom.h": "c",
+        "phyatcmddebug.h": "c"
     },
     "cortex-debug.variableUseNaturalFormat": false,
     "cortex-debug.gdbPath": "C:/gcc_arm/bin/arm-none-eabi-gdb"

@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2023 HT Micron Semicondutors S.A.
+ * Copyright (c) 2023 HT Micron Semicondutores S.A.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,57 +14,6 @@
  */
 
 #include "HT_Fsm.h"
-
-static MQTTClient mqttClient;
-static Network mqttNetwork;
-
-//Buffer that will be published.
-static uint8_t mqtt_payload[128] = {"Undefined Button"};
-static uint8_t mqttSendbuf[HT_MQTT_BUFFER_SIZE];
-static uint8_t mqttReadbuf[HT_MQTT_BUFFER_SIZE];
-
-static const char clientID[] = {"SIP_HTNB32L-XXX"};
-static const char username[] = {"HTNB32L-XXX"};
-static const char password[] = {"HTmicron"};
-
-//MQTT broker host address
-static const char addr[] = {"broker.hivemq.com"};
-static char topic[25] = {0};
-
-// Blue button topic where the digital twin will transmit its messages.
-char topic_bluebutton_sw[] = {"htnb32l_bluebutton_sw"};
-
-// White button topic where the digital twin will transmit its messages.
-char topic_whitebutton_sw[] = {"htnb32l_whitebutton_sw"};
-
-static const char blue_button_str[] = {"Blue"};
-static const char white_button_str[] = {"White"};
-
-//FSM state.
-volatile HT_FSM_States state = HT_MQTT_SUBSCRIBE_STATE;
-
-//Button color definition.
-volatile HT_Button button_color = HT_UNDEFINED;
-
-//Subcribe callback flag
-volatile uint8_t subscribe_callback = 0;
-
-static HT_Button prev_color;
-
-//Button IRQn flag
-extern volatile uint8_t button_irqn; 
-
-extern uint16_t blue_irqn_mask;
-extern uint16_t white_irqn_mask;
-
-//Buffer where the digital twin messages will be stored.
-static uint8_t subscribe_buffer[HT_SUBSCRIBE_BUFF_SIZE] = {0};
-
-static volatile uint8_t blue_button_state = 0;
-static volatile uint8_t white_button_state = 0;
-
-static StaticTask_t yield_thread;
-static uint8_t yieldTaskStack[1024*4];
 
 /* Function prototypes  ------------------------------------------------------------------*/
 
@@ -217,6 +166,57 @@ static void HT_FSM_WaitForButtonState(void);
 static void HT_FSM_CheckSocketState(void);
 
 /* ---------------------------------------------------------------------------------------*/
+
+static MQTTClient mqttClient;
+static Network mqttNetwork;
+
+//Buffer that will be published.
+static uint8_t mqtt_payload[128] = {"Undefined Button"};
+static uint8_t mqttSendbuf[HT_MQTT_BUFFER_SIZE];
+static uint8_t mqttReadbuf[HT_MQTT_BUFFER_SIZE];
+
+static const char clientID[] = {"SIP_HTNB32L-XXX"};
+static const char username[] = {"HTNB32L-XXX"};
+static const char password[] = {"HTmicron"};
+
+//MQTT broker host address
+static const char addr[] = {"broker.hivemq.com"};
+static char topic[25] = {0};
+
+// Blue button topic where the digital twin will transmit its messages.
+char topic_bluebutton_sw[] = {"htnb32l_bluebutton_sw"};
+
+// White button topic where the digital twin will transmit its messages.
+char topic_whitebutton_sw[] = {"htnb32l_whitebutton_sw"};
+
+static const char blue_button_str[] = {"Blue"};
+static const char white_button_str[] = {"White"};
+
+//FSM state.
+volatile HT_FSM_States state = HT_MQTT_SUBSCRIBE_STATE;
+
+//Button color definition.
+volatile HT_Button button_color = HT_UNDEFINED;
+
+//Subcribe callback flag
+volatile uint8_t subscribe_callback = 0;
+
+static HT_Button prev_color;
+
+//Button IRQn flag
+extern volatile uint8_t button_irqn; 
+
+extern uint16_t blue_irqn_mask;
+extern uint16_t white_irqn_mask;
+
+//Buffer where the digital twin messages will be stored.
+static uint8_t subscribe_buffer[HT_SUBSCRIBE_BUFF_SIZE] = {0};
+
+static volatile uint8_t blue_button_state = 0;
+static volatile uint8_t white_button_state = 0;
+
+static StaticTask_t yield_thread;
+static uint8_t yieldTaskStack[1024*4];
 
 static void HT_YieldThread(void *arg) {
     while (1) {
@@ -392,7 +392,7 @@ static void HT_FSM_PushButtonHandleState(void) {
 
         memset(topic, 0, sizeof(topic));
         sprintf(topic, "htnb32l_whitebutton_fw");
-
+        
         // Change to publish state
         state = HT_MQTT_PUBLISH_STATE;
         break;
@@ -468,4 +468,4 @@ void HT_Fsm(void) {
     }
 }
 
-/************************ HT Micron Semicondutors S.A *****END OF FILE****/
+/************************ HT Micron Semicondutores S.A *****END OF FILE****/

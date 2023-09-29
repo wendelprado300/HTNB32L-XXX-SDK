@@ -8,7 +8,7 @@
  |_|  |_|  |_|    |_|  |_|_____\_____|_|  \_\\____/|_| \_|
  =================== Advanced R&D ========================
 
- Copyright (c) 2023 HT Micron Semicondutors S.A.
+ Copyright (c) 2023 HT Micron Semicondutores S.A.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -24,7 +24,10 @@
 /*!
  * \file main.h
  * \brief Main file of HTNB32L-XXX Sleep Example. 
- * \author HT Micron Advanced R&D
+  * \author HT Micron Advanced R&D,
+ *         Hêndrick Bataglin Gonçalves,
+ *         Gleiser Alvarez Arrojo
+ * 
  * \link https://github.com/htmicron
  * \version 1.0
  * \date February 23, 2023
@@ -48,4 +51,4 @@
 
 #endif /*__MAIN_H__*/
 
-/************************ HT Micron Semicondutors S.A *****END OF FILE****/
+/************************ HT Micron Semicondutores S.A *****END OF FILE****/

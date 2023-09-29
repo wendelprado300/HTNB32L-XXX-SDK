@@ -8,7 +8,7 @@
  |_|  |_|  |_|    |_|  |_|_____\_____|_|  \_\\____/|_| \_|
  =================== Advanced R&D ========================
 
- Copyright (c) 2023 HT Micron Semicondutors S.A.
+ Copyright (c) 2023 HT Micron Semicondutores S.A.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -24,7 +24,10 @@
 /*!
  * \file HT_I2C_Demo.h
  * \brief I2C demonstration app. 
- * \author HT Micron Advanced R&D
+  * \author HT Micron Advanced R&D,
+ *         Hêndrick Bataglin Gonçalves,
+ *         Gleiser Alvarez Arrojo
+ * 
  * \link https://github.com/htmicron
  * \version 0.1
  * \date February 23, 2023
@@ -40,8 +43,8 @@
 /* Defines  ------------------------------------------------------------------*/
 
 #define SLAVE_I2C_ADDRESS  (uint32_t)0x1F       /**</ I2C slave address. */
-#define TX_BUFFER_SIZE  11                      /**</ I2C max TX buffer size. */
-#define RX_BUFFER_SIZE  11                      /**</ I2C max RX buffer size. */
+#define TX_BUFFER_SIZE  10                      /**</ I2C max TX buffer size. */
+#define RX_BUFFER_SIZE  10                      /**</ I2C max RX buffer size. */
 
 /* Functions  ----------------------------------------------------------------*/
 
@@ -58,4 +61,4 @@ void HT_I2C_App(void);
 
 #endif /*__HT_I2C_DEMO_H__*/
 
-/************************ HT Micron Semicondutors S.A *****END OF FILE****/
+/************************ HT Micron Semicondutores S.A *****END OF FILE****/

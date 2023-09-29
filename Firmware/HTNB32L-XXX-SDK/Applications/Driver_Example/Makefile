@@ -4,7 +4,7 @@ TOOLCHAIN = GCC
 TOP := ../../
 
 PROJECT_NAME =      Driver_Example
-BINNAME           = Driver_Example
+BINNAME           = HTNB32L-XXX-Driver_Example
 
 BUILD_DRIVER_EXAMPLE = y
 BUILD_DRIVER_LIB = y

@@ -6,7 +6,7 @@
 #  |_|  |_|  |_|    |_|  |_|_____\_____|_|  \_\\____/|_| \_|
 #  =================== Advanced R&D ========================
 
-#  Copyright (c) 2023 HT Micron Semicondutors S.A.
+#  Copyright (c) 2023 HT Micron Semicondutores S.A.
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
 #  You may obtain a copy of the License at
@@ -36,7 +36,7 @@ def replace_line(file_name, line_num, text):
     out.close()
 
 def get_bin_name():
-    text = "syspath = ../Build/{}/{}.bin\n".format(sys.argv[1], sys.argv[1])
+    text = "syspath = ../Build/{}/HTNB32L-XXX-{}.bin\n".format(sys.argv[1], sys.argv[1])
     return text
 
 def get_com_port():

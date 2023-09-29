@@ -18,7 +18,6 @@
             "device": "CORTEX-M3",
             "interface": "swd",
             "runToEntryPoint": "main_entry",
-            //"runToMain": true, // else it starts at reset handler - not interested
             "preLaunchTask": "Debug - MQTT_Example", // configured in tasks.json
             // "preLaunchCommands": ["Build all"], // you can execute command instead of task
             //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
@@ -50,7 +49,6 @@
             "device": "CORTEX-M3",
             "interface": "swd",
             "runToEntryPoint": "main_entry",
-            //"runToMain": true, // else it starts at reset handler - not interested
             "preLaunchTask": "Debug - Driver_Example", // configured in tasks.json
             // "preLaunchCommands": ["Build all"], // you can execute command instead of task
             //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
@@ -82,8 +80,38 @@
             "device": "CORTEX-M3",
             "interface": "swd",
             "runToEntryPoint": "main_entry",
-            //"runToMain": true, // else it starts at reset handler - not interested
             "preLaunchTask": "Debug - Sleep_Example", // configured in tasks.json
+            // "preLaunchCommands": ["Build all"], // you can execute command instead of task
+            //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
+            "swoConfig":
+            {
+                "enabled": true,
+                "cpuFrequency": 160000000,
+                "swoFrequency": 4000000,
+                "source": "probe",
+                "decoders":
+                [
+                    {
+                        "label": "ITM port 0 output",
+                        "type": "console",
+                        "port": 0,
+                        "showOnStartup": true,
+                        "encoding": "ascii"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Debug - Slpman_Example",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/Build/Slpman_Example/Slpman_Example.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "CORTEX-M3",
+            "interface": "swd",
+            "runToEntryPoint": "main_entry",
+            "preLaunchTask": "Debug - Slpman_Example", // configured in tasks.json
             // "preLaunchCommands": ["Build all"], // you can execute command instead of task
             //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
             "swoConfig":

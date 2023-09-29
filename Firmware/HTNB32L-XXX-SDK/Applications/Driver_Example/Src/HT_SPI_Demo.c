@@ -1,6 +1,6 @@
 /**
  *
- * Copyright (c) 2023 HT Micron Semicondutors S.A.
+ * Copyright (c) 2023 HT Micron Semicondutores S.A.
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -66,7 +66,7 @@ void HT_SPI_App(void) {
     while (1) {
 
         print_uart(tx_str);
-        HT_SPI_TransmitReceive(tx_buffer, rx_buffer, SPI_BUFFER_SIZE-1);
+        HT_SPI_TransmitReceive(tx_buffer, rx_buffer, (SPI_BUFFER_SIZE-1));
 
         sprintf(rx_str, "Received: %s\n", (char *)rx_buffer);
         print_uart(rx_str);
@@ -77,4 +77,4 @@ void HT_SPI_App(void) {
     
 }
 
-/************************ HT Micron Semicondutors S.A *****END OF FILE****/
+/************************ HT Micron Semicondutores S.A *****END OF FILE****/
