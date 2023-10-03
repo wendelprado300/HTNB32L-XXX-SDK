@@ -25,8 +25,8 @@ jobs:
       working-directory: Firmware/HTNB32L-XXX-SDK
       shell: bash
       run: |
-        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=Driver_Example GCCLIB_PATH=D:/a/Travis_Test/Travis_Test/gcc-arm-none-eabi-10.3-2021.10
-        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=MQTT_Example GCCLIB_PATH=D:/a/Travis_Test/Travis_Test/gcc-arm-none-eabi-10.3-2021.10
-        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=Sleep_Example GCCLIB_PATH=D:/a/Travis_Test/Travis_Test/gcc-arm-none-eabi-10.3-2021.10
-        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=Slpman_Example GCCLIB_PATH=D:/a/Travis_Test/Travis_Test/gcc-arm-none-eabi-10.3-2021.10
+        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=Driver_Example GCCLIB_PATH=D:/a/HTNB32L-XXX-SDK/HTNB32L-XXX-SDK/gcc-arm-none-eabi-10.3-2021.10
+        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=MQTT_Example GCCLIB_PATH=D:/a/HTNB32L-XXX-SDK/HTNB32L-XXX-SDK/gcc-arm-none-eabi-10.3-2021.10
+        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=Sleep_Example GCCLIB_PATH=D:/a/HTNB32L-XXX-SDK/HTNB32L-XXX-SDK/gcc-arm-none-eabi-10.3-2021.10
+        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=Slpman_Example GCCLIB_PATH=D:/a/HTNB32L-XXX-SDK/HTNB32L-XXX-SDK/gcc-arm-none-eabi-10.3-2021.10
   
