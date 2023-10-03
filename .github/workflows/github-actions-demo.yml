@@ -1,0 +1,32 @@
+name: Build Status
+
+on:
+  push:
+    branches:
+      - main  # Replace with your desired branch
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up ARM GCC
+      shell: bash
+      run: |
+        curl -O https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-win32.zip
+        
+        unzip gcc-arm-none-eabi-10.3-2021.10-win32.zip
+        echo "gcc-arm-none-eabi-10.3-2021.10/bin/" >> $GITHUB_PATH
+        
+    - name: Build
+      working-directory: Firmware/HTNB32L-XXX-SDK
+      shell: bash
+      run: |
+        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=Driver_Example GCCLIB_PATH=D:/a/Travis_Test/Travis_Test/gcc-arm-none-eabi-10.3-2021.10
+        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=MQTT_Example GCCLIB_PATH=D:/a/Travis_Test/Travis_Test/gcc-arm-none-eabi-10.3-2021.10
+        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=Sleep_Example GCCLIB_PATH=D:/a/Travis_Test/Travis_Test/gcc-arm-none-eabi-10.3-2021.10
+        make -j4 gccall TARGET=qcx212_0h00 V=0 PROJECT=Slpman_Example GCCLIB_PATH=D:/a/Travis_Test/Travis_Test/gcc-arm-none-eabi-10.3-2021.10
+  
