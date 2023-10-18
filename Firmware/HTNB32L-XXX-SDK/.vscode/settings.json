@@ -1,9 +1,9 @@
 {
     "makefile.extensionOutputFolder": "./.vscode",
     "files.associations": {
+        "*.inc": "makefile",
         "*.rules": "makefile",
         "*.vars": "makefile",
-        "*.inc": "makefile",
         "ht_mqttclient.h": "c",
         "ht_ps_event_callback.h": "c",
         "ht_mqtt_api.h": "c",
@@ -51,7 +51,10 @@
         "lfs_port.h": "c",
         "ostask.h": "c",
         "ht_bsp_custom.h": "c",
-        "phyatcmddebug.h": "c"
+        "phyatcmddebug.h": "c",
+        "ht_aon_demo.h": "c",
+        "timer_qcx212.h": "c",
+        "ht_wdt_demo.h": "c"
     },
     "cortex-debug.variableUseNaturalFormat": false,
     "cortex-debug.gdbPath": "C:/gcc_arm/bin/arm-none-eabi-gdb"

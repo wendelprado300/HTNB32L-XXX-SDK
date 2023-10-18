@@ -11,7 +11,7 @@
         {
             "name": "Debug - MQTT_Example",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/Build/MQTT_Example/MQTT_Example.elf",
+            "executable": "${workspaceRoot}/Build/MQTT_Example/HTNB32L-XXX-MQTT_Example.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "jlink",
@@ -42,7 +42,7 @@
         {
             "name": "Debug - Driver_Example",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/Build/Driver_Example/Driver_Example.elf",
+            "executable": "${workspaceRoot}/Build/Driver_Example/HTNB32L-XXX-Driver_Example.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "jlink",
@@ -73,7 +73,7 @@
         {
             "name": "Debug - Sleep_Example",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/Build/Sleep_Example/Sleep_Example.elf",
+            "executable": "${workspaceRoot}/Build/Sleep_Example/HTNB32L-XXX-Sleep_Example.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "jlink",
@@ -104,7 +104,7 @@
         {
             "name": "Debug - Slpman_Example",
             "cwd": "${workspaceRoot}",
-            "executable": "${workspaceRoot}/Build/Slpman_Example/Slpman_Example.elf",
+            "executable": "${workspaceRoot}/Build/Slpman_Example/HTNB32L-XXX-Slpman_Example.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "jlink",

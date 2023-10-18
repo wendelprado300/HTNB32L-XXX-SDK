@@ -16,7 +16,7 @@
 
 #include "main.h"
 
-static HT_Peripheral peripheral_select = GPIO_EX;
+static HT_Peripheral peripheral_select = WDT_EX;
 
 char buff_size[513];
 
@@ -37,8 +37,14 @@ void main_entry(void) {
         case GPIO_EX:
             HT_GPIO_App();
             break;
+        case AON_EX:
+            HT_AON_App();
+            break;
         case ADC_EX:
             HT_ADC_App();
+            break;
+        case WDT_EX:
+            HT_WDT_App();
             break;
         default:
             break;
