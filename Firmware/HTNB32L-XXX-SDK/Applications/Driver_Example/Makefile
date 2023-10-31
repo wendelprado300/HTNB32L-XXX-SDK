@@ -99,9 +99,11 @@ STARTUP_FILE_PATH  = Startup/Src
 
 obj-y             += Src/HT_UART_Api.o \
                      Src/HT_GPIO_Demo.o \
+                     Src/HT_AON_Demo.o \
                      Src/HT_SPI_Demo.o \
                      Src/HT_I2C_Demo.o \
                      Src/HT_ADC_Demo.o \
+                     Src/HT_WDT_Demo.o \
                      Src/stub_os.o \
                      Src/main.o
 
