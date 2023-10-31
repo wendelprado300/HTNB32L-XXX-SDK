@@ -24,9 +24,9 @@
 /*!
  * \file HT_WDT_Demo.h
  * \brief Watchdog demonstration app. 
-  * \author HT Micron Advanced R&D,
- *         Hêndrick Bataglin Gonçalves,
- *         Matheus Zorzeto
+ * \author HT Micron Advanced R&D,
+ *         Matheus Zorzeto,
+ *         Hêndrick Bataglin Gonçalves
  * 
  * \link https://github.com/htmicron
  * \version 1.0

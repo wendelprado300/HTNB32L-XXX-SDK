@@ -13,13 +13,13 @@
  *
  */
 
-#include "HT_WDT_Demo.h"
-
 /*
    This project demos the usage of WDT, in this example, we'll start to kick WDT for 5 times and then stop,
    the WDT is configured as WDT_InterruptResetMode and we won't clear WDT interrupt flag upon timeout,
    so a system reset shall follow a WDT interrupt, the time tick is achieved through TIMER's interrupt.
  */
+
+#include "HT_WDT_Demo.h"
 
 /*!******************************************************************
  * \fn static void HT_WDT_Init(void)
@@ -30,7 +30,7 @@
  *
  * \retval none.
  *******************************************************************/
-void HT_WDT_Init(void);
+static void HT_WDT_Init(void);
 
 /** \brief WDT interrupt count */
 static volatile int wdtInterruptCount = 0;
@@ -41,37 +41,31 @@ static volatile int timerInterruptCount = 0;
 /** \brief Flag to control message print */
 static volatile int printDone = 1;
 
-/**
-  \fn          void NMI_Handler()
-  \brief       wdt interrupt is NMI
-  \return
-*/
-void NMI_Handler()
-{
+void NMI_Handler(void) {
     wdtInterruptCount++;
 }
 
 /**
-  \fn          void Timer0_ISR()
+  \fn          void HT_Timer0_ISR(void)
   \brief       timer0 interrupt service routine
   \return
 */
-void Timer0_ISR()
-{
+static void HT_Timer0_ISR(void) {
     timerInterruptCount++;
     printDone = 0;
     if(timerInterruptCount <= WDT_KICK_TIMES)
         WDT_Kick();
 }
 
-void HT_WDT_Init(void)
-{
+static void HT_WDT_Init(void) {
+    wdt_config_t wdtConfig;
+    timer_config_t timerConfig;
+
     // Config WDT clock, source from 32.768KHz and divide by 5
     CLOCK_SetClockSrc(GPR_WDGFuncClk, GPR_WDGClkSel_32K);
     CLOCK_SetClockDiv(GPR_WDGFuncClk, 5);
 
     // WDT config, timeout is 5s
-    wdt_config_t wdtConfig;
     wdtConfig.mode = WDT_InterruptResetMode;
     wdtConfig.timeoutValue = 0x8000;
     WDT_Init(&wdtConfig);
@@ -83,7 +77,6 @@ void HT_WDT_Init(void)
     TIMER_DriverInit();
 
     // Config timer period as 1s, match0 value is 32768 = 0x8000
-    timer_config_t timerConfig;
     TIMER_GetDefaultConfig(&timerConfig);
     timerConfig.reloadOption = TIMER_ReloadOnMatch0;
     timerConfig.match0 = 0x8000;
@@ -96,13 +89,13 @@ void HT_WDT_Init(void)
     TIMER_InterruptConfig(0, TIMER_Match2Select, TIMER_InterruptDisabled);
 
     // Enable IRQ
-    XIC_SetVector(PXIC_Timer0_IRQn, Timer0_ISR);
+    XIC_SetVector(PXIC_Timer0_IRQn, HT_Timer0_ISR);
     XIC_EnableIRQ(PXIC_Timer0_IRQn);
 }
 
-void HT_WDT_App(void)
-{
-    char str[str_size] = {'\0'};
+void HT_WDT_App(void) {
+    char str[str_size] = {0};
+
     print_uart("HTNB32L-XXX WDT Example Start!\n");
 
     HT_WDT_Init();
