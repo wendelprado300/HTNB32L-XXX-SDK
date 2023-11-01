@@ -1,42 +1,22 @@
-/*
- * Copyright (c) 2013-2016 ARM Limited. All rights reserved.
+/**
  *
- * SPDX-License-Identifier: Apache-2.0
- *
- * Licensed under the Apache License, Version 2.0 (the License); you may
- * not use this file except in compliance with the License.
+ * Copyright (c) 2023 HT Micron Semicondutores S.A.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- * www.apache.org/licenses/LICENSE-2.0
- *
+ * http://www.apache.org/licenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an AS IS BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * $Date:        13. July 2018
- * $Revision:    V2.0
  *
- * Driver:       Driver_I2C0, Driver_I2C1
- * Configured:   via RTE_Device.h configuration file
- * Project:      I2C Driver for Qualcomm QCX212
- * --------------------------------------------------------------------------
- * Use the following configuration settings in the middleware component
- * to connect to this driver.
- *
- *   Configuration Setting                 Value   I2C Interface
- *   ---------------------                 -----   -------------
- *   Connect to hardware via Driver_I2C# = 0       use I2C0
- *   Connect to hardware via Driver_I2C# = 1       use I2C1
- * -------------------------------------------------------------------------- */
-/* History:
- *  Version 2.0
- *    - Initial CMSIS Driver API V2.0 release
  */
 
 #include "bsp_i2c.h"
 #include "slpman_qcx212.h"
-#include "HT_Peripheral_Config.h"
+#include "stdio.h"
+#include "Driver_I2C.h"
 
 #define I2C_DEBUG  0
 #if I2C_DEBUG
@@ -46,6 +26,9 @@
 #endif
 
 #define ARM_I2C_DRV_VERSION    ARM_DRIVER_VERSION_MAJOR_MINOR(2, 0) /* driver version */
+
+volatile uint8_t _tx_callback = 0;
+volatile uint8_t _rx_callback = 0;
 
 #if ((!RTE_I2C0) && (!RTE_I2C1))
 #error "I2C not enabled in RTE_Device.h!"
@@ -368,10 +351,6 @@ int32_t I2C_Initialize(ARM_I2C_SignalEvent_t cb_event, I2C_RESOURCES *i2c)
     padConfig.mux = i2c->pins.pin_sda->funcNum;
     PAD_SetPinConfig(i2c->pins.pin_sda->pinNum, &padConfig);
 
-    // Input+pullup
-    PAD_SetPinPullConfig(i2c->pins.pin_scl->pinNum, PAD_InternalPullUp);
-    PAD_SetPinPullConfig(i2c->pins.pin_sda->pinNum, PAD_InternalPullUp);
-
     // Reset Run-Time information structure
     memset(i2c->ctrl, 0, sizeof(I2C_CTRL));
 
@@ -674,8 +653,7 @@ static int32_t I2C_MasterCheckStatus(I2C_RESOURCES *i2c)
   \param[in]   i2c           Pointer to I2C resources
   \return      \ref execution_status
 */
-int32_t I2C_MasterTransmit(uint32_t addr, const uint8_t *data, uint32_t num, bool xfer_pending, I2C_RESOURCES *i2c)
-{
+int32_t I2C_MasterTransmit(uint32_t addr, const uint8_t *data, uint32_t num, bool xfer_pending, I2C_RESOURCES *i2c) {   
     uint32_t instance;
 
     int32_t ret;
@@ -850,6 +828,8 @@ int32_t I2C_MasterTransmit(uint32_t addr, const uint8_t *data, uint32_t num, boo
 
         while((i2c->reg->ISR & I2C_ISR_TRANSFER_DONE_Msk) == 0);
 
+        i2c->reg->ISR = i2c->reg->ISR; //hbg
+        
         i2c->reg->IER = 0;
 
         i2c->ctrl->status.busy = 0;
@@ -1012,6 +992,8 @@ int32_t I2C_MasterReceive(uint32_t addr, uint8_t *data, uint32_t num, bool xfer_
 
         while((i2c->reg->ISR & I2C_ISR_TRANSFER_DONE_Msk) == 0);
 
+        i2c->reg->ISR = i2c->reg->ISR; //HBG
+
         i2c->reg->IER = 0;
         i2c->ctrl->status.busy = 0;
     }
@@ -1028,8 +1010,7 @@ int32_t I2C_MasterReceive(uint32_t addr, uint8_t *data, uint32_t num, bool xfer_
   \param[in]   i2c   Pointer to I2C resources
   \return      \ref execution_status
 */
-int32_t I2C_SlaveTransmit(const uint8_t *data, uint32_t num, I2C_RESOURCES *i2c)
-{
+int32_t I2C_SlaveTransmit(const uint8_t *data, uint32_t num, I2C_RESOURCES *i2c) {
     return ARM_DRIVER_OK;
 }
 
@@ -1047,8 +1028,7 @@ int32_t I2C_SlaveTransmit(const uint8_t *data, uint32_t num, I2C_RESOURCES *i2c)
   \param[in]   i2c           Pointer to I2C resources
   \return      \ref execution_status
 */
-int32_t I2C_SlaveReceive(uint8_t *data, uint32_t num, I2C_RESOURCES *i2c)
-{
+int32_t I2C_SlaveReceive(uint8_t *data, uint32_t num, I2C_RESOURCES *i2c) {
     return ARM_DRIVER_OK;
 }
 
@@ -1084,8 +1064,7 @@ int32_t I2C_GetClockFreq(I2C_RESOURCES *i2c)
   \param[in]   i2c      pointer to I2C resources
   \return      \ref execution_status
 */
-int32_t I2C_Control(uint32_t control, uint32_t arg, I2C_RESOURCES *i2c)
-{
+int32_t I2C_Control(uint32_t control, uint32_t arg, I2C_RESOURCES *i2c) {
     uint32_t val, clk;
     if(!(i2c->ctrl->flags & I2C_FLAG_POWER))
     {
@@ -1168,29 +1147,50 @@ ARM_I2C_STATUS I2C_GetStatus(I2C_RESOURCES *i2c)
     return (i2c->ctrl->status);
 }
 
-
 /**
   \fn          void I2Cx_IRQHandler(I2C_RESOURCES *i2c)
   \brief       I2C Event Interrupt handler.
   \param[in]   i2c  Pointer to I2C resources
 */
-void I2C_IRQHandler(I2C_RESOURCES *i2c)
-{
+void I2C_IRQHandler(I2C_RESOURCES *i2c) {
     uint32_t tmp_status = 0;
+
     tmp_status = i2c->reg->ISR;
-    // write 1 clear for those interrupts
-    i2c->reg->ISR = tmp_status;
+
+    //i2c->reg->ISR = tmp_status;
 
     I2CDEBUG("IRQHandler = 0x%x\n", tmp_status);
-    if(tmp_status & I2C_ISR_TRANSFER_DONE_Msk)
-    {
+    if(tmp_status & I2C_ISR_TRANSFER_DONE_Msk) {
         I2CDEBUG("I2C_IRQHandler transfer done\r\n");
 
-        // Clear Tx or Rx flag
-        i2c->ctrl->flags &= ~(I2C_FLAG_MASTER_TX | I2C_FLAG_MASTER_RX);
         i2c->ctrl->status.busy = 0;
-        if(i2c->ctrl->cb_event)
-           i2c->ctrl->cb_event(ARM_I2C_EVENT_TRANSFER_DONE);
+
+        if(i2c->ctrl->cb_event) { 
+            if(i2c->ctrl->flags & I2C_FLAG_MASTER_TX) {
+                _tx_callback = 1;
+                i2c->ctrl->flags &= ~(I2C_FLAG_MASTER_TX);
+            
+            } else if(i2c->ctrl->flags & I2C_FLAG_MASTER_RX) {
+                _rx_callback = 1;
+                i2c->ctrl->flags &= ~(I2C_FLAG_MASTER_RX);
+            
+            } else if(i2c->ctrl->flags & I2C_FLAG_SLAVE_TX) {
+                _tx_callback = 1;
+                i2c->ctrl->flags &= ~(I2C_FLAG_SLAVE_TX);
+                
+            } else if(i2c->ctrl->flags & I2C_FLAG_SLAVE_RX) {
+                _rx_callback = 1;
+                i2c->ctrl->flags &= ~(I2C_FLAG_SLAVE_RX);
+
+            } else if(_tx_callback)  {
+                _tx_callback = 0;
+                i2c->ctrl->cb_event(ARM_I2C_EVENT_TX_DONE);
+    
+            } else if(_rx_callback) {
+                _rx_callback = 0;
+                i2c->ctrl->cb_event(ARM_I2C_EVENT_RX_DONE);
+            } 
+        }
     }
     if(tmp_status & I2C_ISR_TX_FIFO_EMPTY_Msk)
     {
@@ -1253,7 +1253,7 @@ void I2C_DmaTxEvent(uint32_t event, I2C_RESOURCES *i2c)
             i2c->ctrl->status.busy = 0U;
             if(i2c->ctrl->cb_event)
             {
-                i2c->ctrl->cb_event(ARM_I2C_EVENT_TRANSFER_DONE);
+                i2c->ctrl->cb_event(ARM_I2C_EVENT_TX_DONE);
             }
 #ifdef PM_FEATURE_ENABLE
             CHECK_TO_UNLOCK_SLEEP(instance);
@@ -1285,7 +1285,7 @@ void I2C_DmaRxEvent(uint32_t event, I2C_RESOURCES *i2c)
             i2c->ctrl->status.busy = 0U;
             if(i2c->ctrl->cb_event)
             {
-                i2c->ctrl->cb_event(ARM_I2C_EVENT_TRANSFER_DONE);
+                i2c->ctrl->cb_event(ARM_I2C_EVENT_RX_DONE);
             }
 #ifdef PM_FEATURE_ENABLE
             CHECK_TO_UNLOCK_SLEEP(instance);
@@ -1338,6 +1338,7 @@ static ARM_I2C_STATUS I2C0_GetStatus(void)
 {
     return I2C_GetStatus(&I2C0_Resources);
 }
+
 void I2C0_IRQHandler(void)
 {
     I2C_IRQHandler(&I2C0_Resources);
@@ -1411,6 +1412,7 @@ static ARM_I2C_STATUS I2C1_GetStatus(void)
 {
     return I2C_GetStatus(&I2C1_Resources);
 }
+
 void I2C1_IRQHandler(void)
 {
     I2C_IRQHandler(&I2C1_Resources);

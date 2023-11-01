@@ -26,11 +26,11 @@
  * \brief I2C demonstration app. 
   * \author HT Micron Advanced R&D,
  *         Hêndrick Bataglin Gonçalves,
- *         Gleiser Alvarez Arrojo
+ *         Matheus da Silva Zorzeto
  * 
  * \link https://github.com/htmicron
- * \version 0.1
- * \date February 23, 2023
+ * \version 1.0
+ * \date October 31, 2023
  */
 
 #ifndef __HT_I2C_DEMO_H__

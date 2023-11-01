@@ -99,8 +99,11 @@ typedef volatile struct _ARM_I2C_STATUS {
 
 
 /****** I2C Event *****/
-#define ARM_I2C_EVENT_TRANSFER_DONE       (1UL << 0)  ///< Master/Slave Transmit/Receive finished
-#define ARM_I2C_EVENT_TRANSFER_INCOMPLETE (1UL << 1)  ///< Master/Slave Transmit/Receive incomplete transfer
+
+#define ARM_I2C_EVENT_TX_DONE       (1UL << 0)  ///< Master Transmit finished
+#define ARM_I2C_EVENT_RX_DONE       (1UL << 1)  ///< Master Receive finished
+
+#define ARM_I2C_EVENT_TRANSFER_INCOMPLETE (1UL << 1)  ///< Master Transmit/Receive incomplete transfer
 #define ARM_I2C_EVENT_SLAVE_TRANSMIT      (1UL << 2)  ///< Addressed as Slave Transmitter but transmit operation is not set.
 #define ARM_I2C_EVENT_SLAVE_RECEIVE       (1UL << 3)  ///< Addressed as Slave Receiver but receive operation is not set.
 #define ARM_I2C_EVENT_ADDRESS_NACK        (1UL << 4)  ///< Address not acknowledged from Slave

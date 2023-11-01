@@ -1,40 +1,95 @@
-2023-10-16 16:44:10,469 INFO     [FlashTop]    init
-2023-10-16 16:44:10,475 [Process-17996] INFO     [FlashTop]    do_main: cmd loadpara
-2023-10-16 16:44:10,476 [Process-17996] INFO     [Para]    exe path: C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug
-2023-10-16 16:44:10,484 [Process-17996] INFO     [Para]    update digest file :C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\cfg.digest, digest:b'\x73\x8f\x87\xb5\x2d\x73\x71\xe9\xa4\xde\x1e\xc3\x73\x80\x2e\xad\x7c\xd8\x7b\x18\x6c\x1b\xef\xb3\xe0\x44\xeb\xef\x42\x30\xd4\xdb' 
-2023-10-16 16:44:10,484 [Process-17996] INFO     [Para]    LoadPara from cfgfile(C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\htnb32l.ini) 
-2023-10-16 16:44:10,485 [Process-17996] WARNING  [Para]    Load para curdigest b'\x73\x8f\x87\xb5\x2d\x73\x71\xe9\xa4\xde\x1e\xc3\x73\x80\x2e\xad\x7c\xd8\x7b\x18\x6c\x1b\xef\xb3\xe0\x44\xeb\xef\x42\x30\xd4\xdb'
-2023-10-16 16:44:10,486 [Process-17996] INFO     [FlashTop]    Load para sync success
-2023-10-16 16:44:10,486 [Process-17996] INFO     [FlashToolCLI]    Burnbatch Start, burn imglist ['bootloader', 'system'].
-2023-10-16 16:44:10,487 [Process-17996] INFO     [FlashTop]    do_main: cmd burnag, Thread0[18800]
-2023-10-16 16:44:10,487 [Process-17996] INFO     [Thread0]    ProcessStart[18800]
-2023-10-16 16:44:11,514 [Process-17996] INFO     [Thread0]    ResetBoard(Normal Mod) finish
-2023-10-16 16:44:11,515 [Process-17996] INFO     [Thread0]    args.ser.port :COM14
-2023-10-16 16:44:11,518 [Process-17996] INFO     [Image]    SetBaud 921600
-2023-10-16 16:44:11,519 [Process-17996] INFO     [Thread0]    TryDownload C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\agentboot.bin start
-2023-10-16 16:44:11,520 [Process-17996] INFO     [Thread0]    image size=28568, hdsize=272
-2023-10-16 16:44:11,520 [Process-17996] INFO     [Thread0]    Preamble Send
-2023-10-16 16:44:11,825 [Process-17996] INFO     [Thread0]    Preamble Received Rsp
-2023-10-16 16:44:11,825 [Process-17996] ERROR    [Thread0]    Preamble Received Rsp err:7469636b 
-2023-10-16 16:44:11,826 [Process-17996] INFO     [Thread0]    Preamble Received Rsp
-2023-10-16 16:44:11,826 [Process-17996] ERROR    [Thread0]    Preamble Received Rsp err:72757074 
-2023-10-16 16:44:11,827 [Process-17996] INFO     [Thread0]    Preamble Received Rsp
-2023-10-16 16:44:11,827 [Process-17996] ERROR    [Thread0]    Preamble Received Rsp err:3a20300a 
-2023-10-16 16:44:11,828 [Process-17996] INFO     [Thread0]    Preamble Received Rsp
-2023-10-16 16:44:11,829 [Process-17996] ERROR    [Thread0]    Preamble Received Rsp err:656d2077 
-2023-10-16 16:44:11,829 [Process-17996] INFO     [Thread0]    Preamble Received Rsp
-2023-10-16 16:44:11,830 [Process-17996] ERROR    [Thread0]    Preamble Received Rsp err:20696e20 
-2023-10-16 16:44:12,825 [Process-17996] INFO     [Thread0]    Preamble Received Rsp
-2023-10-16 16:44:12,825 [Process-17996] ERROR    [Thread0]    Preamble Received Rsp err:7469636b 
-2023-10-16 16:44:12,826 [Process-17996] INFO     [Thread0]    Preamble Received Rsp
-2023-10-16 16:44:12,827 [Process-17996] ERROR    [Thread0]    Preamble Received Rsp err:74657272 
-2023-10-16 16:44:12,828 [Process-17996] INFO     [Thread0]    Preamble Received Rsp
-2023-10-16 16:44:12,828 [Process-17996] ERROR    [Thread0]    Preamble Received Rsp err:3a20310a 
-2023-10-16 16:44:12,829 [Process-17996] ERROR    [Thread0]    Download->DLDIdleProcess failed, ImageId=0x54494d48, ret=0x70
-2023-10-16 16:44:12,829 [Process-17996] ERROR    [Thread0]    TryDownload failed(0x70)
-2023-10-16 16:44:12,830 [Process-17996] ERROR    [Thread0]    DownloadAgent failed(0x70)
-2023-10-16 16:44:12,830 [Process-17996] INFO     [Thread0]    LPCTryRecover not allow
-2023-10-16 16:44:12,831 [Process-17996] ERROR    [FlashTop]    burn failed, ret=0x00000070, Thread0[18800]
-2023-10-16 16:44:12,831 [Process-17996] INFO     [Thread0]    ProcessEnd[18800]
-2023-10-16 16:44:12,831 [Process-17996] ERROR    [FlashToolCLI]    
-[Error Info]:[preamble no response] 
+2023-11-01 10:55:22,547 INFO     [FlashTop]    init
+2023-11-01 10:55:22,577 [Process-42240] INFO     [FlashTop]    do_main: cmd loadpara
+2023-11-01 10:55:22,578 [Process-42240] INFO     [Para]    exe path: C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug
+2023-11-01 10:55:22,588 [Process-42240] INFO     [Para]    update digest file :C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\cfg.digest, digest:b'\x73\x8f\x87\xb5\x2d\x73\x71\xe9\xa4\xde\x1e\xc3\x73\x80\x2e\xad\x7c\xd8\x7b\x18\x6c\x1b\xef\xb3\xe0\x44\xeb\xef\x42\x30\xd4\xdb' 
+2023-11-01 10:55:22,589 [Process-42240] INFO     [Para]    LoadPara from cfgfile(C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\htnb32l.ini) 
+2023-11-01 10:55:22,591 [Process-42240] WARNING  [Para]    Load para curdigest b'\x73\x8f\x87\xb5\x2d\x73\x71\xe9\xa4\xde\x1e\xc3\x73\x80\x2e\xad\x7c\xd8\x7b\x18\x6c\x1b\xef\xb3\xe0\x44\xeb\xef\x42\x30\xd4\xdb'
+2023-11-01 10:55:22,592 [Process-42240] INFO     [FlashTop]    Load para sync success
+2023-11-01 10:55:22,593 [Process-42240] INFO     [FlashToolCLI]    Burnbatch Start, burn imglist ['bootloader', 'system'].
+2023-11-01 10:55:22,594 [Process-42240] INFO     [FlashTop]    do_main: cmd burnag, Thread0[36328]
+2023-11-01 10:55:22,595 [Process-42240] INFO     [Thread0]    ProcessStart[36328]
+2023-11-01 10:55:23,610 [Process-42240] INFO     [Thread0]    ResetBoard(Normal Mod) finish
+2023-11-01 10:55:23,611 [Process-42240] INFO     [Thread0]    args.ser.port :COM6
+2023-11-01 10:55:23,616 [Process-42240] INFO     [Image]    SetBaud 921600
+2023-11-01 10:55:23,617 [Process-42240] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\agentboot.bin start
+2023-11-01 10:55:23,618 [Process-42240] INFO     [Thread0]    image size=28568, hdsize=272
+2023-11-01 10:55:23,618 [Process-42240] INFO     [Thread0]    Preamble Send
+2023-11-01 10:55:23,622 [Process-42240] INFO     [Thread0]    Preamble Received Rsp
+2023-11-01 10:55:23,664 [Process-42240] INFO     [Thread0]    Preamble Send
+2023-11-01 10:55:23,669 [Process-42240] INFO     [Thread0]    Preamble Received Rsp
+2023-11-01 10:55:26,540 [Process-42240] INFO     [Thread0]    TryDownload agentboot success
+2023-11-01 10:55:26,540 [Process-42240] INFO     [Thread0]    agbaud: 921600
+2023-11-01 10:55:26,543 [Process-42240] INFO     [Thread0]    Burn OK!
+2023-11-01 10:55:26,544 [Process-42240] INFO     [Thread0]    ProcessEnd[36328]
+2023-11-01 10:55:26,545 [Process-42240] INFO     [FlashTop]    do_main: cmd burnone, Thread0[36328]
+2023-11-01 10:55:26,545 [Process-42240] INFO     [Thread0]    ProcessStart[36328]
+2023-11-01 10:55:26,546 [Process-42240] INFO     [Thread0]    args.ser.port :COM6
+2023-11-01 10:55:26,549 [Process-42240] INFO     [Thread0]    agentboot is downloaded already
+2023-11-01 10:55:26,549 [Process-42240] INFO     [Thread0]    TryDownload agentboot skip
+2023-11-01 10:55:26,550 [Process-42240] INFO     [Thread0]    agbaud: 921600
+2023-11-01 10:55:26,552 [Process-42240] INFO     [Thread0]    LPC Preamble Send
+2023-11-01 10:55:26,555 [Process-42240] INFO     [Thread0]    LPC Preamble Received Rsp
+2023-11-01 10:55:26,556 [Process-42240] INFO     [Thread0]    LPCSetSyncStat(1)
+2023-11-01 10:55:26,556 [Process-42240] INFO     [Thread0]    LPCSyncDetect: success
+2023-11-01 10:55:26,556 [Process-42240] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader)
+2023-11-01 10:55:26,556 [Process-42240] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader), burnaddr(0x0), imgid(0x4f424d49)
+2023-11-01 10:55:26,557 [Process-42240] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin 
+2023-11-01 10:55:26,558 [Process-42240] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin start
+2023-11-01 10:55:26,558 [Process-42240] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2023-11-01 10:55:26,565 [Process-42240] INFO     [Thread0]    LPCBurnOneTrig success
+2023-11-01 10:55:26,565 [Process-42240] INFO     [Thread0]    DLDPreSync Preamble Send
+2023-11-01 10:55:27,100 [Process-42240] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2023-11-01 10:55:27,101 [Process-42240] INFO     [Thread0]    image size=29248, hdsize=272
+2023-11-01 10:55:27,102 [Process-42240] INFO     [Thread0]    
+2023-11-01 10:55:27,103 [Process-42240] INFO     [Thread0]    imginfo.size=29248, RemainLen=29248, Offset=0
+2023-11-01 10:55:27,103 [Process-42240] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2023-11-01 10:55:27,104 [Process-42240] INFO     [Thread0]    
+2023-11-01 10:55:27,104 [Process-42240] INFO     [Thread0]    Preamble Send
+2023-11-01 10:55:27,113 [Process-42240] INFO     [Thread0]    Preamble Received Rsp
+2023-11-01 10:55:27,126 [Process-42240] INFO     [Thread0]    imginfo.size=29248, RemainLen=28976, Offset=272
+2023-11-01 10:55:27,128 [Process-42240] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2023-11-01 10:55:27,129 [Process-42240] INFO     [Thread0]    
+2023-11-01 10:55:27,130 [Process-42240] INFO     [Thread0]    Preamble Send
+2023-11-01 10:55:27,614 [Process-42240] INFO     [Thread0]    Preamble Received Rsp
+2023-11-01 10:55:28,221 [Process-42240] INFO     [Thread0]    imginfo.size=29248, RemainLen=0, Offset=272
+2023-11-01 10:55:28,223 [Process-42240] INFO     [Thread0]    {bootloader.bin-percent files transferred   100%}
+2023-11-01 10:55:28,224 [Process-42240] INFO     [Thread0]    
+2023-11-01 10:55:28,227 [Process-42240] INFO     [Thread0]    TryDownload success
+2023-11-01 10:55:28,230 [Process-42240] INFO     [Thread0]    Burn OK!
+2023-11-01 10:55:28,231 [Process-42240] INFO     [Thread0]    ProcessEnd[36328]
+2023-11-01 10:55:28,233 [Process-42240] INFO     [FlashTop]    do_main: cmd burnone, Thread0[36328]
+2023-11-01 10:55:28,235 [Process-42240] INFO     [Thread0]    ProcessStart[36328]
+2023-11-01 10:55:28,239 [Process-42240] INFO     [Thread0]    args.ser.port :COM6
+2023-11-01 10:55:28,244 [Process-42240] INFO     [Thread0]    agentboot is downloaded already
+2023-11-01 10:55:28,245 [Process-42240] INFO     [Thread0]    TryDownload agentboot skip
+2023-11-01 10:55:28,248 [Process-42240] INFO     [Thread0]    agbaud: 921600
+2023-11-01 10:55:28,251 [Process-42240] INFO     [Thread0]    LPC Preamble Send
+2023-11-01 10:55:28,259 [Process-42240] INFO     [Thread0]    LPC Preamble Received Rsp
+2023-11-01 10:55:28,260 [Process-42240] INFO     [Thread0]    LPCSyncDetect: success
+2023-11-01 10:55:28,261 [Process-42240] INFO     [Thread0]    DownloadBurnOne imgtype(system)
+2023-11-01 10:55:28,261 [Process-42240] INFO     [Thread0]    DownloadBurnOne imgtype(system), burnaddr(0x0), imgid(0x444b4249)
+2023-11-01 10:55:28,261 [Process-42240] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/Driver_Example/HTNB32L-XXX-Driver_Example.bin 
+2023-11-01 10:55:28,264 [Process-42240] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/Driver_Example/HTNB32L-XXX-Driver_Example.bin start
+2023-11-01 10:55:28,264 [Process-42240] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2023-11-01 10:55:28,271 [Process-42240] INFO     [Thread0]    LPCBurnOneTrig success
+2023-11-01 10:55:28,271 [Process-42240] INFO     [Thread0]    DLDPreSync Preamble Send
+2023-11-01 10:55:28,795 [Process-42240] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2023-11-01 10:55:28,797 [Process-42240] INFO     [Thread0]    image size=45256, hdsize=272
+2023-11-01 10:55:28,797 [Process-42240] INFO     [Thread0]    
+2023-11-01 10:55:28,797 [Process-42240] INFO     [Thread0]    imginfo.size=45256, RemainLen=45256, Offset=0
+2023-11-01 10:55:28,798 [Process-42240] INFO     [Thread0]    {HTNB32L-XXX-Driver_Example.bin-percent files transferred   0%}
+2023-11-01 10:55:28,798 [Process-42240] INFO     [Thread0]    
+2023-11-01 10:55:28,799 [Process-42240] INFO     [Thread0]    Preamble Send
+2023-11-01 10:55:28,806 [Process-42240] INFO     [Thread0]    Preamble Received Rsp
+2023-11-01 10:55:28,817 [Process-42240] INFO     [Thread0]    imginfo.size=45256, RemainLen=44984, Offset=272
+2023-11-01 10:55:28,818 [Process-42240] INFO     [Thread0]    {HTNB32L-XXX-Driver_Example.bin-percent files transferred   0%}
+2023-11-01 10:55:28,819 [Process-42240] INFO     [Thread0]    
+2023-11-01 10:55:28,819 [Process-42240] INFO     [Thread0]    Preamble Send
+2023-11-01 10:55:29,223 [Process-42240] INFO     [Thread0]    Preamble Received Rsp
+2023-11-01 10:55:30,074 [Process-42240] INFO     [Thread0]    imginfo.size=45256, RemainLen=0, Offset=272
+2023-11-01 10:55:30,075 [Process-42240] INFO     [Thread0]    {HTNB32L-XXX-Driver_Example.bin-percent files transferred   100%}
+2023-11-01 10:55:30,075 [Process-42240] INFO     [Thread0]    
+2023-11-01 10:55:30,076 [Process-42240] INFO     [Thread0]    TryDownload success
+2023-11-01 10:55:30,077 [Process-42240] INFO     [Thread0]    Burn OK!
+2023-11-01 10:55:30,077 [Process-42240] INFO     [Thread0]    ProcessEnd[36328]
+2023-11-01 10:55:30,077 [Process-42240] INFO     [FlashToolCLI]    Burnbatch OK, imglist ['bootloader', 'system']

@@ -89,8 +89,8 @@ ________________________________________________________________________________
 #define RTE_SPI0_IO_MODE        POLLING_MODE
 #define RTE_SPI1_IO_MODE        POLLING_MODE
 
-#define I2C0_INIT_MODE          POLLING_MODE
-#define I2C1_INIT_MODE          POLLING_MODE
+#define RTE_I2C0_IO_MODE          IRQ_MODE
+#define RTE_I2C1_IO_MODE          POLLING_MODE
 
 
 // I2C0 (Inter-integrated Circuit Interface) [Driver_I2C0]
