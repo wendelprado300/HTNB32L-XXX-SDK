@@ -55,16 +55,3 @@ $(BUILDDIR)/lib/liblwip.a: $(LWIP_COBJS)
 	$(Q)$(AR) -cr $@ $^
 
 endif
-
-ifeq ($(TOOLCHAIN),ARMCC)
-
-CFLAGS_INC += -I $(TOP)/SDK/PLAT/os/freertos/portable/keil
-
-lib-y += liblwip.lib
-
-$(BUILDDIR)/lib/liblwip.lib: $(LWIP_COBJS)
-	@mkdir -p $(dir $@)
-	$(ECHO) AR $@
-	$(Q)$(AR) $(ARFLAGS) $@ $^
-
-endif

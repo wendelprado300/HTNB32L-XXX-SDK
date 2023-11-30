@@ -134,7 +134,7 @@ consisting of 0 octets is not used,so not consider this case here*/
 #define IE_MAX_TFT_IE_SIZE               255
 #define IE_MAX_ROHC_IE_SIZE              255
 #define IE_GRPS_TIMER_3_SIZE             1
-#define MAX_AUTH_STR_LEN_SIZE            20
+#define MAX_AUTH_STR_LEN_SIZE            81
 
 
 #define MAX_FORBIDDEN_TAI_NUM_STORED_IN_TINY_CTX    3
@@ -2190,7 +2190,7 @@ typedef struct PacketFilterListTag
     UINT32      LocalPortRangeType  : 2; //PortTypeInTft
     UINT32      remotePortPresent   : 1;
     UINT32      remotePortRangeType : 2; //PortTypeInTft
-    UINT32      reserved1           : 2;
+    UINT32      cid                 : 4;
 
     /*
      * 0 1 1 1 0 0 0 0: Type of service/Traffic class type
@@ -2313,9 +2313,12 @@ typedef struct EsmBearerTinyCtxTag
     UINT16                  splmnRateCtrl;     /*Serving PLMN rate control 2 octets*/
 
     PsPdnIpAddr             dnsAddr[PDN_MAX_NW_ADDR_NUM];   //20*4 = 80 bytes
+    PsPdnIpAddr             gwIpv4Addr;
 
     APNRateControl              APNRC;
     AdditionalAPNRateControl    additionalAPNRC;
+    UINT32                  NSLPIPresent:1;
+    UINT32                  NSLPI:1;
 }EsmBearerTinyCtx;
 
 
@@ -2481,8 +2484,6 @@ typedef struct BearerResourceRequestTag
 	BOOL isesmcause97;
 	Plmn plmn;
 }BearerResourceRequest;
-
-//static BearerResourceRequest *pBearerReq; //HBG
 
 typedef struct ESMInformationRequestTag
 {

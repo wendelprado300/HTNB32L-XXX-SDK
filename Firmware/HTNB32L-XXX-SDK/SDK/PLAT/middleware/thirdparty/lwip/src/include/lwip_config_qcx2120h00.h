@@ -82,8 +82,11 @@
 #define TCP_DEBUG_PCB_LISTS 1
 
 /* The maximum segment lifetime in milliseconds */
+#if (RTE_PPP_EN==0)
 #define TCP_MSL 2500UL
-
+#else
+#define TCP_MSL 35000UL
+#endif
 /*indication whether clear DNS cache when UE link down*/
 #define LINK_DOWN_NEED_CLEAR_DNS_CACHE 0
 
@@ -114,7 +117,11 @@
    ------------------------------------
 */
 #if !defined PPP_SUPPORT || defined __DOXYGEN__
+#if (RTE_PPP_EN==1)
+#define PPP_SUPPORT                          1
+#else
 #define PPP_SUPPORT                          0
+#endif
 #endif
 
  /*
@@ -395,7 +402,7 @@
  * this should be set high.
  */
 #if !defined MEMP_NUM_PBUF || defined __DOXYGEN__
-#define MEMP_NUM_PBUF                   8
+#define MEMP_NUM_PBUF                   12
 #endif
 
 /**
@@ -412,7 +419,7 @@
  * (requires the LWIP_UDP option)
  */
 #if !defined MEMP_NUM_UDP_PCB || defined __DOXYGEN__
-#define MEMP_NUM_UDP_PCB                7
+#define MEMP_NUM_UDP_PCB                14
 #endif
 
 /**
@@ -420,7 +427,7 @@
  * (requires the LWIP_TCP option)
  */
 #if !defined MEMP_NUM_TCP_PCB || defined __DOXYGEN__
-#define MEMP_NUM_TCP_PCB                5
+#define MEMP_NUM_TCP_PCB                12
 #endif
 
 /**
@@ -444,7 +451,7 @@
  * reassembly (whole packets, not fragments!)
  */
 #if !defined MEMP_NUM_REASSDATA || defined __DOXYGEN__
-#define MEMP_NUM_REASSDATA              5
+#define MEMP_NUM_REASSDATA              25
 #endif
 
 /**
@@ -455,7 +462,7 @@
  * returns.
  */
 #if !defined MEMP_NUM_FRAG_PBUF || defined __DOXYGEN__
-#define MEMP_NUM_FRAG_PBUF              8
+#define MEMP_NUM_FRAG_PBUF              25
 #endif
 
 /**
@@ -465,7 +472,7 @@
  * (requires the ARP_QUEUEING option)
  */
 #if !defined MEMP_NUM_ARP_QUEUE || defined __DOXYGEN__
-#define MEMP_NUM_ARP_QUEUE              8
+#define MEMP_NUM_ARP_QUEUE              32
 #endif
 
 /**
@@ -492,7 +499,7 @@
  * (only needed if you use the sequential API, like api_lib.c)
  */
 #if !defined MEMP_NUM_NETBUF || defined __DOXYGEN__
-#define MEMP_NUM_NETBUF                 7
+#define MEMP_NUM_NETBUF                 24
 #endif
 
 /**
@@ -500,7 +507,7 @@
  * (only needed if you use the sequential API, like api_lib.c)
  */
 #if !defined MEMP_NUM_NETCONN || defined __DOXYGEN__
-#define MEMP_NUM_NETCONN                7
+#define MEMP_NUM_NETCONN                14
 #endif
 
 /**
@@ -509,7 +516,7 @@
  * (only needed if you use tcpip.c)
  */
 #if !defined MEMP_NUM_TCPIP_MSG_API || defined __DOXYGEN__
-#define MEMP_NUM_TCPIP_MSG_API          10
+#define MEMP_NUM_TCPIP_MSG_API          24
 #endif
 
 /**
@@ -741,7 +748,7 @@
  * in this time, the whole packet is discarded.
  */
 #if !defined IP_REASS_MAXAGE || defined __DOXYGEN__
-#define IP_REASS_MAXAGE                 3
+#define IP_REASS_MAXAGE                 5
 #endif
 
 /**
@@ -751,7 +758,7 @@
  * packets even if the maximum amount of fragments is enqueued for reassembly!
  */
 #if !defined IP_REASS_MAX_PBUFS || defined __DOXYGEN__
-#define IP_REASS_MAX_PBUFS              8
+#define IP_REASS_MAX_PBUFS              50
 #endif
 
 /**
@@ -1080,7 +1087,7 @@
  * DNS_SERVER_ADDRESS(ipaddr), where 'ipaddr' is an 'ip_addr_t*'
  */
 #if !defined DNS_MAX_SERVERS || defined __DOXYGEN__
-#define DNS_MAX_SERVERS                 8
+#define DNS_MAX_SERVERS                 12            //multiple(3) pdn case
 #endif
 
 /** DNS do a name checking between the query and the response. */
@@ -1211,7 +1218,11 @@
  * will be TCP_WND >> TCP_RCV_SCALE
  */
 #if !defined TCP_WND || defined __DOXYGEN__
+#if (RTE_PPP_EN==0)
 #define TCP_WND                         (8 * TCP_MSS)
+#else
+#define TCP_WND                         (6 * 1024) //6*TCP_MSS
+#endif
 #endif
 
 /**
@@ -1708,7 +1719,7 @@
  * sys_mbox_new() when tcpip_init is called.
  */
 #if !defined TCPIP_MBOX_SIZE || defined __DOXYGEN__
-#define TCPIP_MBOX_SIZE                 10
+#define TCPIP_MBOX_SIZE                 24
 #endif
 
 /**
@@ -1775,7 +1786,7 @@
  * to sys_mbox_new() when the recvmbox is created.
  */
 #if !defined DEFAULT_RAW_RECVMBOX_SIZE || defined __DOXYGEN__
-#define DEFAULT_RAW_RECVMBOX_SIZE       8
+#define DEFAULT_RAW_RECVMBOX_SIZE       16
 #endif
 
 /**
@@ -1784,7 +1795,7 @@
  * to sys_mbox_new() when the recvmbox is created.
  */
 #if !defined DEFAULT_UDP_RECVMBOX_SIZE || defined __DOXYGEN__
-#define DEFAULT_UDP_RECVMBOX_SIZE       8
+#define DEFAULT_UDP_RECVMBOX_SIZE       16
 #endif
 
 /**
@@ -1793,7 +1804,7 @@
  * to sys_mbox_new() when the recvmbox is created.
  */
 #if !defined DEFAULT_TCP_RECVMBOX_SIZE || defined __DOXYGEN__
-#define DEFAULT_TCP_RECVMBOX_SIZE       8
+#define DEFAULT_TCP_RECVMBOX_SIZE       16
 #endif
 
 /** DEFAULT_NONIP_RECVMBOX_SIZE - Mailbox for NIDD Sockets */
@@ -1977,7 +1988,11 @@
  * If LWIP_SO_RCVBUF is used, this is the default value for recv_bufsize.
  */
 #if !defined RECV_BUFSIZE_DEFAULT || defined __DOXYGEN__
+#if (RTE_PPP_EN==1)
+#define RECV_BUFSIZE_DEFAULT            (6 * 1024)
+#else
 #define RECV_BUFSIZE_DEFAULT            INT_MAX
+#endif
 #endif
 
 /**
@@ -2441,7 +2456,7 @@
  * MEMP_NUM_ND6_QUEUE: Max number of IPv6 packets to queue during MAC resolution.
  */
 #if !defined MEMP_NUM_ND6_QUEUE || defined __DOXYGEN__
-#define MEMP_NUM_ND6_QUEUE              5
+#define MEMP_NUM_ND6_QUEUE              15
 #endif
 
 /**
@@ -3037,5 +3052,112 @@
 /**
  * @}
  */
+#if (RTE_PPP_EN==1)
 
+#if !defined LAN_NETIF_DEFAULT_MTU || defined __DOXYGEN__
+#define LAN_NETIF_DEFAULT_MTU                 1500
+#endif
+
+#define TCPIP_ENABLE_PORT_MGR 1
+
+/*define dump log IP packet max size*/
+#define TCPIP_MAX_IP_PKG_DUMP_LEN   90
+
+/*define dump log ETHER packet max size*/
+#define TCPIP_MAX_ETH_PKG_DUMP_LEN   100
+
+/* PDP CID: [0:15], not change this MARCO here, if need to limited the CID, please limit it in AT layer*/
+#define LWIP_PS_MIN_VALID_CID   0   //CMI_PS_MIN_VALID_CID
+
+#define LWIP_PS_MAX_VALID_CID   15  //CMI_PS_MAX_VALID_CID
+
+#define LWIP_PS_DEFAULT_CID     0   /* default CID, if can't find the NETIF via CID, and the input CID is 0, then try the default netif */
+
+#define LWIP_PS_INVALID_CID     0xFF //CMI_PS_INVALID_CID
+
+#define LWIP_PS_CID_BIND_NONE   0xFF
+
+#define LWIP_CHECK_CID_VALID(cid)   ((UINT32)(cid) <= LWIP_PS_MAX_VALID_CID)
+
+#define LWIP_USE_PS_DL_PKG_MEM       1
+
+#define LWIP_ENABLE_IPV6_RA_SERVER   1
+
+#ifdef LWIP_ENABLE_IPV6_RA_SERVER
+#define LWIP_IP6_RA_SERVER_HOPLIMIT 255
+#define LWIP_IP6_RA_DEFAULT_PREFERENCE 1
+#define LWIP_IP6_RA_DEFAULT_PREFIX_LEN 64
+#define LWIP_IP6_RA_MAX_RTR_ADV_INTERVAL 600  //seconds
+#define LWIP_IP6_RA_MIN_RTR_ADV_INTERVAL 180 //seconds
+#define LWIP_IP6_RA_MAX_RDNSS_NUM 2
+#endif
+
+//#if DHCPD_ENABLE_DEFINE
+#define LWIP_ENABLE_PPP_RNDIS_LAN 1
+//#endif
+
+#define LWIP_LAN_NET_CHANNEL_NUM          2
+
+#define LWIP_LAN_RNDIS_PRIVATE_IP_DNS_RELAY 1
+
+#define LWIP_ENABLE_WAN_LINK_UP_UPDATE_LAN 0
+
+
+
+/*rndis lan netif local ipv4 address*/
+#define LWIP_LAN_RNDIS_LOCAL_IPV4_ADDRESS "192.168.10.1"
+
+#define LWIP_LAN_RNDIS_HOST_PRIVATE_IPV4_ADDRESS "192.168.10.100"
+
+#define LWIP_LAN_RNDIS_PRIAVTE_IP_DNS_RELAY_SERVER_1 "192.168.10.2"
+
+#define LWIP_LAN_RNDIS_PRIAVTE_IP_DNS_RELAY_SERVER_2 "192.168.10.3"
+
+ /*PPP lan netif local ipv4 address*/
+#define LWIP_LAN_PPP_LOCAL_IPV4_ADDRESS "192.168.20.1"
+
+#define LWIP_LAN_PPP_HOST_PRIVATE_IPV4_ADDRESS "192.168.20.100"
+
+#define LWIP_LAN_PPP_PRIAVTE_IP_DNS_RELAY_SERVER_1 "192.168.20.2"
+
+#define LWIP_LAN_PPP_PRIAVTE_IP_DNS_RELAY_SERVER_2 "192.168.20.3"
+
+
+#define LWIP_LAN_IPV6_RA_DEFAULT_ROUTER_LIFE_TIME 65535 //seconds
+
+#define NM_PDN_TYPE_MAX_DNS_NUM     2
+#define NM_MAX_DNS_NUM              4
+
+#if !defined LWIP_ARP_RETRY_TIME || defined __DOXYGEN__
+#define LWIP_ARP_RETRY_TIME                        3
+#endif
+
+#if !defined LWIP_ARP_RETRY_INTERVAL || defined __DOXYGEN__
+#define LWIP_ARP_RETRY_INTERVAL                        3
+#endif
+
+#if !defined LWIP_DHCPD || defined __DOXYGEN__
+#define LWIP_DHCPD                       1
+#endif
+
+#if LWIP_DHCPD
+#define DHCP_CLIENT_PORT  68
+#define DHCP_SERVER_PORT  67
+#endif
+
+#if LWIP_DHCPD
+#if LWIP_ENABLE_PPP_RNDIS_LAN
+#define LWIP_IP_ACCEPT_UDP_PORT(port) ((port) == PP_HTONS(DHCP_SERVER_PORT))
+#endif
+#endif
+
+#if !defined TCP_DELAY_ACK_TIMER || defined __DOXYGEN__
+#define TCP_DELAY_ACK_TIMER 250
+#endif
+
+#if !defined LWIP_ND6_NS_RETRY_TIME || defined __DOXYGEN__
+#define LWIP_ND6_NS_RETRY_TIME 3000
+#endif
+
+#endif
 #endif /* LWIP_HDR_CONFIG_H */

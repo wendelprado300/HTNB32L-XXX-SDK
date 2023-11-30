@@ -20,10 +20,7 @@
 #include "ip_addr.h"
 #include "pssys.h"
 #include "lwip/opt.h"
-
-#if defined CHIP_QCX212 || defined CHIP_QCX212_Z0
 #include "ecpm_qcx212_external.h"
-#endif
 
 /******************************************************************************
  *****************************************************************************

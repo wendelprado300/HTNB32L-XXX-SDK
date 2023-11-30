@@ -35,8 +35,16 @@ endif
 
 PREBUILDLIBS += $(LIBDIR)/PLAT/lib/keil/libdriver_private.lib \
 				$(LIBDIR)/PLAT/lib/keil/libmiddleware_ec_private.lib \
-				$(LIBDIR)/PLAT/lib/keil/libpsnv.lib \
-				$(LIBDIR)/PLAT/lib/keil/libgtplite.lib
+				$(LIBDIR)/PLAT/lib/keil/libpsnv.lib 
+				
+ifeq ($(MIDDLEWARE_CCIO_ENABLE),y)
+PREBUILDLIBS += $(LIBDIR)/PLAT/lib/keil/libccio.lib
+endif
+
+ifeq ($(GTPLITE_ENABLE),y)
+PREBUILDLIBS += $(LIBDIR)/PLAT/lib/keil/libgtplite.lib
+endif
+
 ifeq ($(QC_ROHC_ENABLE),y)
 PREBUILDLIBS += $(LIBDIR)/PLAT/lib/keil/libosa_rohc.lib \
 				$(LIBDIR)/PLAT/lib/keil/librohc.lib 
@@ -52,9 +60,16 @@ endif
 
 ifeq ($(TOOLCHAIN),GCC)
 PREBUILDLIBS += $(LIBDIR)/PLAT/lib/gcc/libdriver_private.a \
-                $(LIBDIR)/PLAT/lib/gcc/libmiddleware_ec_private.a \
-				$(LIBDIR)/PLAT/lib/gcc/libgtplite.a
+                $(LIBDIR)/PLAT/lib/gcc/libmiddleware_ec_private.a 
 
+ifeq ($(MIDDLEWARE_CCIO_ENABLE),y)
+PREBUILDLIBS += $(LIBDIR)/PLAT/lib/gcc/libccio.a 
+endif				
+	
+ifeq ($(GTPLITE_ENABLE),y)
+PREBUILDLIBS += $(LIBDIR)/PLAT/lib/gcc/libgtplite.a 
+endif
+		
 ifeq ($(QC_ROHC_ENABLE),y)
 PREBUILDLIBS += $(LIBDIR)/PLAT/lib/gcc/libosa_rohc.a \
 				$(LIBDIR)/PLAT/lib/gcc/librohc.a 

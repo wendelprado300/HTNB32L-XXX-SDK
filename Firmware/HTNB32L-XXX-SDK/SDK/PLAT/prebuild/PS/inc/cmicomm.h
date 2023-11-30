@@ -15,6 +15,15 @@ History:        - 08/09/2017, Originated by jcweng
 
 #define PS_BROADCAST_IND_HANDLER       0x0001
 
+#if 0
+/*
+ * used in CAC, this reserved for CAC SYNC API
+ * Same defination in: cms_def.h: CAC_CMI_SYNC_REQ_START_HANDLER
+*/
+#define CMI_SYNC_REQ_NUM                16
+#define CMI_SYNC_REQ_START_HANDLER      0x0030
+#define CMI_SYNC_REQ_END_HANDLER        (CMI_SYNC_REQ_START_HANDLER + CMI_SYNC_REQ_NUM - 1)
+#endif
 
 /******************************************************************************
  ******************************************************************************
@@ -257,6 +266,7 @@ typedef enum CACCMISIGID_enum
     SIG_CAC_CMI_CNF, /*in fact need to put into ATCMD task signal definition queue*/
     SIG_CAC_CMI_IND, /*in fact need to put into ATCMD task signal definition queue*/
     SIG_CAC_CMI_RSP,
+//	SIG_CAC_CMI_SYNC_REQ,
     SIG_CAC_CMI_END = 0x11FF,
 }CACCMISIGID;
 
@@ -388,6 +398,27 @@ typedef struct CacCmiRspTag
 
 #define CAC_GET_CMIIND_FROM_BODY(pCmiBody) (CacCmiInd *)(((UINT8 *)(pCmiBody)) - (UINT32)(OFFSETOF(CacCmiInd, body)))
 
+#if 0
+/******************************************************************************
+ * CamCmiReq - SIG_CAM_CMI_SYNC_REQ
+ * CMI interface request, all other module (AT CMD server) use this signal to
+ *  access the CIOT modem, and syn confirm
+******************************************************************************/
+typedef struct CamCmiSyncReqTag
+{
+    osSemaphoreId_t     sem;
+
+    /* output info */
+    UINT32              *pCmiRc;            /* MtErrorResultCode/SmsErrorResultCode */
+    UINT16              cnfBufSize;
+    UINT16              rsvd0;
+    void                *pOutCmiCnf;        /* CMI confirm struct, CMI CNF, copy to here */
+
+    /* input info */
+    CacCmiReq           cmiReq;
+}CamCmiSyncReq;
+
+#endif
 
 /******************************************************************************
  * If no parameters carried in signal, just pass a reserved Int32

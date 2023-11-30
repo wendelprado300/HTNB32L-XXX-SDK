@@ -194,6 +194,12 @@ typedef enum CeNasTimerIdEnum_Tag
  * STRUCT
  *****************************************************************************
 ******************************************************************************/
+typedef struct CenasHibTimer_Tag
+{
+    UINT32              timerPeriod;
+    OsaHibTimerId       hibTimerId;
+}
+CenasHibTimer;
 
 typedef struct CenasTimer_Tag
 {
@@ -203,12 +209,15 @@ typedef struct CenasTimer_Tag
 }
 CenasTimer;
 
-typedef struct CenasHibTimer_Tag
+typedef struct PsApnEntityTag
 {
-    UINT32              timerPeriod;
-    OsaHibTimerId       hibTimerId;
-}
-CenasHibTimer;
+    BOOL             t3396Running;
+    BOOL             ApnBarred;
+    UINT16           reserved;
+    CenasTimer       t3396;
+    AccessPointName  apn;
+}PsApnEntity;
+
 
 
 /******************************************************************************
@@ -308,6 +317,9 @@ typedef struct CeNasTinyContext_Tag
     UINT32                  cePlmnHbOosTimerTimes : 2;
     UINT32                  cePlmnHbHplmnTimerTimes : 2;
     UINT32                  rplmnType : 3;              /* PlmnType, indicated which "PlmnType" of RPLMN*/
+	#if MCC_FEATURE_ENABLED
+	BOOL                    mccPresentSodaqDb;
+	#endif
     /*CE SMS*/
     UINT32                  ceSmsReadyToReceive : 1;
 
@@ -348,6 +360,7 @@ typedef struct CeNasTinyContext_Tag
     */
     Plmn                    plmnList[CE_NAS_TINY_CTX_PLMN_NUM];
     Plmn                    gprsFplmnList[CE_NAS_TINY_CTX_GPRS_FPLMN_NUM];
+	Plmn                    reqPlmn;
 
 
     /*
@@ -400,12 +413,18 @@ do {                                            \
 
 
 #define CENAS_SUB_MOD_NOT_ALLOW_HIBERNATE(subMod) \
-do {                                            \
-    if ((subMod)<32 && (subMod)>=0)             \
-        (ceNasHibernateCtrlBitmap |= (1<<(subMod)));      \
-    else                                                \
-        GosCheck(FALSE, subMod, ceNasHibernateCtrlBitmap, 0); \
-}while(FALSE)
+	do {                                            \
+		if ((subMod)<32 && (subMod)>=0) 	\
+		{				\
+			if(ceNasHibernateCtrlBitmap==0) \
+			{				\
+				pmuVoteToHIBState(PMU_DEEPSLP_PS_CEMM_MOD, FALSE);\
+			}				\
+			(ceNasHibernateCtrlBitmap |= (1<<(subMod)));	\
+		}				\
+		else                                                \
+		GosCheck(FALSE, subMod, ceNasHibernateCtrlBitmap, 0); \
+	}while(FALSE)
 
 
 /******************************************************************************

@@ -10,13 +10,22 @@
  ******************************************************************************
 ******************************************************************************/
 #include "pspdu.h"
-
+#if (RTE_PPP_EN==1)
+#define PS_DLPDUBLOCK_SIZE sizeof(DlPduBlock)
+#endif
 typedef enum PsIfRetEnum_Tag
 {
     PSIF_SUCC = 0,
     PSIF_ERROR
 }PsIfRetEnum;
-
+#if (RTE_PPP_EN==1)
+typedef struct PsifDlDataHeader_Tag
+{
+    UINT16 magic; //PS_UL_MAGIC
+    UINT16 dlLen; // UL packet length
+}PsifDlDataHeader;
+#define PBUF_DLRAM_HLEN  (sizeof(PsifDlDataHeader))
+#endif
 typedef UINT8   PsIfRet;
 
 /******************************************************************************
@@ -49,6 +58,9 @@ DlPduBlock *PsifAllocDlIpPkgBlockMem(UINT16 ipPkgLen);
  * if PS found the IP PKG is not right, could free the memory
 */
 void PsifFreeDlIpPkgBlockList(DlPduBlock *pPkgBlock);
+#if (RTE_PPP_EN==1)
+void PsifFreeOneDlIpPkgBlock(DlPduBlock *pPkgBlockHdr);
+#endif
 
 /*
  * LWIP API
@@ -89,7 +101,35 @@ void PsifPsResumeSuspendInd(BOOL bSuspend);
  * Check whether any UL pending(suspended) pkg in LWIP task;
 */
 BOOL PsifAnySuspendULPendingPkg(void);
+#if (RTE_PPP_EN==1)
+void PsifDlPkgListGet(UINT8 cid, DlPduBlock **ppHead);
 
+/*
+ * PSIF API
+ * check whether reserved size (LWIP_PBUF_STRUCT_LEN) is enough for pbuf
+*/
+void PsifPbufSizeCheck(void);
 
+/*
+ * PSIF API
+ * Set and init pbuf struct, which located before "DlPduBlock", called by CEDR, when alloc DL PKG memory
+*/
+void PsifInitPsDlPkgPbuf(DlPduBlock *pDlPduBlk);
+
+/*
+ * PSIF API
+ * Free pbuf which type is: PBUF_PS_DL_PKG, called by: pbuf_free()
+ * input: struct pbuf *p
+*/
+void PsifFreePsDlPkgPbuf(void *pbuf);
+
+UINT16 PsifGetCurrentPacketDelay(void);
+/*
+ * Free all netif TFT packet filter list
+*/
+void PsifNetifTftFree(void *tft_list);
+
+BOOL PsifDlRamCheckHighWater(UINT16 preAllocLength);
+#endif
 #endif
 

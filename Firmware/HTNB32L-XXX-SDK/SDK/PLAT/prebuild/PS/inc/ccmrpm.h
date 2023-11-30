@@ -18,9 +18,11 @@
 
 #define RPM_VERSION 0x02
 
-#define NO_OF_RPM_FX_COUNTERS         4
+#define NO_OF_RPM_FX_COUNTERS         5
 
 #define NO_OF_CPDP_COUNTERS           4
+
+#define INVALID_TIMER 0xffffffffL
 
 /******************************************************************************
  *****************************************************************************
@@ -34,15 +36,15 @@ typedef struct CcmRpmParamTag
     BOOL                 rpmFlag;
     /* Max no of SW resets per Hour allowed by RPM following “permanent” EMM reject */
     UINT8                N1;
-	/* Average time before RPM resets modem following permanent EMM reject */
+    /* Average time before RPM resets modem following permanent EMM reject */
     UINT8                T1;
     /* Average time before RPM resets modem following permanent EMM reject if T1 = 0xFF */
     UINT8                T1_ext;
-	
-	/* Fx[0]: Max number of PDN Connectivity Requests per Hour allowed by RPM following a PDP Activation Ignore Scenario */     
-	/* Fx[1]: Max number of PDN Connectivity Requests per Hour allowed by RPM following a “Permanent” PDP Activation Reject */
-	/* Fx[2]: Max number of PDN Connectivity Requests per Hour allowed by RPM following a “Temporary” PDP Activation Reject */
-	/* Fx[3]: Max number of PDN Connectivity Activation/ Deactivation Requests per Hour allowed by RPM */
+    
+    /* Fx[0]: Max number of PDN Connectivity Requests per Hour allowed by RPM following a PDP Activation Ignore Scenario */     
+    /* Fx[1]: Max number of PDN Connectivity Requests per Hour allowed by RPM following a “Permanent” PDP Activation Reject */
+    /* Fx[2]: Max number of PDN Connectivity Requests per Hour allowed by RPM following a “Temporary” PDP Activation Reject */
+    /* Fx[3]: Max number of PDN Connectivity Activation/ Deactivation Requests per Hour allowed by RPM */
     UINT8                Fx[NO_OF_RPM_FX_COUNTERS]; 
 }
 CcmRpmParam;
@@ -77,7 +79,8 @@ typedef enum CcmRpmCounterEnum_Tag
     RPM_COUNTER_F1 = 0,
     RPM_COUNTER_F2 = 1,  
     RPM_COUNTER_F3 = 2,
-    RPM_COUNTER_F4 = 3
+    RPM_COUNTER_F4 = 3,
+    RPM_COUNTER_F4_att = 4
 }CcmRpmCounterEnum;
 
 typedef struct CcmRpmHibTimer_Tag
@@ -91,23 +94,25 @@ typedef struct CcmRpmTimerInformationTag
 {
     CcmRpmHibTimer      t1;          //if T1 equal 0xFF, T1_ext will be used as timer period
     CcmRpmHibTimer      LR2Timer;
-	CcmRpmHibTimer      LR3Timer;
+    CcmRpmHibTimer      LR3Timer;
 }
 CcmRpmTimerInformation;
 
 typedef struct CcmRpmContext_Tag
 {
     UINT8                     rpmVersion;
+    BOOL                     isDtSimCard;
+    BOOL                     rpmParamsPresentOnSimCard;
+    BOOL                     rpmTriggeredAirplaneToggle;
     CcmRpmParam               rpmParam;
     CcmRpmOmCounter           omCounter;
     CcmRpmOmCountersLeakRate  omCountersLeakRate;
     CcmRpmTimer               rpmTimer[NO_OF_RPM_FX_COUNTERS];
-	CcmRpmTimerInformation    rpmTimerInformation;
+    CcmRpmTimer               rpmN1Timer;
+    CcmRpmTimer               rpmTimerFxTimeElapsed[NO_OF_RPM_FX_COUNTERS];
+    CcmRpmTimer               n1TimerTimeElapased;
+    CcmRpmTimerInformation    rpmTimerInformation;
 }CcmRpmContext;
-
-
-
-
 
 
 /******************************************************************************
@@ -121,22 +126,38 @@ BOOL CcmRpmIsRpmEnabled(void);
 void CcmRpmHibTimerExpiry(UINT16 hibTimerId);
 void CcmRpmCheckEsmRejCause(UINT16 esmCause);
 void CcmRpmCheckEmmRejCause(UINT16 emmCause);
-void CcmRpmIncrementF4(void);
-BOOL CcmRpmAllowActEpsBearerReq(void);
+void CcmRpmIncrementF4(CcmRpmCounterEnum rpmCnt, BOOL updateNvm);
+BOOL CcmRpmAllowActEpsBearerReq(BOOL updateCounter);
 void CcmRpmResetRpmCounters(void);
-void CcmRpmResetRpmCountersExceptF4(void);
+void CcmRpmResetRpmCountersExceptF4(BOOL updateNvm);
 void CcmRpmDeepSlpEnterCallBack(void);
 
 void CcmRpmProcSimRpmParamInd(UINT8 srcId, UINT8 argv1, UINT16 argv2, UINT32 argv3, void* argv);
 void CcmRpmSimNokIndMsg(UINT8 srcId, UINT8 argv1, UINT16 argv2, UINT32 argv3, void* argv);
-void CcmRpmSimChangeIndMsg(UINT8 srcId, UINT8 argv1, UINT16 argv2, UINT32 argv3, void* argv);
+void CcmRpmSimChangeIndMsg(BOOL isSimChanged);
+
 void CcmRegProcSimRefreshIndMsg(UINT8 srcId, UINT8 argv1, UINT16 argv2, UINT32 argv3, void* argv);
 void CcmRpmOperatorConfigMsg(UINT8 srcId, UINT8 argv1, UINT16 argv2, UINT32 argv3, void* argv);
-
 
 void CcmRpmGetRpmParamInfoReq(void);
 
 void CcmRpmGetRpmVersionReq(void);
+void CcmRpmSetRpmParamInfoReq(CmiDevSetRpmParamReq *pSetRpmParamReq);
+
+BOOL CcmRpmGetRpmEnabled(void);
+
+BOOL CcmRpmIsDtSimCard(void);
+
+BOOL CcmRpmCheckN1Validation(BOOL powerup, UINT8 cfun);
+
+BOOL CcmRpmIsRpmTriggeredAirplaneToggle(void);
+
+void CcmRpmTurnRpmAirplaneToggleOff(void );
+
+BOOL CcmRpmCheckFxValidation(UINT8 counterId, BOOL powerUp);
+
+void CcmRpmResetN1(BOOL updateNvm);
+
 
 #endif
 

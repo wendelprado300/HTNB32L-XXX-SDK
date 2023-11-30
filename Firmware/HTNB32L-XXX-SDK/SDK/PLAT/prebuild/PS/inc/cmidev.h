@@ -168,7 +168,25 @@ typedef enum CMI_DEV_PRIM_ID_TAG
 
     CMI_DEV_GET_ROAMING_DATA_REQ, //AT$QCROAMINGDATA?
     CMI_DEV_GET_ROAMING_DATA_CNF,
-    
+
+	CMI_DEV_SET_CIOT_MCC_BAND_REQ, //AT$QCMCCBAND
+    CMI_DEV_SET_CIOT_MCC_BAND_CNF,
+    CMI_DEV_GET_CIOT_MCC_BAND_REQ,
+    CMI_DEV_GET_CIOT_MCC_BAND_CNF,
+    CMI_DEV_GET_CIOT_MCC_BAND_CAPA_REQ,
+    CMI_DEV_GET_CIOT_MCC_BAND_CAPA_CNF,
+	
+    CMI_DEV_SET_PLMN_LIST_REQ, //AT$QCDTRPM=
+	CMI_DEV_SET_PLMN_LIST_CNF,
+
+	CMI_DEV_GET_PLMN_LIST_REQ,//AT$QCDTRPM?
+	CMI_DEV_GET_PLMN_LIST_CNF, 
+
+	CMI_DEV_SET_RPM_PARAM_INFO_REQ,//AT+RPMPARAM=
+	CMI_DEV_SET_RPM_PARAM_INFO_CNF,
+
+    CMI_DEV_DETECT_EVENT_IND,     //CmiDevDetectEventInd
+
     CMI_DEV_PRIM_END = 0x0fff
 }CMI_DEV_PRIM_ID;
 
@@ -246,6 +264,11 @@ typedef enum CMIDEVNWMODE_TAG
     CMI_DEV_NB_MODE = 0
 }CMIDEVNWMODE;
 
+typedef enum CMIDEVMCCFEATURE_TAG
+{
+    CMI_DEV_MCC_FEATURE_DISABLE= 0,
+	CMI_DEV_MCC_FEATURE_ENABLE
+}CMIDEVMCCFEATUREMODE;
 
 #define CMI_DEV_SUPPORT_MAX_BAND_NUM 32
 typedef struct CmiDevSetCiotBandReq_Tag
@@ -260,8 +283,33 @@ typedef struct CmiDevSetCiotBandReq_Tag
     UINT8   orderedBand[CMI_DEV_SUPPORT_MAX_BAND_NUM];
 }CmiDevSetCiotBandReq;  //20 bytes
 
+typedef struct CmiDevSetCiotMccBandReq_Tag
+{
+    UINT8   mccNum;
+	UINT8   bandNum;
+    UINT16   mcc[10];
+    UINT8   orderedBand[CMI_DEV_SUPPORT_MAX_BAND_NUM];
+	UINT16  reserved1;
+}CmiDevSetCiotMccBandReq;
+
+/******************************************************************************
+ * CMI_DEV_GET_CIOT_BAND_REQ
+ *  $QCBAND=<mode>,<band1>,<band2>,<band3>...
+******************************************************************************/
+typedef CacCmiEmptySig CmiDevGetMccBandReq;
+
+typedef struct CmiDevGetMccBandCnf_Tag
+{
+	UINT8 Mode; 
+    UINT16 Mcc;
+    UINT8   bandNum;
+    UINT8   reserved[3];
+    UINT8   orderedBand[CMI_DEV_SUPPORT_MAX_BAND_NUM];
+}CmiDevGetMccBandCnf;
+
 
 typedef CacCmiEmptySig CmiDevSetCiotBandCnf;
+typedef CacCmiEmptySig CmiDevSetCiotMccBandCnf;
 
 /******************************************************************************
  * CMI_DEV_GET_CIOT_BAND_REQ
@@ -276,6 +324,16 @@ typedef struct CmiDevGetCiotBandCnf_Tag
     UINT16  reserved;
     UINT8   orderedBand[CMI_DEV_SUPPORT_MAX_BAND_NUM];
 }CmiDevGetCiotBandCnf;
+
+typedef struct CmiDevGetCiotMccBandCnf_Tag
+{
+	UINT16  Mcc[10];
+	UINT8   mccNum;
+    UINT8   bandNum[CMI_DEV_SUPPORT_MAX_BAND_NUM];
+    UINT16  reserved;
+    UINT8   orderedBand[CMI_DEV_SUPPORT_MAX_BAND_NUM][CMI_DEV_SUPPORT_MAX_BAND_NUM];
+}CmiDevGetCiotMccBandCnf;
+
 
 
 /******************************************************************************
@@ -442,8 +500,10 @@ typedef struct CmiDevSetExtCfgReq_Tag
     BOOL    ipv6GetPrefixTimePresent;
     UINT8   rsvd1;
     UINT16  ipv6GetPrefixTime;          //the maximum time of getting IPv6 prefix
-
-
+    #if (RTE_PPP_EN==1)
+	BOOL    tcpTptOptPresent;
+    UINT8   bTcpTptOpt;  //whether enable TCP throughput optimization
+    #endif
     /* EMM */
     BOOL    supportSmsPresent;
     BOOL    supportSms;
@@ -466,6 +526,8 @@ typedef struct CmiDevSetExtCfgReq_Tag
 
     BOOL    overrideLrplmnsiPresent;
     BOOL    overrideLrplmnsi;
+	BOOL    EnableHPPlmnSearchPresent;
+    UINT8   EnableHPPlmnSearch;
 
     /* ERRC */
     BOOL    multiCarrierPresent;
@@ -517,6 +579,8 @@ typedef struct CmiDevSetExtCfgReq_Tag
     BOOL    SupportMultiCarrierPagingPresent;
     BOOL    SupportMultiCarrierPaging;
 
+	BOOL    bEnableHPPlmnSearchPresent;
+    UINT8   bEnableHPPlmnSearch;
     BOOL    CpReestablishmentPresent;
     BOOL    CpReestablishment;
 }CmiDevSetExtCfgReq;    // 32 bytes
@@ -547,7 +611,9 @@ typedef struct CmiDevGetExtCfgCnf_Tag
     BOOL    enableBip;              //+NCONFIG:ENABLE_BIP, XX
     BOOL    enableSimPsm;           //$QCCFG:USIMPOWERSAVE, XX /+NCONFIG:NAS_SIM_POWER_SAVING_ENABLE, XX
     UINT16  ipv6GetPrefixTime;      //+NCONFIG:IPV6_GET_PREFIX_TIME, XX
-
+    #if (RTE_PPP_EN==1)
+    UINT8   bTcpTptOpt;
+    #endif
     /* EMM */
     BOOL    supportSms;
     BOOL    tauForSms;
@@ -559,6 +625,9 @@ typedef struct CmiDevGetExtCfgCnf_Tag
     UINT8   dnsIpv4AddrReadCfg;     //+NCPCDPR:0,XX
     UINT8   dnsIpv6AddrReadCfg;     //+NCPCDPR:1,XX
     BOOL    overrideLrplmnsi;
+	UINT8   EnableHPPlmnSearch;
+	UINT8   bEnableHPPlmnSearch;
+	
     UINT16  rsvd0;
 
     /* ERRC */
@@ -2321,6 +2390,7 @@ typedef struct CmiDevBandApnAutoCfgReqInd_Tag
 {
     BOOL        bCfgApn;
     BOOL        bCfgBand;
+    UINT16      rsvd0;
 
     /*
      * IMSI
@@ -2829,6 +2899,133 @@ typedef struct CmiDevGetRoamingDataCnf_Tag
     BOOL RoamData;
 }CmiDevGetRoamingDataCnf;
 
+/******************************************************************************
+ * CMI_DEV_GET_PLMN_LIST_REQ
+******************************************************************************/
+typedef CacCmiEmptySig CmiDevGetPlmnListReq;
+
+/******************************************************************************
+ * CMI_DEV_GET_PLMN_LIST_CNF
+******************************************************************************/
+#define MAX_TABLE_LEN 30
+
+typedef struct CmiDevGetPlmnListCnf_Tag
+{
+	UINT8 listLen;
+	CmiNumericPlmn plmnList[MAX_TABLE_LEN];
+}CmiDevGetPlmnListCnf;
+
+
+/******************************************************************************
+ * CMI_DEV_SET_PLMN_LIST_REQ
+******************************************************************************/
+typedef struct CmiDevSetPlmnListCnf_Tag
+{
+    UINT8   ret; //CmiFuncValueEnum
+    UINT8   reserved0;
+    UINT16  reserved1;
+}CmiDevSetPlmnListCnf;
+
+
+typedef struct CmiDevSetPlmnListReq_Tag
+{
+	UINT8 operation; // 0: Delete, 1: Add
+	CmiNumericPlmn uPlmn; 
+}CmiDevSetPlmnListReq;
+
+typedef CacCmiEmptySig CmiDevSetUpdatePlmnListCnf;
+
+/******************************************************************************
+ * CMI_DEV_SET_RPM_PARAM_INFO_REQ
+******************************************************************************/
+typedef struct CmiDevSetRpmParamReq_Tag
+{
+	/* RPM functionality enabled or disabled at power up */
+    BOOL                 rpmFlagPresent;
+    BOOL                 rpmFlag;
+
+    /* Max no of SW resets per Hour allowed by RPM following permanent EMM reject */
+	BOOL                 N1Present;
+    UINT8                N1;
+
+    /* Average time before RPM resets modem following permanent EMM reject */
+	BOOL                 T1Present;
+    UINT8                T1;
+
+	/* Average time before RPM resets modem following permanent EMM reject if T1 = 0xFF */
+	BOOL                 T1_extPresent;
+    UINT8                T1_ext;
+	
+	/* Max number of PDN Connectivity Requests per Hour allowed by RPM following PDP Activation Ignore Scenario */
+	BOOL                 F1Present;
+    UINT8                F1;
+
+    /* Max number of PDN Connectivity Requests per Hour allowed by RPM following Permanent PDP Activation Reject */
+	BOOL                 F2Present;
+    UINT8                F2;
+
+	/* Max number of PDN Connectivity Requests per Hour allowed by RPM following Temporary PDP Activation Reject */
+	BOOL                 F3Present;
+    UINT8                F3;
+
+    /* Max number of PDN Connectivity Activation/ Deactivation Requests per Hour allowed by RPM */
+	BOOL                 F4Present;
+    UINT8                F4;
+	
+	
+}CmiDevSetRpmParamReq;
+
+/******************************************************************************
+ * CMI_DEV_SET_RPM_PARAM_INFO_CNF
+******************************************************************************/
+typedef CacCmiEmptySig CmiDevSetRpmParamCnf;
+
+#define CMI_DEV_MAX_SACN_FREQ_RPT_NUM    24
+
+typedef enum CmiDevDetectEventType_Enum
+{
+    CMI_DEV_DETECT_EVENT_TYPE_RSSI_SACN  = 0,
+    CMI_DEV_DETECT_EVENT_TYPE_SYS_INFO_DEC_FAIL = 1
+}CmiDevDetectEventType;
+
+typedef struct CmiDevScanFreqList_Tag
+{
+    UINT32      carrierFreq;    // euArfcn is bit[23:0], [31:24] reprsents carrierFreqOffset
+    UINT8       freqScore;      // range in 0 ~ 255
+    UINT8       rsvd[3];
+}CmiDevScanFreqList;
+
+typedef struct CmiDevRssiScanInfo_Tag
+{
+    UINT8               freqNum;
+    UINT8               rsvd[3];
+    CmiDevScanFreqList  freqList[CMI_DEV_MAX_SACN_FREQ_RPT_NUM];
+}CmiDevRssiScanInfo;
+
+typedef enum CmiDevSysInfoType_Enum
+{
+    CMI_DEV_SYS_INFO_TYPE_MIB  = 0,
+    CMI_DEV_SYS_INFO_TYPE_SIB  = 1,
+}CmiDevSysInfoType;
+
+typedef struct CmiDevSysInfoDecFailInfo_Tag
+{
+    UINT32      carrierFreq;    // euArfcn is bit[23:0], [31:24] reprsents carrierFreqOffset
+    UINT8       sysInfoType;    // CmiDevSysInfoType
+    UINT16      phyCellId;
+    UINT8       rsvd;
+}CmiDevSysInfoDecFailInfo;
+
+typedef struct CmiDevDetectEventInd_Tag
+{
+    UINT8   detectEventType;   /* CmiDevDetectEventType */
+    UINT8   rsvd1[3];
+
+    union {
+        CmiDevRssiScanInfo          rssiSacnInfo;
+        CmiDevSysInfoDecFailInfo    sysInfoDecFail;
+    }event;
+}CmiDevDetectEventInd;
 
 
 #endif

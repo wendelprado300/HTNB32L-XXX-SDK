@@ -53,6 +53,11 @@ extern "C" {
 #ifndef DNS_TMR_INTERVAL
 #define DNS_TMR_INTERVAL          1000
 #endif
+#if (RTE_PPP_EN==1)
+#if ENABLE_PSIF
+#define NETIF_DNS_SERVER_NUM_MAX 4
+#endif
+#endif
 
 /* DNS resolve types: */
 #define LWIP_DNS_ADDRTYPE_IPV4      0
@@ -67,6 +72,14 @@ extern "C" {
 #define LWIP_DNS_ADDRTYPE_DEFAULT   LWIP_DNS_ADDRTYPE_IPV4
 #else
 #define LWIP_DNS_ADDRTYPE_DEFAULT   LWIP_DNS_ADDRTYPE_IPV6
+#endif
+#if (RTE_PPP_EN==1)
+#if ENABLE_PSIF
+struct dns_server_tag {
+    ip_addr_t dns_server; //dns server address
+    struct netif* net_if; // the dns server address belong to
+};
+#endif
 #endif
 
 /** DNS table entry */
@@ -89,7 +102,10 @@ struct dns_table_entry {
 #if LWIP_DNS_SUPPORT_MDNS_QUERIES
   u8_t is_mdns;
 #endif
-
+#if (RTE_PPP_EN==1)
+  //indicate wtherthe disable dns cache
+  u8_t   disable_cache_flag;
+#endif
 #if PS_ENABLE_TCPIP_HIB_SLEEP2_MODE
   u8_t  is_from_hib;
   u32_t active_time;
@@ -98,9 +114,24 @@ struct dns_table_entry {
 #if LWIP_TIMER_ON_DEMOND
   u32_t retry_timeout;
 #endif
-
+#if (RTE_PPP_EN==1)
+ void *netif;
+#endif
 };
 
+#if (RTE_PPP_EN==1)
+struct dns_relay_server_mapping_table
+{
+    ip4_addr_t lan_server;
+    struct dns_server_tag *wan_server;
+};
+
+#define DNS_RELAY_SERVER_NUM 2
+
+struct dns_relay_ip4_server_data {
+    struct dns_relay_server_mapping_table table[DNS_RELAY_SERVER_NUM];
+};
+#endif
 
 #if DNS_LOCAL_HOSTLIST
 /** struct used for local host-list */
@@ -147,6 +178,14 @@ void dns_getadptserver(struct netif *net_if, u8_t type, ip_addr_t serverresult[2
 void dns_get_netif_ipv4_dns_server(struct netif *net_if, ip4_addr_t *p_out_dns, u8_t *in_out_dns_num);
 void dns_get_netif_ipv6_dns_server(struct netif *net_if, ip6_addr_t *p_out_dns, u8_t *in_out_dns_num);
 void dns_clear_cache(u8_t type);
+#if (RTE_PPP_EN==1)
+void dns_clear_entry(char name[DNS_MAX_NAME_LENGTH]);
+void dns_clear_all_entry(void);
+err_t dns_get_dns_server_info(struct netif *netif, UINT8 *serverNum, ip_addr_t servers[NETIF_DNS_SERVER_NUM_MAX]);
+void dns_disable_all_cache(void);
+void dns_enable_all_cache(void);
+struct dns_server_tag *dns_get_netif_ip4_dns_server_by_index(struct netif *net_if, u8_t index);
+#endif
 #else
 void             dns_setserver(u8_t numdns, const ip_addr_t *dnsserver);
 void             dns_clearserver(u8_t type);

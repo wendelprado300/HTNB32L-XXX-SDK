@@ -154,10 +154,11 @@ typedef struct CcmTinyContext_Tag
 {
     /******************************************************************************
      * UINT8   devTinyCtx
-     * 5 bits reserved | 3 bits dev state
+     * 4 bits reserved | 3 bits dev state | 1 bits rpmEnabled
      *****************************************************************************/
     UINT32      devState : 3;
-    UINT32      devRsvd : 5;
+    UINT32      rpmEnabled : 1;
+    UINT32      devRsvd : 4;
 
     /******************************************************************************
      * UINT8   regTinyCtx
@@ -395,6 +396,21 @@ void CcmSaveNvmFiles(void);
  * CcmCemmRcCodeEnum -> CcmCommRcEnum
 */
 CcmCommRcEnum CeNasRcToCcmRc(UINT32 ccmRc);
+
+void CcmSendCemmCcmGetEmmStatusReqSig(void);
+
+void CcmSendGetLapiInfoReq(void);
+
+void CcmSendCemmCcmSetLapiInfoReqSig(CmiDevSetLapiReq *setLapiInfo);
+
+void CcmSendCemmCcmSetRoamingDataInfoReqSig(CmiDevSetRoamingDataReq *setRoamingDataReq);
+
+void CcmSendGetRoamingDataInfoReq(void);
+
+
+
+
+
 
 
 #endif

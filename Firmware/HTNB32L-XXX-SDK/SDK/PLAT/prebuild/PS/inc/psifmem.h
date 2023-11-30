@@ -51,7 +51,7 @@ UINT8 IsAnyPsDlFreeMm(void);
 /*
 *get the remain free mm size
 */
-size_t PsMmGetRemainFreeSize(void);
+int PsMmGetRemainFreeSize(void);
 
 #ifdef __cplusplus
 }

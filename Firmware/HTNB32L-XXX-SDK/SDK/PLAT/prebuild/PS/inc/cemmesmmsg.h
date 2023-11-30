@@ -380,9 +380,9 @@ BOOL CemmIsAllowSendExceptionDataInSuspendState(void);
 
 BOOL CemmIsAllowSendNormalPriSignallingInSuspendState(void);
 void CemmEsmStopAndRestrartT3402IndMsg(UINT8 srcId, UINT8 argvUint8, UINT16 argvUint16, UINT32 argvUint32, void* argvPtr);
-
-
 BOOL CemmIsConfiguredUseAc11To15(void);
+void T3396ExpiryHandle(void);
+void Cemmesmupdatepsapn(BOOL updatetinycontext);
 
 /******************************************************************************
  * CemmEsmPendingStatusInd to Emm
@@ -445,6 +445,7 @@ extern void CemmEsmGetDnsToBeReadFlag(BOOL *Ipv4dnsToBeRead,BOOL *Ipv6dnsToBeRea
 void CemmEsmMsgSetApnContext(UINT8 srcId, UINT8 argvUint8, UINT16 argvUint16, UINT32 argvUint32, void* argvPtr);
 
 void CemmEsmProcSetOpConfigMsg(UINT8 srcId, UINT8 argvUint8, UINT16 argvUint16, UINT32 argvUint32, void* argvPtr);
+void CemmEsmProcUpdatPsApnInTinyContextIndMsg(UINT8 srcId, UINT8 argvUint8, UINT16 argvUint16, UINT32 argvUint32, void* argvPtr);
 
 #endif
 

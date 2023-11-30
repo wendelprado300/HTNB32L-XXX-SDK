@@ -675,25 +675,16 @@ typedef CmiDevGetPsSleepCfgCnf   GetPsSlpCfgParams;
 
 //void appCheckTcpipReady(void);
 void psSyncProcCmiCnf(const SignalBuf *cnfSignalPtr);
-CmsRetId appSetsmscaddress(UINT8 *sms_addr,UINT32 len,UINT32 type);
+
 CmsRetId appGetsmscaddress(UINT8 *sms_addr);
 CmsRetId appGetMsisdnNumsync(CHAR *msisdn);
-CmsRetId appStartStopCallSync(INT32 cid, INT32 state, UINT8 *addRc);
-CmsRetId  appSetGPRSAttachedsync(BOOL fattached);
 CmsRetId  appGetCGAPNRCsync(INT32 cid, PsApnRateCtrlParam *info);
-CmsRetId appSetCGAUTHSync(INT32 cid,INT32 authPort,UINT8* userId,UINT8 userIdLength, UINT8* password,UINT8 passwordLength);
-CmsRetId appSetAPNSettingSync(PsAPNSetting *info, UINT8 *cid);
 CmsRetId appGetIPSettingSync(UINT8 cid,PsBearerCtxDynParam *info);
-CmsRetId appDeleteCGDCONTContextsync(UINT32 cid);
 CmsRetId appGetAPNProfileSync(PsProfileRes *profile, APNProfileSyncCnf *res);
-CmsRetId appCreateAPNProfileSync(PsProfileRes* info, UINT8 src_type);
-CmsRetId appModifyAPNProfileSync(UINT8 src_type,PsProfileRes *info, PsMandatoryResChanged *res);
 CmsRetId appGetAPNDisableSync(UINT8 pdp_type, char *apn,UINT8 *status);
-CmsRetId appSetAPNDisableSync(UINT8 pdp_type, char *apn,UINT8 status);
 CmsRetId appGetSplmnRateSync(UINT32 cid, UINT32 *rc);
 CmsRetId appGetPktStatsSync(UINT8 cid, PktStat *stat);
 CmsRetId appGetEDRXPtwSettingSync(UINT8 *ptwEdrx);
-CmsRetId appSetEDRXPtwSettingSync(UINT8 modeVal, UINT8 actType, UINT8 ptwEdrx);
 CmsRetId appGetApnProfilesSync(UINT8 *apn, apnProfile* profileList, UINT8 *profileCount);
 CmsRetId appGetAuthParamsSync(UINT8 cid,UINT8* prot, UINT8* userName, UINT8* userLen, UINT8* pwd, UINT8* pwdLen);
 
@@ -715,7 +706,6 @@ CmsRetId appGetAPNSettingSync(UINT8 cid, UINT8 *apn);
 CmsRetId appCheckSystemTimeSync(void);
 CmsRetId appGetSystemTimeSecsSync(time_t *time);
 CmsRetId appGetSystemTimeUtcSync(OsaUtcTimeTValue *time);
-CmsRetId appSetSystemTimeUtcSync(UINT32 time1, UINT32 time2, INT32 timeZone);
 CmsRetId appGetActedCidSync(UINT8 *cid, UINT8 *num);
 
 /**
@@ -764,13 +754,6 @@ CmsRetId appSetSimGenLogicalChannelAccessSync(UINT8 sessionID, UINT8 *command, U
 CmsRetId appSetRestrictedSimAccessSync(CrsmCmdParam *pCmdParam, CrsmRspParam *pRspParam);
 
 /**
-  \fn          CmsRetId appSetCFUN(UINT8 fun)
-  \brief       Send cfun request to NB
-  \param[in]   fun: 0 minimum function and 1 full function
-  \returns     CmsRetId
-*/
-CmsRetId appSetCFUN(UINT8 fun);
-/**
   \fn          CmsRetId appGetCFUN(UINT8 *pOutCfun)
   \brief       Get current CFUN state
   \param[out]  *pOutCfun      //refer "CmiFuncValueEnum" CMI_DEV_MIN_FUNC(0)/CMI_DEV_FULL_FUNC(1)/CMI_DEV_TURN_OFF_RF_FUNC(4)
@@ -778,22 +761,15 @@ CmsRetId appSetCFUN(UINT8 fun);
 */
 CmsRetId appGetCFUN(UINT8 *pOutCfun);
 
-CmsRetId appSetBootCFUNMode(UINT8 mode);
 UINT8 appGetBootCFUNMode(void);
 UINT8 appGetSearchPowerLevelSync(void);
 UINT8 appGetCELevelSync(void);
 CmsRetId appGetSignalInfoSync(UINT8 *csq, INT8 *snr, INT8 *rsrp);
 UINT8* appGetNBVersionInfo(void);
-void drvSetPSToWakeup(void);
-BOOL appSetImeiNumSync(CHAR* imei);
 BOOL appGetSNNumSync(CHAR* sn);
-BOOL appSetSNNumSync(CHAR* sn, UINT8 len);
 
 BOOL appGetImeiLockSync(CHAR* imeiLock);
-BOOL appSetImeiLockSync(CHAR* imeiLock);
 BOOL appGetSNLockSync(CHAR* snLock);
-BOOL appSetSNLockSync(CHAR* snLock);
-BOOL appSetNV9LockCleanSync(void);
 
 /**
   \fn          CmsRetId appSetBandModeSync(UINT8 networkMode, UINT8 bandNum,  UINT8 *orderBand)
@@ -991,6 +967,16 @@ CmsRetId appSetCSIMSync(UINT16 cmdApduStrLen,
                                 UINT16 *rspApduStrLen,
                                 UINT8 *rspApduStr);
 
+
+CmsRetId appSetAPNSettingSync(PsAPNSetting *info, UINT8 *cid);
+
+/**
+  \fn          CmsRetId appSetCFUN(UINT8 fun)
+  \brief       Send cfun request to NB
+  \param[in]   fun: 0 minimum function and 1 full function
+  \returns     CmsRetId
+*/
+CmsRetId appSetCFUN(UINT8 fun);
 
 #endif
 

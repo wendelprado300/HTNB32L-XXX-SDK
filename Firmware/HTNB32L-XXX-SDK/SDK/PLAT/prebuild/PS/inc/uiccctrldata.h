@@ -135,10 +135,8 @@ typedef enum UiccDirIdTag
     UICC_DIR_DF_TELECOM          =   0x7f10,
     UICC_DIR_DF_PHONEBOOK        =   0x5f3a,
     UICC_DIR_ADF_USIM            =   0x7fff,
-#ifdef FEAT_RPM
     UICC_DIR_DF_RPM              =   0x7f66,
     UICC_DIR_DF_ARMED_AGENT      =   0x5f40,
-#endif
     UICC_DIR_INVALID             =   0x0000
 }
 UiccDirId;
@@ -284,7 +282,8 @@ typedef enum CommandStatusTag
     CMD_STATUS_USAT_BUSY = 15,             /* card is busy for USAT data */
     CMD_STATUS_UICC_APP_ERROR,          /* problem with the UICC Application     */
     CMD_STATUS_UICC_DDL_ERROR,           /* SMS-PP Data Download Error */
-    CMD_STATUS_USAT_CS_SIM_APP_ERROR
+    CMD_STATUS_USAT_CS_SIM_APP_ERROR,
+    CMD_STATUS_UICC_ESIM_NO_PROFILE				//Esim with no profile detected*/
 
 }
 CommandStatus;
@@ -896,6 +895,9 @@ typedef struct UiccCtrlTinyContextTag
     AdminData             adminData;
     UsimServiceTable      serviceTable;
     EpsLocationInfo       epsLoci;
+    UINT8                 ldosimEfuseTrim; //ldosim EFUSE trim value
+    UINT8                 reserved1;
+    UINT16                reserved2;
 }
 UiccCtrlTinyContext;
 
@@ -953,6 +955,8 @@ typedef struct UiccCtrlDataTag
     UINT16              currGenAccessEF;
     UINT8               errorOccurCnt;/* error state occurred counter, if error return 3 times after recovery process the requests, stop recovery*/
     SimWriteCntList      *pSwcList;
+	BOOL				eUiccSupport;
+	BOOL                validEfImsi;
 
 }
 UiccCtrlData;

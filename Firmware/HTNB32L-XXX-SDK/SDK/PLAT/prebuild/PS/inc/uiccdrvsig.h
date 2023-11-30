@@ -71,6 +71,7 @@ do {                                            \
         (uiccCtrlDrvSleepBitmap |= (1<<3)); \
 }while(FALSE)
 
+void UiccModuleVotePmuState(void);
 
 /*********************************************************************************
 * Type Definition

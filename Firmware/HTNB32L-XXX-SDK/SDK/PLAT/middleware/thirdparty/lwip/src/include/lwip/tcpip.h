@@ -82,7 +82,10 @@ void   tcpip_init(tcpip_init_done_fn tcpip_init_done, void *arg);
 
 err_t  tcpip_inpkt(struct pbuf *p, struct netif *inp, netif_input_fn input_fn);
 err_t TcpipPsInpkt(UINT8 lcid, DlPduBlock *pPduHdr, psif_input_fn ps_input_fn);
-
+#if (RTE_PPP_EN==1)
+err_t TcpipPsPendingInpkt(UINT8 cid, psif_pending_input_fn ps_pending_input_fn);
+err_t TcpipLanInpkt(UINT8 lan_type, UlPduBlock *pPduHdr, lanif_input_fn lan_input);
+#endif
 err_t  tcpip_input(struct pbuf *p, struct netif *inp);
 
 err_t  tcpip_callback_with_block(tcpip_callback_fn function, void *ctx, u8_t block);

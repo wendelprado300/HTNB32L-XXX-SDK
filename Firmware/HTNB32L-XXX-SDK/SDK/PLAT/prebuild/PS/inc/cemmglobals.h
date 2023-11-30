@@ -96,6 +96,10 @@ History:        - 12/12/2017, Originated by flxing
 #define TELSTRA 0x05
 #define KT 0x06
 #define LGU 0x07
+#define DT 0x08
+#define TEST 0x10
+
+#define SR_RETRY_MAX_COUNTER    3   /* Service Request retry max counter */
 /******************************************************************************
 * Enum and Structure
 *******************************************************************************/
@@ -256,6 +260,8 @@ typedef struct nvmInformationTag
     BOOL                    isDRXUpdated;
     BOOL                    RoamingInfo;
     BOOL                    overrideLrplmnsi;
+    UINT16                  userSetBarValue;
+    UINT8                   bEnableHPPlmnSearch;
 }
 nvmInformation;
 

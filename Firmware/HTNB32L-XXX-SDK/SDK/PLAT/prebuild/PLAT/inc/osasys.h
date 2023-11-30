@@ -14,7 +14,7 @@
 #include "FreeRTOS.h"
 #include "stdlib.h"
 #include "string.h"
-#include <stdio.h>
+#include "stdio.h"
 #include "debug_trace.h"
 #include "cmsis_compiler.h"
 #include "time.h"
@@ -229,7 +229,8 @@ typedef enum OsaHibTimerId_enum
     PS_HIB_VZW_THROTTL_TIMER,
     PS_HIB_EMM_SR_THROTTLING_TIMER,
 	PHY_EDRX_TIMER,
-    PS_HIB_MAX_TIMER = 21
+    PS_HIB_ESM_T3396_TIMER,
+    PS_HIB_MAX_TIMER = 22
 }OsaHibTimerId;
 
 /*

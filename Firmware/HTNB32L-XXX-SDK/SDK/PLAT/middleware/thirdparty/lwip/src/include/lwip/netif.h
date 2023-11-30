@@ -113,6 +113,27 @@ extern "C" {
 
 #if ENABLE_PSIF
 #define CID_INVALID 255
+#if (RTE_PPP_EN==1)
+typedef enum lwip_netif_type
+{
+    LWIP_NETIF_TYPE_INVALID = 0,
+
+    /* LAN netif type */
+    LWIP_NETIF_TYPE_LAN_ETH,    /* If ETH LAN not link up(ECM/RNDIS), set to it,
+                                 * and when LAN linkup, this type should change to RNDIS/ECM type */
+    LWIP_NETIF_TYPE_LAN_ETH_RNDIS,
+    LWIP_NETIF_TYPE_LAN_ETH_ECM,
+    LWIP_NETIF_TYPE_LAN_PPP,
+
+    /* WAN netif type */
+    LWIP_NETIF_TYPE_WAN_INTERNET,
+    LWIP_NETIF_TYPE_WAN_DEFAULT = LWIP_NETIF_TYPE_WAN_INTERNET,
+    LWIP_NETIF_TYPE_WAN_IMS,    /* Not support now */
+    LWIP_NETIF_TYPE_WAN_OTHER,
+
+    LWIP_NETIF_TYPE_MAX = 0x0F
+}lwip_netif_type_t;
+#endif
 #endif
 
 enum lwip_internal_netif_client_data_index
@@ -128,6 +149,11 @@ enum lwip_internal_netif_client_data_index
 #endif
 #if LWIP_IPV6_MLD
    LWIP_NETIF_CLIENT_DATA_INDEX_MLD6,
+#endif
+#if (RTE_PPP_EN==1)
+#ifdef LWIP_LAN_RNDIS_PRIVATE_IP_DNS_RELAY
+    LWIP_NETIF_DNS_RELAY,
+#endif
 #endif
    LWIP_NETIF_CLIENT_DATA_INDEX_MAX
 };
@@ -182,6 +208,10 @@ typedef err_t (*netif_input_fn)(struct pbuf *p, struct netif *inp);
 typedef err_t (*psif_input_fn)(u8_t lcid, DlPduBlock *pPduHdr);
 #endif
 
+#if (RTE_PPP_EN==1)
+typedef err_t (*psif_pending_input_fn)(u8_t lcid);
+typedef err_t (*lanif_input_fn)(u8_t lan_type, UlPduBlock *pPduHdr);
+#endif
 
 #if LWIP_IPV4
 /** Function prototype for netif->output functions. Called by lwIP when a packet
@@ -229,7 +259,7 @@ typedef err_t (*netif_mld_mac_filter_fn)(struct netif *netif,
        const ip6_addr_t *group, enum netif_mac_filter_action action);
 #endif /* LWIP_IPV6 && LWIP_IPV6_MLD */
 
-#if LWIP_DHCP || LWIP_AUTOIP || LWIP_IGMP || LWIP_IPV6_MLD || (LWIP_NUM_NETIF_CLIENT_DATA > 0)
+#if LWIP_DHCP || LWIP_AUTOIP || LWIP_IGMP || LWIP_IPV6_MLD || (LWIP_NUM_NETIF_CLIENT_DATA > 0) || PPP_SUPPORT
 u8_t netif_alloc_client_data_id(void);
 /** @ingroup netif_cd
  * Set client data. Obtain ID from netif_alloc_client_data_id().
@@ -260,6 +290,9 @@ struct netif {
   /** The state of each IPv6 address (Tentative, Preferred, etc).
    * @see ip6_addr.h */
   u8_t ip6_addr_state[LWIP_IPV6_NUM_ADDRESSES];
+#if (RTE_PPP_EN==1)
+  u8_t ip6_prefix_len[LWIP_IPV6_NUM_ADDRESSES];//1->32 bits,2->64 bits,3->96 biits
+#endif
 #endif /* LWIP_IPV6 */
   /** This function is called by the network device driver
    *  to pass a packet up the TCP/IP stack. */
@@ -365,10 +398,18 @@ struct netif {
 #if ENABLE_PSIF
   u8_t primary_ipv4_cid;
   u8_t primary_ipv6_cid;
+#if (RTE_PPP_EN==1)
+  u8_t netif_type;      //lwip_netif_type_t
+  u8_t bPublic;
+#endif
 #ifdef TFT_FILTER_ENABLE	
   void* tft_table;
 #endif
-
+#if (RTE_PPP_EN==1)
+  /* ded_cid_bitmap (dedicated bearer CID) binded to this netif,
+   * example: if bit0 is set to 1, just means CID=0 is a dedicated bearer, and binded to this netif */
+  u16_t ded_cid_bitmap;
+#endif
 /*header compress channel*/
   u16_t rohc_enable_bitmap;
 
@@ -381,7 +422,17 @@ struct netif {
   u8_t is_suspend;
   u8_t is_oos;
   u16_t reserved2;
+#if (RTE_PPP_EN==1)
+ //the ipv6 router priority for the same ipv6 subnet
+  u8_t ip6_subnet_router_priority;
 
+  u8_t arp_reply_mode;       // if enable ,UE will reply all request with ip address
+
+//the ipv6 source address select priority
+  u8_t ip6_src_router_priority;
+
+  ip4_addr_t arp_reply_ignore_addr;
+#endif
 #endif
 };
 
@@ -456,7 +507,12 @@ struct netif *netif_find(const char *name);
 struct netif *netif_find_by_cid(u8_t cid);
 u8_t netif_find_ip6_exist(void);
 struct netif *netif_find_default(void);
-
+#if (RTE_PPP_EN==1)
+struct netif *netif_find_netif_list(void);
+struct netif *netif_find_by_ip4_cid(u8_t cid);
+struct netif *netif_find_by_ip6_cid(u8_t cid);
+struct netif *netif_find_netif_list(void);
+#endif
 #endif
 
 void netif_set_default(struct netif *netif);
@@ -555,8 +611,13 @@ err_t netif_add_ip6_address(struct netif *netif, const ip6_addr_t *ip6addr, s8_t
 #if ENABLE_PSIF
 u16_t netif_get_max_mtu_size(void);
 
+#if (RTE_PPP_EN==1)
+void netif_dump_ul_packet(u8_t *data, u16_t len, u8_t type);
+void netif_dump_dl_packet(u8_t *data, u16_t len, u8_t type);
+#else
 void netif_dump_ul_packet(u8_t *data, u16_t len);
 void netif_dump_dl_packet(u8_t *data, u16_t len);
+#endif
 
 void netif_enable_rohc_bitmap(struct netif* netif, u8_t cid);
 
@@ -572,6 +633,9 @@ void netif_enable_oos_state(struct netif *netif);
 void netif_disable_oos_state(struct netif *netif);
 void netif_enable_all_psif_oos_state(void);
 void netif_disable_all_psif_oos_state(void);
+#if (RTE_PPP_EN==1)
+void netif_set_ps_mtu(struct netif *netif, u16_t mtu);
+#endif
 #if LWIP_TIMER_ON_DEMOND
 
 void netif_enable_timer_active_mask(struct netif* netif, u8_t type);
@@ -592,6 +656,13 @@ struct netif_ip6_prefix_info_tag *netif_find_ip6_prefix_info(u8_t cid);
 struct netif_ip6_prefix_info_tag *netif_get_ip6_prefix_info_list(void);
 #endif
 
+#if (RTE_PPP_EN==1)
+void netif_set_netif_type(struct netif *pNetif, u8_t type);
+u8_t netif_get_netif_type(struct netif *pNetif);
+u8_t netif_check_netif_type(struct netif *netif, u8_t type);
+void ip6_set_subnet_router_priority(struct netif *netif, u8_t priority);
+void ip6_set_source_addr_priority(struct netif *netif, u8_t priority);
+#endif
 
 #if LWIP_NETIF_HWADDRHINT
 #define NETIF_SET_HWADDRHINT(netif, hint) ((netif)->addr_hint = (hint))

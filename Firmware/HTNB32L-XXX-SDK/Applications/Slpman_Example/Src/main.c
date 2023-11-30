@@ -129,6 +129,9 @@ uint8_t slpmanSlpHandler = 0xFF;
 uint8_t deepslpTimerID = 0;
 uint32_t fileContent = 0;
 
+static uint32_t uart_cntrl = (ARM_USART_MODE_ASYNCHRONOUS | ARM_USART_DATA_BITS_8 | ARM_USART_PARITY_NONE | 
+                                ARM_USART_STOP_BITS_1 | ARM_USART_FLOW_CONTROL_NONE);
+
 static void HT_BeforeHibCallback(void *pdata, slpManLpState state) {
     uint32_t *p_param = (uint32_t *)pdata;
     abc = 1110;
@@ -202,13 +205,11 @@ static void HT_FsRead(void) {
 	OsaFclose(fp);
 }
 
-static void UserAppTask(void *arg) {
+static void HT_UserAppTask(void *arg) {
     uint32_t inParam = 0xAABBCCDD;
     uint32_t cnt;
     slpManSlpState_t slpstate;
     slpManWakeSrc_e wkpSrc = WAKEUP_FROM_POR;
-    uint32_t uart_cntrl = (ARM_USART_MODE_ASYNCHRONOUS | ARM_USART_DATA_BITS_8 | ARM_USART_PARITY_NONE | 
-                                ARM_USART_STOP_BITS_1 | ARM_USART_FLOW_CONTROL_NONE);
 
     HT_UART_InitPrint(HT_UART1, GPR_UART1ClkSel_26M, uart_cntrl, 115200);
     printf("\nSlpman Example!\n");
@@ -262,7 +263,7 @@ static void UserAppTask(void *arg) {
                     slpManDeepSlpTimerStart(deepslpTimerID, 10000);  //10s
 #endif
 
-                    QCOMM_TRACE(UNILOG_PLA_APP, UserAppTask_1, P_SIG, 0, "Example Step1: Keep in Sleep1 state");
+                    HT_TRACE(UNILOG_PLA_APP, UserAppTask_1, P_SIG, 0, "Example Step1: Keep in Sleep1 state");
 
                     cnt = 0;
 
@@ -308,7 +309,7 @@ static void UserAppTask(void *arg) {
     }
 }
 
-static void appInit(void *arg) {
+static void HT_AppInit(void *arg) {
     osThreadAttr_t task_attr;
 
     if(BSP_GetPlatConfigItemValue(PLAT_CONFIG_ITEM_LOG_CONTROL) != 0) {
@@ -317,14 +318,14 @@ static void appInit(void *arg) {
 
     memset(&task_attr,0,sizeof(task_attr));
     memset(usrapp_task_stack, 0xA5,USRAPP_TASK_STACK_SIZE);
-    task_attr.name = "usrapp";
+    task_attr.name = "Slpman_Example";
     task_attr.stack_mem = usrapp_task_stack;
     task_attr.stack_size = USRAPP_TASK_STACK_SIZE;
     task_attr.priority = osPriorityNormal;
     task_attr.cb_mem = &usrapp_task;//task control block
     task_attr.cb_size = sizeof(StaticTask_t);//size of task control block
 
-    osThreadNew(UserAppTask, NULL, &task_attr);
+    osThreadNew(HT_UserAppTask, NULL, &task_attr);
 }
 
 void main_entry(void) {
@@ -334,7 +335,7 @@ void main_entry(void) {
 
     setvbuf(stdout,NULL,_IONBF,0);
 
-    registerAppEntry(appInit, NULL);
+    registerAppEntry(HT_AppInit, NULL);
     if (osKernelGetState() == osKernelReady)
     {
         osKernelStart();

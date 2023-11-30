@@ -100,7 +100,8 @@ typedef enum UiccAppInitStatusTag
 {
     UICC_APP_INIT_OK,
     UICC_APP_INIT_FAILED,
-    UICC_APP_INIT_FILE_INVALIDATED
+    UICC_APP_INIT_FILE_INVALIDATED,
+    UICC_APP_INIT_FAILED_ESIM_NO_PROFILE
 }
 UiccAppInitStatus;
 
@@ -913,13 +914,13 @@ typedef struct RpmOMParmeters_Tag
 */
 typedef struct CcmSimRpmParamIndTag
 {
+    BOOL                        rpmParamsPresentOnSimCard;
     UINT8                        rpmEnabled;   /* RPM functionality on the device is to be enabled or disabled at power up */
-	UINT8                        rpmVersion;   /* version of RPM that has been implemented and shall be updated by the IoT Device on each power up */
-	RpmParameters                rpmParameters; /* RPM parameters that are used for the various scenarios */
-	RpmOMParmetersLeakRate       rpmOmParamsLeakRate; /* leak rate for RPM operation management counters */
-	BOOL                         rpmOmParamsValid;    /* Indicate if RPM OM params present on SIM card */
-	RpmOMParmeters               rpmOmParams;  /* RPM operation management counters that are used to assist monitoring and debugging RPM operation issues */
-
+    UINT8                        rpmVersion;   /* version of RPM that has been implemented and shall be updated by the IoT Device on each power up */
+    RpmParameters                rpmParameters; /* RPM parameters that are used for the various scenarios */
+    RpmOMParmetersLeakRate       rpmOmParamsLeakRate; /* leak rate for RPM operation management counters */
+    BOOL                         rpmOmParamsValid;    /* Indicate if RPM OM params present on SIM card */
+    RpmOMParmeters               rpmOmParams;  /* RPM operation management counters that are used to assist monitoring and debugging RPM operation issues */
 }CcmSimRpmParamInd;
 
 /*

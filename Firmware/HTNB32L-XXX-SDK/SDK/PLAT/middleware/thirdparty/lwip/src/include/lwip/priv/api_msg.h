@@ -219,6 +219,25 @@ typedef struct NetconnGetSockInfo_Tag{
     int sock_type; //SockInfoType
 }NetconnGetSockInfo;
 
+#if (RTE_PPP_EN==1)
+typedef struct NetconnGetSockByPcbInfo_Tag{
+    struct tcpip_api_call_data call;
+    int sock_type; //SockInfoType
+    void *pcb;
+    ip_addr_t local_ip;
+    ip_addr_t remote_ip;
+    u16_t local_port;
+    u16_t remote_port;
+
+}NetconnGetSockInfoByPcb;
+
+typedef struct NetconnGetTcpSendBufferSize_Tag{
+    struct tcpip_api_call_data call;
+    struct netconn *conn;
+    uint16_t send_buffer_size;
+    uint16_t rsvd;
+}NetconnGetTcpSendBufferSize;
+#endif
 typedef struct NetconnGetHibSockId_Tag{
     struct tcpip_api_call_data call;
     int udp_hib_sockid;

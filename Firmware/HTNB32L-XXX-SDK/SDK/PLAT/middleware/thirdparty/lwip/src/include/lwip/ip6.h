@@ -56,6 +56,19 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#if (RTE_PPP_EN==1)
+enum ip6_subnet_router_priority_type{
+    IP6_SUBNET_ROUTER_PRIORITY_LOW    = 0,
+    IP6_SUBNET_ROUTER_PRIORITY_MIDDLE = 1,
+    IP6_SUBNET_ROUTER_PRIORITY_HIGH   = 2,
+};
+
+enum ip6_source_address_priority_type{
+    IP6_SOURCE_ADDRESS_PRIORITY_HIGH   = 0,
+    IP6_SOURCE_ADDRESS_PRIORITY_MIDDLE = 1,
+    IP6_SOURCE_ADDRESS_PRIORITY_LOW    = 2,
+};
+#endif
 
 struct netif *ip6_route(const ip6_addr_t *src, const ip6_addr_t *dest);
 const ip_addr_t *ip6_select_source_address(struct netif *netif, const ip6_addr_t * dest);

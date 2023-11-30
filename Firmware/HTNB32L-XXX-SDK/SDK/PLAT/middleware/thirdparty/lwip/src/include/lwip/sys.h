@@ -350,11 +350,19 @@ sys_thread_t sys_thread_static_new(const char *name, lwip_thread_fn thread, void
 /* sys_init() must be called before anything else. */
 void sys_init(void);
 
+#if (RTE_PPP_EN==0)
 #ifndef sys_jiffies
 /**
  * Ticks/jiffies since power up.
  */
 u32_t sys_jiffies(void);
+#endif
+#else
+#ifndef sys_jiffies
+#define sys_jiffies() sys_now()
+#else
+u32_t sys_jiffies(void);
+#endif
 #endif
 
 /**

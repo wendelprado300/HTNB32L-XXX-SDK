@@ -866,6 +866,7 @@ typedef struct  UiccCtrlDrvCardInsertedIndTag
     UINT8                    logicalChannelMaxNum;          /* 0- not supported,  value 8 - means 8 and more */
     BOOL                     clockStopAllowed;               /*Clock stop mode support ? */
     UINT8                    reserved;
+	BOOL					 eUiccSupport;					/*ESIM support? */
 }
 UiccCtrlDrvCardInsertedInd;
 

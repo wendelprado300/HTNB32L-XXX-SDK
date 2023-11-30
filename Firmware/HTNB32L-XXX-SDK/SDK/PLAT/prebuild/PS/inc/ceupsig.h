@@ -945,6 +945,8 @@ typedef struct CcmL2StatisOperReq_Tag
 */
 typedef GosEmptySignal  CcmL2NoMorePsDataReq;
 
+typedef GosEmptySignal CePdcpDlPkgContinueReq;
+
 /******************************************************************************
  ******************************************************************************
  * CERRC/CEMM/CESM/CESMS -> DR
@@ -1244,7 +1246,12 @@ typedef struct CedrUlDataReq_Tag
     UINT8   cid;   // PDP context ID (from AT CMD)
     UINT8   reserved0;
     UINT16  totalLen;
-
+#ifdef RTE_PPP_EN
+    UINT16  shortTotalLen;
+    UINT16  reserved1;
+	UlPduInfo *pShortHdr;
+    UlPduInfo *pShortTailer;
+#endif
     UlPduInfo *pHdr;
     UlPduInfo *pTailer;
 }CedrUlDataReq;
@@ -1258,9 +1265,13 @@ typedef struct CeupDataReq_Tag
 {
     UINT8   lcid;   // logical channel ID (MAC layer)
     UINT8   cid;    //VS : To maintain PKT stats on per bearer level
-    UINT8   reserved0;
-    UINT16  totalLen;
-
+    UINT16      totalLen;       /* total pkg size in: "pHdr" and "pTailer" list */
+#ifdef RTE_PPP_EN 
+    UINT16      shortTotalLen;  /* total pkg size in: "pShortHdr" and "pShortTailer" list */
+    UINT16      reserved0;
+	UlPduInfo *pShortHdr;
+    UlPduInfo *pShortTailer;
+#endif	
     UlPduInfo *pHdr;
     UlPduInfo *pTailer;
 }CeupDataReq;

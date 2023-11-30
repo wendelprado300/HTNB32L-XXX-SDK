@@ -60,7 +60,8 @@ UINT8 Uint8Bit0Search(UINT8 data);
 UINT8 Uint16Bit0Search(UINT16 data);
 UINT8 Uint32Bit0Search(UINT32 data);
 UINT8 UintBit0Search(UINT32 data);
-
+extern void OsaFreeOneDlPduBlock(DlPduBlock **pDlPduBlk);
+extern void OsaFreeUlPduBlockList(UlPduBlock **pUlPduBlk);
 /*
  * set bit B to 1 in D
  * example:
@@ -139,7 +140,7 @@ void SetBufBitsValue(UINT8 *pBuf, UINT16 *startBitOffset, UINT8 bitsLen, UINT32 
  * Get "bitLen" (MAX 32 bits) bits value from "pBuf" start from "bitOffset"
 */
 UINT32 GetBufBitsValue(const UINT8 *pBuf, UINT32 *startBitOffset, UINT8 bitsLen);
-
+#define Get4ByteAlignLen(byteLen)   (((byteLen)+3)&0xFFFFFFFC)
 
 /*
  * BITS COPY
@@ -165,12 +166,96 @@ Plmn PsGetPlmnFromImsi(Imsi *pImsi);
 #define sigma0(x)       (ROTR((x), 7)  ^ ROTR((x), 18) ^ (SHR((x), 3)))
 #define sigma1(x)       (ROTR((x), 17) ^ ROTR((x), 19) ^ (SHR((x), 10)))
 
+
+#ifdef WIN32
+void PsFreeOneDlPduBlock(DlPduBlock **pDlPduBlk);      //specification
+#else
+#define PsFreeOneDlPduBlock(ppDlPduBlk)     OsaFreeOneDlPduBlock((ppDlPduBlk))
+#endif
+
+#ifdef WIN32
+void PsFreeDlPduBlockList(DlPduBlock **pDlPduBlk);      //specification
+#else
+#define PsFreeDlPduBlockList(ppDlPduBlk)    OsaFreeDlPduBlockList((ppDlPduBlk))
+#endif
+
+
+#ifdef WIN32
+void PsFreeOneUlPduBlock(UlPduBlock **pUlPduBlk);      //specification
+#else
+#define PsFreeOneUlPduBlock(ppUlPduBlk)    OsaFreeOneUlPduBlock((ppUlPduBlk))
+#endif
+
+#ifdef WIN32
+void PsFreeUlPduBlockList(UlPduBlock **pUlPduBlk);      //specification
+#else
+#define PsFreeUlPduBlockList(ppUlPduBlk)    OsaFreeUlPduBlockList((ppUlPduBlk))
+#endif
+
+#define SET_UINT32_DATA_LEFT_SHIFT(n,b,i)             \
+{                                                     \
+    (n) = ( (UINT32) (b)[(i)    ]       )             \
+        | ( (UINT32) (b)[(i) + 1] <<  8 )             \
+        | ( (UINT32) (b)[(i) + 2] << 16 )             \
+        | ( (UINT32) (b)[(i) + 3] << 24 );            \
+}
+
+#define SET_UINT32_DATA_RIGHT_SHIFT(n,b,i)            \
+{                                                     \
+    (b)[(i)    ] = (UINT8) (((n)       ) & 0xFF );    \
+    (b)[(i) + 1] = (UINT8) (((n) >>  8 ) & 0xFF );   \
+    (b)[(i) + 2] = (UINT8) (((n) >> 16 ) & 0xFF );   \
+    (b)[(i) + 3] = (UINT8) (((n) >> 24 ) & 0xFF );   \
+}
+
+
+
+typedef enum PS_CHAP_AUTH_CODE_TYPE_Tag
+{
+    CHAP_MSG_CODE_TYPE_CHALLENGE = 1,
+    CHAP_MSG_CODE_TYPE_RESPONSE  = 2,
+    CHAP_MSG_CODE_TYPE_SUCCESS   = 3,
+    CHAP_MSG_CODE_TYPE_FAILURE   = 4,
+}PS_CHAP_AUTH_CODE_TYPE;
+
+
+
+/******************************************************************************
+ *****************************************************************************
+ * Functions specification
+ *****************************************************************************
+******************************************************************************/
+
+UINT8 Uint8Bit1Search(UINT8 data);
+UINT8 Uint16Bit1Search(UINT16 data);
+UINT8 Uint32Bit1Search(UINT32 data);
+UINT8 UintBit1Search(UINT32 data);
+
+UINT8 Uint4Bit0Search(UINT8 data);
+UINT8 Uint8Bit0Search(UINT8 data);
+UINT8 Uint16Bit0Search(UINT16 data);
+UINT8 Uint32Bit0Search(UINT32 data);
+UINT8 UintBit0Search(UINT32 data);
+
+
+/*
+ * BITS COPY
+*/
+void PsBitsCopy(UINT8 *pDestBuf, UINT16 *pDestBO, UINT8 *pSrcBuf, UINT16 ibo, UINT16 bitLen);
+
+/*
+ * get PLMN info from IMSI
+*/
+Plmn PsGetPlmnFromImsi(Imsi *pImsi);
 void HmacSha256(UINT16 inputKeyLength, UINT8 *pInputKey, UINT32 messageLength, UINT8 *pMessageContent, UINT8 *outPut);
 
 /*
  * Free the Data memory, which type is : DataPduMemType
 */
 void PsFreeDataPduMem(UINT8 memType, UINT8 **ptr);
+
+void PsFreeDataPdu(UINT8 memType, UINT8 *ptr);
+
 
 /*
  * Free the "UlPduInfo" list
@@ -228,6 +313,9 @@ UINT32 PsConvertDlEarfcnToFrequency(UINT32 dlEarfcn);
  * Check overseas operator
 */
 BOOL PsIsOverseasOperator(Plmn plmn);
+
+/* Get current operator from PS */
+UINT8 PsGetCurrentOperator(void);
 
 #endif
 

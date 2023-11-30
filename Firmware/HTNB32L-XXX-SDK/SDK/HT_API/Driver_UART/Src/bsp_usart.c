@@ -1469,7 +1469,7 @@ PLAT_CODE_IN_RAM void USART_IRQHandler (USART_RESOURCES *usart)
     g_usartDataBase[instance].fcnr_reg = usart->reg->FCNR;
 
 #if USART_DEBUG
-    QCOMM_TRACE(UNILOG_PLA_DRIVER, USART_IRQHandler_0, P_WARNING, 4, "instance: %d, iir_reg:0x%x, fcnr_reg:0x%x, rx_cnt:%d", instance, g_usartDataBase[instance].iir_reg, g_usartDataBase[instance].fcnr_reg, info->xfer.rx_cnt);
+    HT_TRACE(UNILOG_PLA_DRIVER, USART_IRQHandler_0, P_WARNING, 4, "instance: %d, iir_reg:0x%x, fcnr_reg:0x%x, rx_cnt:%d", instance, g_usartDataBase[instance].iir_reg, g_usartDataBase[instance].fcnr_reg, info->xfer.rx_cnt);
 #endif
 
 #endif
@@ -1614,7 +1614,7 @@ PLAT_CODE_IN_RAM void USART_IRQHandler (USART_RESOURCES *usart)
                         {
                             current_cnt = DMA_ChannelGetCurrentTargetAddress(usart->dma_rx->channel, true) - (uint32_t)info->xfer.rx_buf;
 #if USART_DEBUG
-                            QCOMM_TRACE(UNILOG_PLA_DRIVER, USART_IRQHandler_1, P_WARNING, 1, "dma transfer done, cnt:%d", current_cnt);
+                            HT_TRACE(UNILOG_PLA_DRIVER, USART_IRQHandler_1, P_WARNING, 1, "dma transfer done, cnt:%d", current_cnt);
 #endif
                         } while(((current_cnt - info->xfer.rx_cnt) & (UART_DMA_BURST_SIZE - 1)) != 0);
 
@@ -1742,7 +1742,7 @@ void USART_DmaRxEvent(uint32_t event, USART_RESOURCES *usart)
         case DMA_EVENT_END:
 
 #if USART_DEBUG
-            QCOMM_TRACE(UNILOG_PLA_DRIVER, USART_DmaRxEvent_0, P_SIG, 2, "uart dma rx event, fcnr:%x, cnt:%d", usart->reg->FCNR, dmaCurrentTargetAddress - (uint32_t)usart->info->xfer.rx_buf);
+            HT_TRACE(UNILOG_PLA_DRIVER, USART_DmaRxEvent_0, P_SIG, 2, "uart dma rx event, fcnr:%x, cnt:%d", usart->reg->FCNR, dmaCurrentTargetAddress - (uint32_t)usart->info->xfer.rx_buf);
 #endif
 
 #ifdef PM_FEATURE_ENABLE
@@ -1754,7 +1754,7 @@ void USART_DmaRxEvent(uint32_t event, USART_RESOURCES *usart)
             if(dmaCurrentTargetAddress == ( (uint32_t)usart->info->xfer.rx_buf + usart->info->xfer.rx_num))
             {
 #if USART_DEBUG
-                QCOMM_TRACE(UNILOG_PLA_DRIVER, USART_DmaRxEvent_1, P_SIG, 0, "uart dma rx complete");
+                HT_TRACE(UNILOG_PLA_DRIVER, USART_DmaRxEvent_1, P_SIG, 0, "uart dma rx complete");
 #endif
                 usart->info->xfer.rx_cnt = usart->info->xfer.rx_num;
 

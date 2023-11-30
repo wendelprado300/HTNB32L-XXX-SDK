@@ -14,7 +14,10 @@
 #include "lwip/netif.h"
 #include "lwip/priv/tcpip_priv.h"
 #include "psifapi.h"
-
+#if (RTE_PPP_EN==1)
+#include "netfastpath.h"
+#include "cmips.h"
+#endif
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -37,6 +40,17 @@ extern "C" {
  * STRUCT
  *****************************************************************************
 ******************************************************************************/
+
+#if (RTE_PPP_EN==1)
+typedef struct PsifDlPkgPendingList_Tag
+{
+    UINT16          pkgNum; // the total pkg num of the pending list
+    UINT16          rsvd;
+
+    DlPduBlock      *pHead;
+    DlPduBlock      *pTail;
+}PsifDlPkgPendingList;
+#endif
 
 /*
  * PS IF control header allocated before UL IP PKG send to PS
@@ -85,7 +99,7 @@ extern UINT8 CedrUlIsPduHighWater(void);
 extern BOOL CedrBeTestLoop(void);
 
 //NIDD: CEDR API for informing Socket Status of NIDD-LwM2M cid(s)
-extern void CedrLwm2mNIDDCidSockStatus(UINT8 cid, BOOL sockStatus);
+void CedrLwm2mNIDDCidSockStatus(UINT8 cid, BOOL sockStatus);
 
 
 #if 0
@@ -99,7 +113,13 @@ void PsAddTotalUlDataSize(UINT16 size);
  * DL PKG input
 */
 PsIfRet PsifDlInput(UINT8 cid, DlPduBlock *pPduHdr);
+#if (RTE_PPP_EN==1)
+UINT8 PsifPendingDlInput(UINT8 cid);
 
+err_t PsifUlRohcOutput(UlPduInfo *pUlPdu, UINT8 cid);
+
+void PsifDlPkgListInput(UINT8 cid, UINT16 pkgNum, DlPduBlock *pHead, DlPduBlock *pTail);
+#endif
 void PsNetifSyncRohcChannel(struct netif *netif, UINT8 cid);
 
 err_t PsNetifInit(struct netif *netif);
@@ -118,6 +138,14 @@ void PsifFreeUlPkgMem(UINT8 *pUlPkg);
 
 BOOL PsifCheckAnyPendingData(void);
 void PsifSuspendInd(BOOL suspend);
+void PsNetifCidDr(UINT8 cid, BOOL flag);
+err_t PsNonIpOutput(struct pbuf *p, UINT8 cid);
+
+
+#if (RTE_PPP_EN==1)
+void PsifSetFastPathChkInfo(NetifFastChkInfo *pChkInfo);
+#endif
+
 
 
 #ifdef __cplusplus

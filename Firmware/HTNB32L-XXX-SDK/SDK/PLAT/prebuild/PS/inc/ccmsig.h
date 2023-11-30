@@ -553,6 +553,18 @@ typedef struct CemmrNwInfoInd_Tag
  * SIG_CEMM_PLMN_SET_BAND_FREQ_CNF,
  * AT+ECBAND/AT+ECFREQ set the BAND/FREQ confirmation
 ******************************************************************************/
+typedef struct CemmPlmnSetMccBandCnf_Tag
+{
+    UINT16   emmRc;      //CcmCemmRcCodeEnum
+    UINT8 bandChanged;
+    UINT8   reserved0;
+}CemmPlmnSetMccBandCnf;
+
+/******************************************************************************
+ * CemmPlmnSetBandFreqCnf
+ * SIG_CEMM_PLMN_SET_BAND_FREQ_CNF,
+ * AT+ECBAND/AT+ECFREQ set the BAND/FREQ confirmation
+******************************************************************************/
 typedef struct CemmPlmnSetBandFreqCnf_Tag
 {
     UINT8   emmRc;      //CcmCemmRcCodeEnum
@@ -570,7 +582,12 @@ typedef struct CemmCurBandSettingInfo_Tag
 {
     UINT8   nwMode; // NwMode
     UINT8   bandNum;
-    UINT16  reserved;
+	#if MCC_FEATURE_ENABLED
+    UINT16  mcc[10];
+	UINT8   mccNum;
+	UINT8   mccBand[SUPPORT_MAX_BAND_NUM][SUPPORT_MAX_BAND_NUM];
+	UINT8   mccBandNum[SUPPORT_MAX_BAND_NUM];
+	#endif
     UINT8   orderedBand[SUPPORT_MAX_BAND_NUM];
 }CemmCurBandSettingInfo; //20 bytes
 
@@ -617,6 +634,17 @@ typedef struct CemmPlmnGetBandFreqCnf_Tag
         CemmFreqSettingInfo     freqInfo;
     } getBandFreqInfo;
 }CemmPlmnGetBandFreqCnf;
+
+typedef struct CemmPlmnGetMccBandCnf_Tag
+{
+    UINT8   emmRc;              //CcmCemmRcCodeEnum
+    UINT16  reserved0;
+    UINT16  mcc[10];
+    union {
+        CemmCurBandSettingInfo  curBandInfo;
+    } getBandFreqInfo;
+}CemmPlmnGetMccBandCnf;
+
 
 
 /******************************************************************************
@@ -789,6 +817,7 @@ typedef struct CcmGetEmmCapaParm_Tag
     UINT16  rsvd;
     UINT32  t3324MaxValue;
     BOOL    overrideLrplmnsi;
+	UINT8   bEnableHPPlmnSearch;
 }CcmGetEmmCapaParm;
 
 
@@ -936,20 +965,17 @@ typedef struct CcmCesmGetEpsBearerCtxCnf_Tag
     UINT32      ipv4AlloType : 1;   /* CmiPsIpv4AllocType, 1 bit, valid when "ipv4AlloTypePresent" set to TRUE */
     UINT32      ipv4MtuDisByNas : 1;    /* IPv4 MTU size discovery through NAS signalling, valid when "ipv4MtuDisTypePresent" set to TRUE */
     UINT32      dnsNum : 3;
-    UINT32      reserved1 :3;
-
+	UINT32      reserved1 :3;
+    
     UINT32      reqTftNum : 5;      /*how many TFT request by AT+CGTFT */
-    UINT32      reserved2 :3;
-    /*
-     * 4 bytes
-    */
     UINT32      reqCmiId: 16;           /* which PS CMI REQ, EPS bearer info */
     UINT32      nonIpMtuDisByNas : 1;   /* Non-IP MTU size discovery through NAS signalling, valid when "nonIpMtuDisTypePresent" set to TRUE*/
-    UINT32      reserved3 :15;
+    UINT32      reserved3 :10;
 
     UINT16      ipv4MtuSize;
     UINT16      nonIpMtuSize;
 	UINT16      splmnRateCtrl;     /*Serving PLMN rate control 2 octets*/
+    UINT16      reserved4;
 
 
     CmiIpAddr           gwipv4Addr;   //20 bytes
@@ -1742,7 +1768,7 @@ typedef struct CcmEmmEventStatisCnf_Tag
     UINT16  numAuthFail;        /* count of Authentication Success */
     UINT16  numDetach;          /* count of Detach */
     UINT16  numOOS;             /* count of PLMN, OOS */
-    UINT16  reversed;
+    UINT16  rsvd;
 }CcmEmmEventStatisCnf;
 
 
@@ -1845,6 +1871,11 @@ typedef struct CerrcCcmGetDrxParamCnf_Tag
 //Timer for DRX in TS 36.321 [6]. Value in number of PDCCH periods.
     UINT8    	drxULRetransmissionTimer;	//DrxULRetransmissionTimerNB
 }CerrcCcmGetDrxParamCnf;
+
+/*
+ * SIG_CCM_ERRC_PHY_DETECT_EVENT_IND
+*/
+typedef CmiDevDetectEventInd CcmErrcPhyDetectEventInd;
 
 #endif
 

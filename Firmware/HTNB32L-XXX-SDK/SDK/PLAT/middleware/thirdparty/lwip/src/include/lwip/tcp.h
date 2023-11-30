@@ -429,6 +429,7 @@ void             tcp_backlog_accepted(struct tcp_pcb* pcb);
 void             tcp_recved  (struct tcp_pcb *pcb, u16_t len);
 err_t            tcp_bind    (struct tcp_pcb *pcb, const ip_addr_t *ipaddr,
                               u16_t port);
+u16_t tcp_alloc_local_port(void);
 err_t            tcp_connect (struct tcp_pcb *pcb, const ip_addr_t *ipaddr,
                               u16_t port, tcp_connected_fn connected);
 
@@ -513,6 +514,11 @@ void tcp_remove_all_timer(struct tcp_pcb *pcb);
 
 void tcp_close_local_abort_timeout_handler(void *arg);
 
+void tcp_poll_timeout_handler(void *arg);
+
+void tcp_active_poll_timeout_timer(struct tcp_pcb *pcb, UINT32 timeout);
+
+void tcp_disable_keepalive_time(struct tcp_pcb *pcb);
 #endif
 
 #if PS_ENABLE_TCPIP_HIB_SLEEP2_MODE
@@ -530,8 +536,11 @@ void tcp_remove_pcb_from_bounds_list(struct tcp_pcb* pcb);
 void tcp_check_hib_sleep2_pcb_active(ip_addr_t *ue_addr);
 void tcp_check_hib_sleep2_pcb_deactive(ip_addr_t *ue_addr);
 int tcp_get_sock_info(int fd, ip_addr_t *local_ip, ip_addr_t *remote_ip, u16_t *local_port, u16_t *remote_port);
+int tcp_get_sock_info_by_pcb(struct tcp_pcb *pcb, ip_addr_t *local_ip, ip_addr_t *remote_ip, u16_t *local_port, u16_t *remote_port);
 int tcp_get_hib_sock_id(void);
 BOOL tcp_check_is_include_list(struct tcp_pcb* pcb);
+u16_t get_hib_tcp_pcb_active_local_port(void);
+struct tcp_pcb *get_tcp_all_list(u8_t index);
 
 
 #endif
@@ -542,6 +551,8 @@ void tcp_rebuild_unack_seg_bitmap(struct tcp_seg *seg);
 
 err_t tcp_set_max_retry_times(struct tcp_pcb *pcb, u8_t times);
 err_t tcp_set_max_total_retry_time(struct tcp_pcb *pcb, u16_t time);
+err_t tcp_set_init_retry_time(struct tcp_pcb *pcb, u16_t time);
+
 #endif
 
 #ifdef __cplusplus

@@ -131,9 +131,14 @@ LWIP_MEMPOOL(MLD6_GROUP,     MEMP_NUM_MLD6_GROUP,      sizeof(struct mld_group),
  *     (Example: pbuf_payload_size=0 allocates only size for the struct)
  */
 LWIP_PBUF_MEMPOOL(PBUF,      MEMP_NUM_PBUF,            0,                             "PBUF_REF/ROM")
-
+#if (RTE_PPP_EN==1)
+#if !(PBUF_POOL_MM_USE_CUSTOM || LWIP_USE_PS_DL_PKG_MEM)
+LWIP_PBUF_MEMPOOL(PBUF_POOL, PBUF_POOL_SIZE,           PBUF_POOL_BUFSIZE,             "PBUF_POOL")
+#endif
+#else
 #if !PBUF_POOL_MM_USE_CUSTOM
 LWIP_PBUF_MEMPOOL(PBUF_POOL, PBUF_POOL_SIZE,           PBUF_POOL_BUFSIZE,             "PBUF_POOL")
+#endif
 #endif
 
 

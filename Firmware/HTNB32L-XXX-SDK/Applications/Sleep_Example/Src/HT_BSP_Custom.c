@@ -115,7 +115,7 @@ void BSP_CustomInit(void) {
     {
         SetUnilogUart(PORT_USART_0, rawFlashPlatConfig->uartBaudRate, false);
         uniLogInitStart(UART_0_FOR_UNILOG);
-        QCOMM_STRING(UNILOG_PLA_STRING, build_info, P_SIG, "%s", getBuildInfo());
+        HT_STRING(UNILOG_PLA_STRING, build_info, P_SIG, "%s", getBuildInfo());
     }
 
     ////////// wakeup pad 0 for button wakeup ///////////////

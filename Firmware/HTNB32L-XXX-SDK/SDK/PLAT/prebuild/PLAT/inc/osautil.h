@@ -6,7 +6,7 @@
  Copyright:      - 2017, All rights reserved by Qualcomm Ltd.
  File name:      - osautil.h
  Description:    - defined some common functions/structures
- History:        - 2021/02/20, Originated by jcweng
+ History:        - 2021/02/20, Originated by Jason
  ******************************************************************************
 ******************************************************************************/
 #ifdef WIN32
@@ -15,6 +15,7 @@
 #include "commontypedef.h"
 #endif
 
+#include "pspdu.h"
 
 /******************************************************************************
  *****************************************************************************
@@ -99,6 +100,52 @@
 
 #define     OSA_IE_BUF_MAX_SIZE         4096
 
+/*
+ * Osa4ByteAlignLen(0) = 0
+ * Osa4ByteAlignLen(1) = 4
+ * Osa4ByteAlignLen(8) = 8
+*/
+#define Osa4ByteAlignLen(byteLen)    (((byteLen)+3)&0xFFFFFFFC)
+
+
+/*
+ * Single linked list operation MARCO
+ * !!!! STRUCT must have "pNext" element !!!
+*/
+#define OsaSingleLinkAddOne(pHdr, pTailer, pNew)  \
+do {                                                \
+    if ((pHdr) == PNULL)                            \
+    {                                               \
+        OsaCheck((pTailer) == PNULL && (pNew) != PNULL && ((pNew)->pNext) == PNULL, (pTailer), ((pNew)->pNext), 0xABCDEF);  \
+        (pHdr)  = (pTailer) = (pNew);               \
+    }                                               \
+    else                                            \
+    {                                               \
+        OsaCheck((pTailer) != PNULL && (pNew) != PNULL && ((pNew)->pNext) == PNULL, (pTailer), ((pNew)->pNext), 0xFEDCBA);  \
+        (pTailer)->pNext    = (pNew);               \
+        (pTailer)           = (pNew);               \
+    }                                               \
+}while(FALSE)
+
+/*
+*/
+#define OsaSingleLinkAddList(pHdr, pTailer, pNewHdr, pNewTailer)  \
+do {                                                \
+    if ((pHdr) == PNULL)                            \
+    {                                               \
+        OsaCheck((pTailer) == PNULL && (pNewHdr) != PNULL && ((pNewTailer)->pNext) == PNULL, (pTailer), ((pNewTailer)->pNext), 0x12345678);  \
+        (pHdr)      = (pNewHdr);                    \
+        (pTailer)   = (pNewTailer);                 \
+    }                                               \
+    else                                            \
+    {                                               \
+        OsaCheck((pTailer) != PNULL && (pNewHdr) != PNULL && ((pNewTailer)->pNext) == PNULL, (pTailer), ((pNewTailer)->pNext), 0x87654321);  \
+        (pTailer)->pNext    = (pNewHdr);            \
+        (pTailer)           = (pNewTailer);         \
+    }                                               \
+}while(FALSE)
+
+
 
 /******************************************************************************
  *****************************************************************************
@@ -165,6 +212,17 @@ UINT8 OsaBit0Search(UINT32 data);
 
 
 /******************************************************************************
+ * OsaBeZeroMemory
+ * Description: Whether all memory are set to zero
+ * input:
+ * output: UINT32   // 0 - not all zero, 1 - all zero
+ *
+******************************************************************************/
+UINT32 OsaBeZeroMemory(const void *pMem, UINT32 size);
+
+
+
+/******************************************************************************
  * OsaIeMemInit
  * Description: init PS IE (information element) memory info
  * input:  OsaIeMemInfo     *pIeMemInfo     //IE memory info
@@ -218,6 +276,30 @@ void OsaSetBufBitsValue(UINT8 *pBuf, UINT32 *startBitOffset, UINT8 bitsLen, UINT
 ******************************************************************************/
 UINT32 OsaGetBufBitsValue(const UINT8 *pBuf, UINT32 *startBitOffset, UINT8 bitsLen);
 
+/*
+ * Alloc one "DlPduBlock" from heap, if failed, return PNULL
+*/
+DlPduBlock* OsaAllocDlPduBlock(UINT32 len);
+
+/*
+ * Free one DL PDU block
+*/
+void OsaFreeOneDlPduBlock(DlPduBlock **pDlPduBlk);
+
+/*
+ * Free DL PDU list
+*/
+void OsaFreeDlPduBlockList(DlPduBlock **pDlPduBlk);
+
+/*
+ * Free one UL PDU block
+*/
+void OsaFreeOneUlPduBlock(UlPduBlock **pUlPduBlk);
+
+/*
+ * Free UL PDU list
+*/
+void OsaFreeUlPduBlockList(UlPduBlock **pUlPduBlk);
 
 #endif
 

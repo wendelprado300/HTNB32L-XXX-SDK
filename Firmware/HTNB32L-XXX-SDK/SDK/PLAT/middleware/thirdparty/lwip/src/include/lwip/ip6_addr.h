@@ -130,6 +130,18 @@ typedef struct ip6_addr ip6_addr_t;
  * @arg addr2 IPv6 address 2
  * @return !0 if the network identifiers of both address match
  */
+#if (RTE_PPP_EN==1)
+#define ip6_addr_get_prefix(prefix, addr2) do{(prefix)->addr[0] = (addr2)->addr[0]; \
+                                             (prefix)->addr[1] = (addr2)->addr[1]; \
+                                             (prefix)->addr[2] = 0;               \
+                                             (prefix)->addr[3] = 0;}while(0)
+
+#define ip6_addr_get_prefix64(prefix, addr2) do{(prefix)[0] = (addr2)->addr[0]; \
+                                              (prefix)[1] = (addr2)->addr[1];}while(0)
+
+#define ip6_addr_get_id64(prefix, addr2) do{(prefix)[0] = (addr2)->addr[2]; \
+                                            (prefix)[1] = (addr2)->addr[3];}while(0)
+#endif
 #define ip6_addr_netcmp(addr1, addr2) (((addr1)->addr[0] == (addr2)->addr[0]) && \
                                        ((addr1)->addr[1] == (addr2)->addr[1]))
 

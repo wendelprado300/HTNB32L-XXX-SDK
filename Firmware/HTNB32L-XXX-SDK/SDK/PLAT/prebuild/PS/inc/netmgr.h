@@ -11,6 +11,10 @@
 
 #include "commontypedef.h"
 #include "lwip/ip_addr.h"
+#if (RTE_PPP_EN==1)
+#include "netif/ethernet.h"
+#include "lwip/opt.h"
+#endif
 #include "cmips.h"
 
 /******************************************************************************
@@ -163,7 +167,9 @@ typedef enum NmCmsPrimId_enum
     NM_ATI_IPERF_RET_IND,   //NmAtiIperfResultInd
     NM_ATI_NET_INFO_IND,    //NmAtiNetInfoInd
     NM_ATI_SNTP_RET_IND,
-
+#if (RTE_PPP_EN==1)
+    NM_ATI_LAN_INFO_IND,
+#endif
     NM_ATI_PRIM_END = 0XFF,
 }NmCmsPrimId;
 
@@ -188,11 +194,262 @@ typedef enum
 {
     NM_ADDR_INVALID_ADDR = 0,
     NM_ADDR_IPV4_ADDR,          // 4 bytes length
+#if (RTE_PPP_EN==1)
+    NM_ADDR_IPV6_ID,             //8 bytes length
+    NM_ADDR_FULL_IPV6_ADDR      //16 bytes length
+#else
     NM_ADDR_FULL_IPV6_ADDR,     //16 bytes length
     NM_ADDR_IPV6_ID             //8 bytes length
+#endif
 }NmAddrType;
 
+/*
+ *NM LAN type
+*/
+typedef enum
+{
+    NM_LAN_TYPE_INVALID = 0,
+    NM_LAN_TYPE_RNDIS,
+    NM_LAN_TYPE_ECM,
+    NM_LAN_TYPE_PPP,
+}NmLanType;
+
+/*
+ *NM LAN NET type
+*/
+typedef enum
+{
+    NM_LAN_NET_TYPE_INVALID = 0,
+    NM_LAN_NET_TYPE_ETH,
+    NM_LAN_NET_TYPE_PPP,
+}NmLanNetType;
+
+
+
+/*
+ *NM LAN link layer status type
+*/
+
+typedef enum
+{
+    NM_LAN_LINK_STATUS_DISCONNECTED,
+    NM_LAN_LINK_STATUS_CONNECTED,
+}NmLanLinkStatus;
+
+/*
+*NM LAN data path status
+*/
+typedef enum
+{
+    NM_LAN_NET_DEACTIVED,   //lan data path is deactive
+    NM_LAN_NET_ACTIVED,     //lan data path is active
+    NM_LAN_NET_ACTIVED_AND_CHANGED, //lan data path is active and changed, such as ipv4 ready change to ipv4ipv6 ready
+}NmLanNetStatus;
+
+
+/*
+ * NM ethernet LAN (RNDIS/ECM) data path ip4 mode (ip6 is always pass through mode)
+*/
+typedef enum
+{
+    NM_ETH_LAN_IP4_PATH_MODE_PASSTHROUGH = 0,   //pass through mode
+    NM_ETH_LAN_IP4_PATH_MODE_NAT,               //nat mode
+}NmEthLanIp4PathMode;
+
+
+/*
+*NM LAN ctrl api
+*/
+typedef enum
+{
+    NM_LAN_CTRL_ACTION_BIND = 0,   //pass through mode
+    NM_LAN_CTRL_ACTION_UNBIND,     //nat mode
+}NmLanCtrlAction;
+
+#ifdef PPP_SUPPORT
+typedef struct NetMgrWanIpv6Info_Tag
+{
+    ip6_addr_t  ipv6GlobalAddr;
+    ip6_addr_t  ipv6LinklocalAddr;
+
+    UINT8       dnsNum;
+    UINT8       rsvd0;
+    UINT16      rsvd1;
+    ip6_addr_t  dns[NM_PDN_TYPE_MAX_DNS_NUM];
+}NetMgrWanIpv6Info;   //52 bytes
+
+
+typedef struct NetMgrWanIpv4Info_Tag
+{
+    ip4_addr_t  ipv4Addr;
+
+    UINT8       dnsNum;
+    UINT8       rsvd0;
+    UINT16      rsvd1;
+    ip4_addr_t  dns[NM_PDN_TYPE_MAX_DNS_NUM];
+}NetMgrWanIpv4Info;   //16 bytes
+
+
+typedef struct NetMgrWanInfo_Tag
+{
+    UINT8 ipType;
+    UINT8 ipv4Cid;
+    UINT8 ipv6Cid;
+    BOOL bEnableRohc;
+
+    NetMgrWanIpv4Info wanIpv4Info;
+    NetMgrWanIpv6Info wanIpv6Info;
+}NetMgrWanInfo;
+
+typedef struct NetMgrLanIPv6Info_Tag
+{
+    ip6_addr_t  ipv6GlobalAddr;
+    ip6_addr_t  ipv6LinklocalAddr;
+}NetMgrLanIPv6Info;
+
+typedef struct NetMgrLanIPv4Info_Tag
+{
+    ip4_addr_t  ipv4Addr;
+}NetMgrLanIPv4Info;
+
 #if 0
+typedef struct NetMgrRndisLanInfo_Tag
+{
+    UINT8  ipType;
+    UINT8  rsvd0;
+    UINT16 rsvd1;
+
+    NetMgrLanIPv4Info lanIpv4Info;
+    NetMgrLanIPv6Info lanIpv6Info;
+
+    UINT8 etherAddr[ETH_HWADDR_LEN];
+}NetMgrRndisLanInfo;
+#endif
+
+typedef struct NetMgrPppLanInfo_Tag
+{
+    UINT8  ipType;
+    UINT8  rsvd0;
+    UINT16 rsvd1;
+
+    NetMgrLanIPv4Info lanIpv4Info;
+    NetMgrLanIPv6Info lanIpv6Info;
+}NetMgrPppLanInfo;
+
+typedef struct NetMgrLanInfo_Tag
+{
+    UINT8 type;
+    union
+    {
+        //NetMgrRndisLanInfo rndisLanInfo;
+        NetMgrPppLanInfo   pppLanInfo;
+    }lanInfo;
+}NetMgrLanInfo;
+
+
+
+typedef struct NetMgrEthLanCfg_Tag
+{
+    UINT8       ethLanIp4PathMode;  //NmEthLanIp4PathMode, nat/passthrough mode
+    UINT8       rsvd0;
+    UINT16      rsvd1;
+
+    ip4_addr_t  ethLocalAddr;       //Ethernet LAN netif (ECM/RNDIS) address, example: 192.168.10.1
+    ip4_addr_t  ethHostAddr;        //host lan netif(ECM/RNDIS) address, if NAT mode, example: 192.168.10.5
+    ip4_addr_t  ethHostNetMask;     //host lan netif(ECM/RNDIS) netmask.if NAT mode, example:255.255.255.0; if the setting is 0.0.0.0, ue will use the deault value
+}NetMgrEthLanCfg;   // 12 bytes
+
+#if 1
+typedef struct NetMgrPppLanCfg_Tag
+{
+    ip4_addr_t  pppLocalAddr;       //PPP LAN netif address, should not same as: "ethLocalAddr", example: 192.168.20.1
+}NetMgrPppLanCfg;
+
+
+typedef struct NetMgrLanCfg_Tag
+{
+    NetMgrEthLanCfg     ethLanCfg;
+    //NetMgrPppLanCfg     pppLanCfg;
+}NetMgrLanCfg;      // 12 bytes
+
+
+/*
+*/
+typedef struct NetMgrLanDataPathCap_Tag
+{
+    UINT8           lanType;        /* NmNetLanType */
+    BOOL            bConnected;     /* Whether LAN is connected/disconnected
+                                     * 1> if connected, CCIO need to try linkup LAN, if ethernet(RNDID/ECM)/PPP enabled
+                                     * 2> if disconnected, CCIO need to linkdown LAN
+                                    */
+    UINT16          rsvd0;
+
+    /*
+     * Some basic lan info
+    */
+    UINT8           lanIpType;      /* NmNetIpType */
+    UINT8           lanBindIp4Cid;  /* If not bind, set to : 0xFF */
+    UINT8           lanBindIp6Cid;  /* If not bind, set to : 0xFF */
+    UINT8           rsvd1;
+}NetMgrLanDataPathCap;
+
+/*
+ * When LAN (PPP/RNDIS/ECM) state changes (connect/disconnect) need to notify CCIO
+*/
+//void radioDevNotifyTcpipDataPathCapability(NetMgrLanDataPathCap *pLanDataPathCap);
+
+/*
+ * query the lan tcpip data path capability, called by CCIO, to descide whether can do lan link up
+*/
+//NmResult NetMgrQueryLanTcpipDataPathCapability(NmLanType lanType, NetMgrLanDataPathCap *pLanDataPathCap);
+
+
+/*
+ *NM LAN channel TCPIP data path status
+*/
+typedef struct NetMgrLanChannelTcpipDataPathStatus_Tag
+{
+    NmLanNetStatus status; //event status with (NM_LAN_NET_DEACTIVED/NM_LAN_NET_ACTIVED/NM_LAN_NET_ACTIVED_AND_CHANGED); query return (NM_LAN_NET_DEACTIVED/NM_LAN_NET_ACTIVED)
+    UINT8           lanIpType;      /* NmNetIpType */
+    UINT8           lanBindIp4Cid;  /* If not bind, set to : 0xFF */
+    UINT8           lanBindIp6Cid;  /* If not bind, set to : 0xFF */
+    UINT8           rsvd1;
+}NetMgrLanChannelTcpipDataPathStatus;
+
+/*
+/NM LAN channel TCPIP data path info(assign to host)
+*/
+typedef struct NetMgrLanTcpipDataPathHostInfo_Tag
+{
+    /*
+     * Some basic lan info
+    */
+    UINT8           lanIpType;       /* NmNetIpType */
+    UINT8           lanBindIp4Cid;   /* If not bind, set to : 0xFF */
+    UINT8           lanBindIp6Cid;   /* If not bind, set to : 0xFF */
+    UINT8           rsvd1;
+
+    ip4_addr_t      hostIp4Addr;      /*the ip4 address which will assigned to host*/
+    UINT32          hostIp6Prefix[2]; /*the ip6 prefix which will assigned to host*/
+    UINT32          hostIp6Id[2];     /*the ip6 ID which will assigned to host*/
+
+    ip4_addr_t      hostIp4Dns[NM_PDN_TYPE_MAX_DNS_NUM]; /*the ip4 dns which will assigned to host*/
+    ip6_addr_t      hostIp6Dns[NM_PDN_TYPE_MAX_DNS_NUM]; /*the ip6 dns which will assigned to host*/
+
+}NetMgrLanTcpipDataPathHostInfo;
+
+/*
+*/
+typedef struct NmAtiLanInfo_Tag
+{
+    UINT8       lanType;        /*NmLanNetType, ETH/PPP LAN*/
+    BOOL        bound;          /*whether current LAN , bind a WAN/netif */
+
+    UINT8       lanBindIp4Cid;  /* If not bind, set to : 0xFF */
+    UINT8       lanBindIp6Cid;  /* If not bind, set to : 0xFF */
+}NmAtiLanInfo;
+
+#endif
 /*
  * Signal: NM_ATI_SIGNAL_CNF
  * signal to AT CMD SRV task,
@@ -280,7 +537,17 @@ typedef enum NmBlockCallbackMsgId_Tag
     NM_BLOCK_CB_INVALID_ID,
     NM_NET_LINK_UP,
     NM_NET_LINK_DOWN,
+#if (RTE_PPP_EN==1)
+    NM_NET_LAN_LINK_UP,
+    NM_NET_LAN_LINK_DOWN,
+    NM_NET_LAN_LINK_LAYER_STATUS_CHANGE,
+#endif
     NM_GET_NET_INFO,
+#if (RTE_PPP_EN==1)
+    NM_CLEAR_DNS_CACHE,
+    NM_GET_DNS_SERVER,
+    NM_SET_DNS_SERVER,
+#endif
     NM_START_SNTP,
     NM_STOP_SNTP,
 }NmBlockCallbackMsgId;
@@ -372,8 +639,16 @@ typedef struct NmIperfReq_Tag
 ******************************************************************************/
 typedef struct NmIfConfiguration_Tag
 {
+#if (RTE_PPP_EN==0)
     UINT8       dnsNum;
     UINT8       mtuPresent; //if mtu is invalid ,this value will be zero
+#else
+    UINT16      dnsNum : 3;
+    UINT16      mtuPresent : 1; //if mtu is invalid ,this value will be zero
+    UINT16      cgevReason: 4;  //CmiPsPdnTypeReason
+    UINT16      rsvd0 : 8;
+    UINT8       clatTranslatedPDN; /* Hack, need to remove after PS CL */
+#endif
     UINT16      mtu;
     NmIpAddr    ipv4Addr;
     NmIpAddr    ipv6Addr;
@@ -551,6 +826,9 @@ typedef enum NmNetifType_Tag
 {
     NM_INVALID_NETIF,
     NW_DEFAULT_NETIF,   //default netif, all socket data default to send via this netif
+#if (RTE_PPP_EN==1)
+    NM_OTHER_NETIF
+#endif
     //NW_IMS_NETIF      //FFS
 }NmNetifType;
 
@@ -601,19 +879,41 @@ typedef enum NmNetifStatus_Tag
 
 typedef enum NmNetifStatusChangeCause_Tag
 {
-    NM_STATUS_CHANGE_LINK_UP,
+#if (RTE_PPP_EN==1)
+    NM_STATUS_CHANGE_INVALID,
+#endif
+    NM_STATUS_CHANGE_LINK_UP,           /* IPV6 and IPV4 bearer/netif set up, maybe one IPV4V6 bearer, or two bearers (one Ipv4, one Ipv6) */
+#if (RTE_PPP_EN==0)
     NM_STATUS_CHANGE_LINK_DOWN,
-    NM_STATUS_CHANGE_RA_SUCCESS,
-    NM_STATUS_CHANGE_RA_TIMEOUT,
+#else
+    NM_STATUS_CHANGE_LINK_UP_IPV4,      /* Only IPV4 bearer/netif set up */
+    NM_STATUS_CHANGE_LINK_UP_IPV6,      /* Only IPV6 bearer/netif set up */
+#endif
+    NM_STATUS_CHANGE_RA_SUCCESS,        /* IPV6 RS succ, IPV6 full address gotten */
+    NM_STATUS_CHANGE_RA_TIMEOUT,        /* IPV6 RS timeout */
     NM_STATUS_CHANGE_ENTER_OOS,
     NM_STATUS_CHANGE_EXIT_OOS,
-    NM_STATUS_CHANGE_LINK_UP_PDN_IPV4_ONLY,
-    NM_STATUS_CHANGE_LINK_UP_PDN_IPV6_ONLY,
-    NM_STATUS_CHANGE_LINK_UP_PDN_SINGLE_ADDRESS_ONLY,
-    NM_STATUS_CHANGE_LINK_UP_PDN_SINGLE_ADDR_ONLY_ALLOWED_AND_SECOND_BEARER_FAILED,
+#if (RTE_PPP_EN==1)
+    NM_STATUS_CHANGE_LINK_DOWN,         /* bearer/netif down, which bearer? CID indicated in: NmAtiNetifInfo->ipv4Cid/ipv6Cid */
+    NM_STATUS_CHANGE_LINK_DOWN_IPV4,    /* 1> If two bearers used for this netif, this just means IPV4 bearer deactivated,
+                                         *    and only IPV6 bearer now.
+                                         * 2> which IPV4 bearer deactivated? indicated in: NmAtiNetifInfo->ipv4Cid.
+                                        */
+    NM_STATUS_CHANGE_LINK_DOWN_IPV6,    /* 1> If two bearers used for this netif, this just means IPV6 bearer deactivated,
+                                         *    and only IPV4 bearer now.
+                                         * 2> which IPV4 bearer deactivated? indicated in: NmAtiNetifInfo->ipv6Cid.
+                                        */
+#endif
+#if (RTE_PPP_EN==0)
+    NM_STATUS_CHANGE_LINK_UP_PDN_IPV4_ONLY,     /* Ipv4v6 bearer request, but only ipv4 supported/activated */
+    NM_STATUS_CHANGE_LINK_UP_PDN_IPV6_ONLY,     /* Ipv4v6 bearer request, but only ipv6 supported/activated */
+    NM_STATUS_CHANGE_LINK_UP_PDN_SINGLE_ADDRESS_ONLY,   /* Ipv4v6 bearer request, but only ipv4 or v6 supported/activated */
+    NM_STATUS_CHANGE_LINK_UP_PDN_SINGLE_ADDR_ONLY_ALLOWED_AND_SECOND_BEARER_FAILED, /* Ipv4v6 bearer request, and the second bearer act failed */
+#endif
     NM_STATUS_CHANGE_OTHERS,
 }NmNetifStatusChangeCause;
 
+#if (RTE_PPP_EN==0)
 typedef struct NmAtiNetifInfo_Tag
 {
     UINT8               netStatus;  //NmNetifStatus
@@ -638,6 +938,38 @@ typedef struct NmAtiNetifInfo_Tag
     NmNetIpv6Info       ipv6Info;   //first need to check "ipType", if "ipType" indicate ipv6 or ipv4v6, then this info must be valid
 }NmAtiNetifInfo;    // 76 bytes
 
+#else
+/*
+ * One WAN NETIF basic info, note, these info will return to user, should be clear
+*/
+typedef struct NmAtiNetifInfo_Tag
+{
+    UINT8               netStatus;  //NmNetifStatus
+    UINT8               netifType;  //NmNetifType
+    UINT8               ipType;     //NmNetIpType
+    UINT8               rsvd0;
+    UINT8               cause;   //NmNetifStatusChangeCause
+
+    /*
+     * 1> if NETIF is ipv4v6 type:
+     *    a> if two bearers created, "ipv4Cid" is for IPV4 bearer, and "ipv6Cid" is for IPV6 bearer
+     *    b> if one bearer (ipv4v6) created, "ipv4Cid" = "ipv6Cid"
+     * 2> if NETIF is ipv4 type
+     *    a> "ipv6Cid" should set to LWIP_PS_INVALID_CID
+     * 3> if NETIF is ipv6 type
+     *    a> "ipv4Cid" should set to LWIP_PS_INVALID_CID
+     * ==================================================
+     * Note, in case of "NmAtiNetInfoInd" indication.
+     * These "ipv4Cid" and "ipv6Cid" maybe set to valid value, to indicate which bearer/netif is deactivated
+    */
+    UINT8               ipv4Cid;
+    UINT8               ipv6Cid;
+    UINT16              mtu;  //mtu size
+
+    NmNetIpv4Info       ipv4Info;   //first need to check "ipType", if "ipType" indicate ipv4 or ipv4v6, then this info must be valid
+    NmNetIpv6Info       ipv6Info;   //first need to check "ipType", if "ipType" indicate ipv6 or ipv4v6, then this info must be valid
+}NmAtiNetifInfo;    // 76 bytes
+#endif
 
 /*
  * Result for: NM_ATI_SYNC_GET_NET_INFO_REQ, just return NET info info
@@ -667,6 +999,9 @@ typedef struct NmAtiSyncRet_Tag
 {
     union {
         NmAtiGetNetInfoRet      netInfoRet;
+#if (RTE_PPP_EN==1)
+        NmNetIfDnsCfg           getDnsServer;   //84 bytes
+#endif
         NmAtiIsAnyActiveSockRet anyActSockRet;
     }body;
 }NmAtiSyncRet;
@@ -678,9 +1013,82 @@ typedef struct NmAtiSyncRet_Tag
 ******************************************************************************/
 typedef struct NmAtiNetInfoInd_Tag
 {
+#if (RTE_PPP_EN==1)
+    UINT8           indCause;      //NmNetifStatusChangeCause
+    UINT8           rsvd0;
+    UINT16          rsvd1;
+#endif
     NmAtiNetifInfo  netifInfo;
 }NmAtiNetInfoInd;   // 76 bytes
 
+#if (RTE_PPP_EN==1)
+/*
+ * lan net status change cause
+*/
+typedef enum NmLanNetifStatusChangeCause_Tag
+{
+    NM_LAN_STATUS_CHANGE_INVALID,
+    NM_LAN_STATUS_CHANGE_LINK_UP, // the bind wan has active,then the lan link up success, mabybe one IPV4IPV6 wan
+    NM_LAN_STATUS_CHANGE_LINK_DOWN, // the lan link down
+    NM_LAN_STATUS_CHANGE_LAN_BIND, // for nat mode, the lan link up has already,the the lan bind with one active wan
+    NM_LAN_STATUS_CHANGE_LAN_UNBIND,// for nat mode, the lan link up has already,the the lan unbind with one active wan
+    NM_LAN_STATUS_CHANGE_WAN_LINK_UP,// for nat mode, the lan link up has already and bind a deactive wan, than the wan active
+    NM_LAN_STATUS_CHANGE_WAN_LINK_DOWN,// for nat mode, the lan link up has already and bind a active wan, than the wan deactive
+    NM_LAN_STATUS_CHANGE_OTHERS,
+}NmLanNetifStatusChangeCause;
+
+typedef struct NmAtiGetDnsServerReq_Tag
+{
+    UINT8       cid;
+    UINT8       rsvd0;
+    UINT16      rsvd1;
+}NmAtiGetDnsServerReq;
+
+typedef struct NmAtiSetDnsServerReq_Tag
+{
+    UINT8       cid;
+    NmNetIfDnsCfg dnsCfg;
+}NmAtiSetDnsServerReq;
+
+typedef struct NmAtiClearDnsCacheReq_Tag
+{
+
+    BOOL        bAll;
+    UINT8       rsvd0;
+    UINT16      rsvd1;
+    CHAR        name[DNS_MAX_NAME_LENGTH];
+}NmAtiClearDnsCacheReq;
+
+typedef struct NmAtiSetDnsCacheReq_Tag
+{
+
+    BOOL        bEanble;
+    UINT8       rsvd0;
+    UINT16      rsvd1;
+}NmAtiSetDnsCacheReq;
+
+typedef struct NmAtiGetLanDataPathCapReq_Tag
+{
+    UINT8       lanType; //NmLanNetType
+    UINT8       rsvd0;
+    UINT16      rsvd1;
+}NmAtiGetLanDataPathCapReq;
+
+typedef struct NmAtiGetLanDataPathStatusReq_Tag
+{
+    UINT8       lanType; //NmLanNetType
+    UINT8       rsvd0;
+    UINT16      rsvd1;
+}NmAtiGetLanDataPathStatusReq;
+
+typedef struct NmAtiGetLanDataPathHostInfoReq_Tag
+{
+    UINT8       lanType; //NmLanNetType
+    UINT8       rsvd0;
+    UINT16      rsvd1;
+}NmAtiGetLanDataPathHostInfoReq;
+
+#endif
 
 /******************************************************************************
  *****************************************************************************
@@ -701,7 +1109,12 @@ typedef struct NmAtiNetInfoInd_Tag
  * Comment:
 ******************************************************************************/
 NmResult NetMgrLinkUp(UINT8 cid, NmIfConfiguration *pIfCfg, UINT8 bindToCid, BOOL bWakeUp, BOOL bInternetPdn);
-
+#if (RTE_PPP_EN==1)
+/*
+ * Netmgr dedicated bearer linkup
+*/
+NmResult NetMgrDedLinkUp(UINT8 cid, UINT8 pcid, BOOL bWakeUp);
+#endif
 /******************************************************************************
  * NetMgrLinkDown
  * Description: netmngr pdn linkdown function
@@ -710,8 +1123,154 @@ NmResult NetMgrLinkUp(UINT8 cid, NmIfConfiguration *pIfCfg, UINT8 bindToCid, BOO
  * Comment:
 ******************************************************************************/
 NmResult NetMgrLinkDown(UINT8 cid);
+#if (RTE_PPP_EN==1)
+/*
+ * Netmgr default/dedicated bearer TFT config
+*/
+//NmResult NetMgrTftConfig(UINT8 cid, UINT8 pfNum, CmiPsPacketFilter *pPFList);
 
 
+/******************************************************************************
+ * NetMgrLanLinkLayerStatusChange
+ * Description: notify the tcpip stack the LAN device link layer status change
+ * input: (NmLanType type, NmLanLinkStatus newStatus)
+ * output:
+ * return: NmResult
+ * Comment: called by rndis/ppp service or psdial
+ * the default link layer status of LAN is disconnected, and if the status has been change, it must be notify to tcpip stack by this API
+******************************************************************************/
+NmResult NetMgrLanLinkLayerStatusChange(NmLanType type, NmLanLinkStatus newStatus);
+
+
+/******************************************************************************
+ * NetMgrGetNetInfo
+ * Description: get UE wan net info
+ * input: UINT8 cid, NmAtiGetNetInfoRet *wanInfo
+ * output: NmResult
+ * Comment: called by app
+ * if cid is LWIP_PS_INVALID_CID, will return default netif status
+******************************************************************************/
+NmResult NetMgrGetNetInfo(UINT8 cid, NmAtiNetifInfo *pWanInfo);
+
+/******************************************************************************
+ * NetMgrGetNetInfoWithoutPsStatusCheck
+ * Description: get UE wan net info
+ * input:   UINT8 cid, NmAtiNetifInfo *pNetifInfo
+ * output:  NmResult
+ * Comment: In this API not check whether PS is started, this API is only called
+ *          by ESM, as ESM maybe call it to get IPV6 address during wakeup procedure
+******************************************************************************/
+NmResult NetMgrGetNetInfoWithoutPsStatusCheck(UINT8 cid, NmAtiNetifInfo *pNetifInfo);
+
+
+/******************************************************************************
+ * NetMgrGetDnsServerInfo
+ * Description: get UE dns server config
+ * input: UINT8 cid, NmNetIfDnsCfg *pGetDnsServer
+ * output: NmResult
+ * Comment: called by app
+******************************************************************************/
+NmResult NetMgrGetDnsServerInfo(UINT8 cid, NmNetIfDnsCfg *pGetDnsServer);
+
+/******************************************************************************
+ * NetMgrSetDnsServerInfo
+ * Description: set UE dns cache
+ * input: UINT8 cid, UINT8 number, ip_addr_t dns[NM_MAX_DNS_NUM]
+ * output: NmResult
+ * Comment: called by app
+******************************************************************************/
+NmResult NetMgrSetDnsServerInfo(UINT8 cid, UINT8 number, ip_addr_t dns[NM_MAX_DNS_NUM]);
+
+/******************************************************************************
+ * NetMgrClearDnsServerInfo
+ * Description: clear UE dns cache
+ * input: UINT8 cid, NmAtiGetNetInfoRet *wanInfo
+ * output: NmResult
+ * Comment: called by app
+******************************************************************************/
+NmResult NetMgrClearDnsCacheInfo(BOOL bClearAll, CHAR        name[DNS_MAX_NAME_LENGTH]);
+
+/******************************************************************************
+ * NetMgrSetDnsCache
+ * Description: enable/sidable dns cache
+ * input: BOOL bEnable
+ * output: NmResult
+ * Comment: called by app
+******************************************************************************/
+NmResult NetMgrSetDnsCache(BOOL bEnable);
+
+
+/*
+ * Send NET (NETIF) info (status)
+*/
+void NetMgrSendNetInfoInd(NmAtiNetInfoInd *pNetInfoInd);
+
+/*
+ * Proc "CMI_PS_GET_CEREG_CNF"
+*/
+void NetMgrProcCeregCnf(CmiPsGetCeregCnf *pCregCnf);
+
+/*
+ * Proc "CMI_PS_CEREG_IND"
+*/
+void NetMgrProcCeregInd(CmiPsCeregInd *pCregInd);
+
+
+/*
+ * net mgr lan configuration for tcpip data path
+*/
+NmResult NetMgrLanConfig(NetMgrLanCfg *lanCfg);
+
+/*
+ * net mgr lan ctrl api(control the lan data path wether bind with pdp context)
+ * if the same lan type has bind, it will be replace with the new pdp context
+ * if the related lan tcpip data path has been actived,then you can not bind with the new pdp context, and it will return error
+*/
+NmResult NetMgrLanCtrl(NmLanCtrlAction action, NmLanNetType type, UINT8 ip4Cid, UINT8 ip6Cid);
+
+
+/*
+ * query the lan tcpip data path capability, called by CCIO, to descide whether can do lan link up
+*/
+NmResult NetMgrQueryLanTcpipDataPathCapability(NmLanNetType lanType, NetMgrLanDataPathCap *pLanDataPathCap);
+
+
+/******************************************************************************
+ * NetMgrLanLinkUp
+ * Description: netmngr establish LAN TCPIP data path function
+ * input:
+ * output:
+ * return: NmResult
+ * Comment: called by rndis/ppp service
+******************************************************************************/
+NmResult NetMgrLanLinkUp(NmLanType lanType, BOOL bWakeUp, UINT16 mtu);
+
+/******************************************************************************
+ * NetMgrLanDataPathDown
+ * Description: netmngr LAN data path  disconnect function
+ * input: UINT8 lanChannelId(channel[NM_LAN_RNDIS_CHANNEL_ID]->rndis/ecm, channel[NM_LAN_PPP_CHANNEL_ID]->ppp)
+ * output:
+ * return:NmResult
+ * Comment:called by psdial or ps event(NM_ATI_NET_INFO_IND) callback or rndis/ppp service
+******************************************************************************/
+NmResult NetMgrLanLinkDown(NmLanType lanType);
+
+
+/*
+ * net mgr query lan tcpip data path status api
+*/
+NmResult NetMgrGetLanTcpipDataPathStatus(NmLanNetType lanType, NetMgrLanChannelTcpipDataPathStatus *status);
+
+/*
+ * notify the CMS/psdial the LAN info
+*/
+void NetMgrNotifyAtiLanInfoInd(NmAtiLanInfo *pAtiLanInfo);
+
+/*
+ * net mgr query lan tcpip data path host info api
+*/
+NmResult NetMgrGetLanTcpipDataPathHostInfo(NmLanNetType lanType, NetMgrLanTcpipDataPathHostInfo *info);
+#endif
 /******************************************************************************
  * NetMgrPingRequest
  * Description: netmngr ip ping request function

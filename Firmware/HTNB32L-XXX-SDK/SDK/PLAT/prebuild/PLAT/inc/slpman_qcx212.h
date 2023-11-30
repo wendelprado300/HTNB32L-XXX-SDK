@@ -32,6 +32,7 @@ AT+ECPMUCFG?      check current pmu state
 #define GD_FALSH                1
 #define PY_FLASH                0
 
+#define PMU_TIMING_CB_NUM       8
 
 
 #define PMU_DEFAULT_BL_TIME                     (11)
@@ -179,6 +180,7 @@ typedef void(* slpManRestoreCb_t)(void *pdata, slpManLpState state);
 /**
   \brief definition of deepsleep timer callback function
  */
+typedef void (*slpManPmuTimingChangeCb_Func)(void);
 typedef void (*slpManUsrDeepSlpTimerCb_Func)(uint8_t id);
 
 typedef slpManSlpState_t (* slpUserdefSleepCb_Func)(void);
@@ -784,8 +786,10 @@ uint8_t slpManGetLatchPad(void);
 */
 void slpManGetRawFlashRegionFlag(uint8_t *platPsRG, uint8_t *phyRG);
 
+void slpManUpdatePmuTimingCfg(void);
 
-/** \} */
+slpManRet_t slpManRegisterPmuTimingCb(slpManPmuTimingChangeCb_Func timingCb);
+
 
 
 #endif

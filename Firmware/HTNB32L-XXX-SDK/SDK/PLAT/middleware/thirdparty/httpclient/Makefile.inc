@@ -29,16 +29,3 @@ $(BUILDDIR)/lib/libhttpclient.a: $(HTTPCLIENT_COBJS)
 	$(Q)$(AR) -cr $@ $^
 
 endif
-
-ifeq ($(TOOLCHAIN),ARMCC)
-
-CFLAGS_INC += -I $(TOP)/SDK/PLAT/os/freertos/portable/keil
-
-lib-y += libhttpclient.lib
-
-$(BUILDDIR)/lib/libhttpclient.lib: $(HTTPCLIENT_COBJS)
-	@mkdir -p $(dir $@)
-	$(ECHO) AR $@
-	$(Q)$(AR) $(ARFLAGS) $@ $^
-
-endif

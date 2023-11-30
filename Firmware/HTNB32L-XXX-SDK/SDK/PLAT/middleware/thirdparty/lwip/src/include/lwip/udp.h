@@ -145,6 +145,8 @@ struct udp_pcb * udp_new_ip_type(u8_t type);
 void             udp_remove     (struct udp_pcb *pcb);
 err_t            udp_bind       (struct udp_pcb *pcb, const ip_addr_t *ipaddr,
                                  u16_t port);
+u16_t udp_alloc_local_port(void);
+
 err_t            udp_connect    (struct udp_pcb *pcb, const ip_addr_t *ipaddr,
                                  u16_t port);
 void             udp_disconnect (struct udp_pcb *pcb);
@@ -233,9 +235,11 @@ void udp_add_hib_sleep2_context_pcb(PsifHibUdpContext *udpContext);
 void udp_remove_pcb_from_bounds_list(struct udp_pcb* pcb);
 void udp_check_hib_sleep2_pcb_active(ip_addr_t *ue_addr);
 int udp_get_sock_info(int fd, ip_addr_t *local_ip, ip_addr_t *remote_ip, u16_t *local_port, u16_t *remote_port);
+int udp_get_sock_info_by_pcb(struct udp_pcb *pcb, ip_addr_t *local_ip, ip_addr_t *remote_ip, u16_t *local_port, u16_t *remote_port);
 int udp_get_hib_sock_id(void);
 BOOL udp_check_is_include_list(struct udp_pcb* pcb);
-
+u16_t get_hib_udp_pcb_active_local_port(void);
+struct udp_pcb *get_udp_list(void);
 #endif
 
 #if ENABLE_PSIF
@@ -244,6 +248,9 @@ void udp_netif_exit_oos_state(const ip_addr_t *address);
 struct udp_pcb *get_global_sequence_handler_pcb(void);
 void set_global_sequence_handler_pcb(struct udp_pcb *handler_pcb);
 int udp_send_ul_state_ind(u32_t bitmap[8], int socket_id, int status);
+int udp_send_dns_resolve_result(u8_t source, u8_t result, const ip_addr_t *addr_info, const char *url);
+int udp_send_ul_total_length_status(int32_t socket_id, u32_t ul_total_length);
+int udp_send_pkg_to_pcb(u16_t body_len, void *body);
 #endif
 
 

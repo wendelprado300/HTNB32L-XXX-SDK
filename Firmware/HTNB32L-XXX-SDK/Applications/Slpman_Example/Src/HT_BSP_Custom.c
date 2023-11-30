@@ -113,7 +113,7 @@ static void HT_PMU_WakeupPadInit(void) {
 }
 
 static void UserTimerExpFunc(uint8_t id) {
-    QCOMM_TRACE(UNILOG_PLA_APP, UserTimerExpFunc_1, P_SIG, 1, "User DeepSleep Timer Expired: TimerID = %u",id);
+    HT_TRACE(UNILOG_PLA_APP, UserTimerExpFunc_1, P_SIG, 1, "User DeepSleep Timer Expired: TimerID = %u",id);
 }
 
 #if USE_AON_PIN == 1
@@ -150,7 +150,7 @@ void BSP_CustomInit(void) {
     if(rawFlashPlatConfig && (rawFlashPlatConfig->logControl != 0 )) {
         SetUnilogUart(PORT_USART_0, rawFlashPlatConfig->uartBaudRate, true);
         uniLogInitStart(UART_0_FOR_UNILOG);
-        QCOMM_STRING(UNILOG_PLA_STRING, build_info, P_SIG, "%s", getBuildInfo());
+        HT_STRING(UNILOG_PLA_STRING, build_info, P_SIG, "%s", getBuildInfo());
     }
 
 	slpManGetPMUSettings();				// get pmu setting from flash, we can overwrite after that

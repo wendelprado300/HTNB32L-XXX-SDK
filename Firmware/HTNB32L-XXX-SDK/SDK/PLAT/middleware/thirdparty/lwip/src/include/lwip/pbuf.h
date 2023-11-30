@@ -93,10 +93,29 @@ typedef enum {
    * in the most common case - ethernet-layer netif driver. */
   PBUF_RAW,
 #if ENABLE_PSIF
+#if (RTE_PPP_EN==0)
   /*
   * Use this for input packets in a ps netif driver 
   */
   PBUF_PDU
+#else
+  /*
+  *Use this for ps input packets if pd dl buffer high water
+  */
+  PBUF_DL_RAM,
+  /*
+  * Use this for input packets to a ps netif driver
+  */
+  PBUF_ULPDU,
+  /*
+  * Use this for input packets from a ps/ppp netif driver
+  */
+  PBUF_DLPDU,
+  /*
+  * Use this for input packets in a ps netif driver 
+  */
+  PBUF_PDU
+#endif
 #endif
 } pbuf_layer;
 
@@ -126,7 +145,24 @@ typedef enum {
       the first payload byte can be calculated from struct pbuf).
       Don't use this for TX, if the pool becomes empty e.g. because of TCP queuing,
       you are unable to receive TCP acks! */
+#if (RTE_PPP_EN==0)
   PBUF_POOL
+#else
+  PBUF_POOL,
+  PBUF_PS_DL_RAM_PKG,
+
+  /**
+   * pbuf allocated from "PS DL PKG memory" (PsDlPkgAlloc()),
+   *
+  */
+  #if LWIP_USE_PS_DL_PKG_MEM
+  PBUF_PS_DL_PKG,
+  #endif
+
+  PBUF_ULFC,
+
+  PBUF_DLFC
+#endif
 } pbuf_type;
 
 
@@ -180,7 +216,12 @@ struct pbuf {
   u8_t dataRai:2;
   u8_t bExceptData:1;
   u8_t tickType:2; 
+#if (RTE_PPP_EN==0)
   u8_t reserved:3;
+#else
+  u8_t bIgnorFree:1; // if set, ignore the free action with the pbuf//for DL pkg will be fwd to host directly,it will free as dl pdu info by ccio rx task
+  u8_t rsvd:2;
+#endif
   u8_t reserved2;
   u8_t reserved3;
   u8_t sequence;
@@ -236,7 +277,9 @@ void pbuf_free_ooseq(void);
 
 /* Initializes the pbuf module. This call is empty for now, but may not be in future. */
 #define pbuf_init()
-
+#if (RTE_PPP_EN==1)
+void pbuf_set(struct pbuf *pb, pbuf_type type, u16_t length, void *payload);
+#endif
 struct pbuf *pbuf_alloc(pbuf_layer l, u16_t length, pbuf_type type);
 #if LWIP_SUPPORT_CUSTOM_PBUF
 struct pbuf *pbuf_alloced_custom(pbuf_layer l, u16_t length, pbuf_type type,

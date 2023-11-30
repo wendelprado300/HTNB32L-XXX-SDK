@@ -85,7 +85,7 @@ static void HT_SleepMode1(void) {
     else
         printf("Test Finish: Failed to Enter Sleep1.\r\n");
 
-    QCOMM_TRACE(UNILOG_PLA_DRIVER, main_entry_11, P_WARNING, 1, "Re Boot Up from %u -> Unilog Print OK",boot_flag);
+    HT_TRACE(UNILOG_PLA_DRIVER, main_entry_11, P_WARNING, 1, "Re Boot Up from %u -> Unilog Print OK",boot_flag);
 	uniLogFlushOut(0);
 	
     while(1);

@@ -66,7 +66,8 @@ typedef struct {
 */
 typedef void(*GtpLocationCallback)(
     GtpLocationInfo location,
-    GtpLocationErrorId err
+    GtpLocationErrorId err,
+    bool *relConn
 );
 
 

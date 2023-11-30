@@ -36,7 +36,8 @@ typedef enum CcmSimStateEnum_Tag
     CCM_SIM_DETECT,      /* SIM detected and init ongoing*/
     CCM_SIM_READY,       /* SIM Ready */
     CCM_SIM_NOK,         /* SIM Failure */
-    CCM_SIM_REMOVED      /* SIM not inserted or removed */
+    CCM_SIM_REMOVED,      /* SIM not inserted or removed */
+    CCM_SIM_ESIM_NO_PROFILE	/*eSIM detected with No profile*/ 
 }CcmSimStateEnum;
 
 typedef enum CcmSimUiccNokCauseTag
@@ -70,6 +71,7 @@ typedef enum CcmSimUiccNokCauseTag
     CS_UICC_NOK_REFRESH_RESET,
 
     CS_UICC_NOK_NETWORK_REJECT,          /* UICC was invalidated by network reject */
+    CS_UICC_NOK_INITIALISE_FAILED_ESIM_NO_PROFILE,
 
     CS_UICC_NOK_UNKNOWN
 }

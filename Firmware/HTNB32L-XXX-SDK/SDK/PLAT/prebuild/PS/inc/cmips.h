@@ -348,8 +348,17 @@ typedef enum CmiSecurityProtocolTag
 {
     CMI_SECURITY_PROTOCOL_NULL = 0,  /*null*/
     CMI_SECURITY_PROTOCOL_PAP = 1,   /*PAP*/
-    //CMI_SECURITY_PROTOCOL_CHAP,    /*CHAP*/
-    CMI_SECURITY_PROTOCOL_NUM
+	CMI_SECURITY_PROTOCOL_PPP_LCP_PAP   = 13,   /* AUTH info extract from PPP LCP AUTH info, which type is PAP,
+                                                 * difference with: CMI_SECURITY_PROTOCOL_PAP:
+                                                 * a) "PPP_LCP_PAP" not need to save NVM, and when PDP activated/deactivated could remove.
+                                                 * b) "PPP_LCP_PAP" not need to return in "CmiPsGetDefineAuthCtxCnf", when read the AUTH info
+                                                */
+    CMI_SECURITY_PROTOCOL_PPP_LCP_CHAP  = 14,   /* AUTH info extract from PPP LCP AUTH info, which type is CHAP,
+                                                 * difference with: CMI_SECURITY_PROTOCOL_CHAP:
+                                                 * a) "PPP_LCP_CHAP" not need to save NVM, and when PDP activated/deactivated could remove.
+                                                 * b) "PPP_LCP_CHAP" not need to return in "CmiPsGetDefineAuthCtxCnf", when read the AUTH info.
+                                                 * c) auth info is not username/paaword, but encoded CHAP challenge and CHAP response info.                                                */
+    CMI_SECURITY_PROTOCOL_NUM   = 0xF   /* 4 bits */
 }CmiSecurityProtocol;
 
 

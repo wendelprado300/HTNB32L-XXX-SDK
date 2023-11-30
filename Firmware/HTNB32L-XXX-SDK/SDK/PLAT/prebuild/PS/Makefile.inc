@@ -32,7 +32,7 @@ endif
 else
 
 
-CFLAGS += -DFEAT_RPM=1
-CFLAGS += -DVZW_ACC_TEST=1
+CFLAGS += -DFEAT_RPM
+CFLAGS += -DVZW_ACC_TEST
 
 endif

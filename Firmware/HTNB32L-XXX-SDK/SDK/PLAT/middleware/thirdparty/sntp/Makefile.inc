@@ -34,17 +34,3 @@ $(BUILDDIR)/lib/libsntp.a: $(SNTP_COBJS)
 	$(Q)$(AR) -cr $@ $^
 
 endif
-
-ifeq ($(TOOLCHAIN),ARMCC)
-
-CFLAGS_INC += -I $(TOP)/SDK/PLAT/os/freertos/portable/keil
-
-
-lib-y += libsntp.lib
-
-$(BUILDDIR)/lib/libsntp.lib: $(SNTP_COBJS)
-	@mkdir -p $(dir $@)
-	$(ECHO) AR $@
-	$(Q)$(AR) $(ARFLAGS) $@ $^
-
-endif

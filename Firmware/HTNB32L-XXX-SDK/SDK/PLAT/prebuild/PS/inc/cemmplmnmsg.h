@@ -144,6 +144,8 @@ void CePlmnSimReadyInd(CemmSimAppReadyInd *pSimAppReadyInd);
 */
 CemmAsStateEnum CemmGetCurAsState(void);
 
+void CePlmnSendGtpPlmnSearchReqSig(CemmGtpPlmnSearchReq *pGtpSearchReq);
+
 /*
  * PLMN API
 */

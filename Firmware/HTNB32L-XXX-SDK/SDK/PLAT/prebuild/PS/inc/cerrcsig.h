@@ -159,7 +159,7 @@ typedef struct CerrcPlmnSearchReqTag
      * 2> for other "searchType", set to zero
     */
     UINT8                           reqMaxBCCellNum;
-    UINT8                           rsvd0;
+    UINT8                           mccFeatureEnabled;
     UINT16                          rsvd1;
 
     //the left most bit is 31, euArfcn is bit[23:0]

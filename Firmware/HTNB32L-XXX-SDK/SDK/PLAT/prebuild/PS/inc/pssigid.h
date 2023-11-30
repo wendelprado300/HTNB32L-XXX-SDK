@@ -159,6 +159,8 @@ typedef enum PSSIGIDTAG
     SIG_CEMM_ABORT_GTP_PLMN_SEARCH_CNF,    //CemmAbortGtpPlmnSearchCnf
     SIG_CEMMR_PLMN_STATE_CHANGE_IND,    //CemmrPlmnSelectStateInd
     SIG_CEMMR_CONN_STATE_CHANGE_IND,    //CemmrConnStateChangeInd
+    SIG_CEMM_PLMN_SET_MCC_BAND_CNF,
+    SIG_CEMM_PLMN_GET_MCC_BAND_CNF,
 
     // ...
     SIG_CCM_REG_END = 0x137f,
@@ -251,7 +253,7 @@ typedef enum PSSIGIDTAG
     
 	SIG_CERRC_CCM_CE_INFO_IND,
 	SIG_CERRC_CCM_GET_DRX_INFO_CNF,
-	
+	SIG_CCM_ERRC_PHY_DETECT_EVENT_IND,    //CcmErrcPhyDetectEventInd
 
     // ...
     SIG_CCM_DEV_END = 0x14ff,
@@ -286,6 +288,8 @@ typedef enum PSSIGIDTAG
 	SIG_CEMM_CCM_GET_EMM_STATE_REQ,
     SIG_CEMM_CCM_SET_LAPI_REQ,   
     SIG_CEMM_CCM_GET_LAPI_REQ,
+    SIG_CEMM_PLMN_SET_MCC_BAND_REQ,    //CemmPlmnSetMccBandReq
+    SIG_CEMM_PLMN_GET_MCC_BAND_REQ,    //CemmPlmnGetMccBandReq
     
 	SIG_CEMM_CCM_SET_ROAMING_DATA_REQ,
 	SIG_CEMM_CCM_GET_ROAMING_DATA_REQ,
@@ -534,6 +538,8 @@ typedef enum PSSIGIDTAG
 
     /* PDCP -> DR*/
     SIG_CEDR_PDCP_DL_NON_IP_DATA_IND_ISR,   //CedrPdcpDlNonIpDataIndIsr
+
+    SIG_CEDR_SET_NETIF_INFO_REQ,            //NetifFastChkInfo
 
 
     /*********************************************************************

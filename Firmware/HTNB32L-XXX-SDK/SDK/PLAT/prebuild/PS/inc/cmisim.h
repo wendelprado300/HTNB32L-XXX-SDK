@@ -21,7 +21,7 @@ History:        - 10/13/2017, Originated by xlhu
 #define CMI_SIM_MAX_CMD_DATA_LEN      255
 #define CMI_SIM_ICCID_LEN           20
 #define CMI_SIM_MAX_TEXT_STRING_LEN    22
-#define CMI_SIM_MAX_BIP_DATA_BUF_LEN        1422 // Qualcomm's modification
+#define CMI_SIM_MAX_BIP_DATA_BUF_LEN        2600 // Qualcomm's modification
 #define CMI_SIM_MAX_APN_NAME            100
 #define CMI_SIM_USAT_MAX_ADDRESS_LEN        16
 #define CMI_SIM_USAT_MAX_TP_LEN         39
@@ -191,6 +191,7 @@ typedef enum CmiSimPinStateTag
     * extend for URC:$QCPIN:<code>
     */
     CMI_SIM_PIN_STATE_SIM_NOT_READY,
+    CMI_SIM_PIN_STATE_ESIM_NO_PROFILE,
 
 
     CMI_SIM_PIN_NUM_STATES

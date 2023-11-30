@@ -52,7 +52,7 @@ static inline uint32_t randGet()
         b ^= Rand[i];
     }
     random = (a<<8) + b;
-    QCOMM_TRACE(UNILOG_ONENET, rand_qcx212_1, P_SIG, 1, "rand:%d",random);
+    HT_TRACE(UNILOG_ONENET, rand_qcx212_1, P_SIG, 1, "rand:%d",random);
     return random;
 }
 

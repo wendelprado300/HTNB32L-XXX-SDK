@@ -12,7 +12,10 @@
 #include "psnvmutil.h"
 #include "pscommtype.h"
 #include "ccmdev.h"
-
+#ifdef FEAT_RPM
+#include "ccmrpm.h"
+#endif
+#include "cenascomm.h"
 #ifdef WIN32
 #define NV_MAX 10
 #else
@@ -34,7 +37,9 @@ typedef enum PsNvmFileIdEnum_Tag
     PS_CESM_CONFIG_NVM,         //NV5
     PS_UICCCTRL_CONFIG_NVM,     //NV6
     PS_CERRC_CONFIG_NVM,        //NV7
-
+#ifdef FEAT_RPM
+    PS_CCM_RPM_CONFIG_NVM,      //NV8
+#endif
     PS_MAX_NVM = NV_MAX
 }PsNvmFileIdEnum;
 
@@ -74,6 +79,43 @@ typedef struct PsNvmCcmConfig_v00_Tag
     UINT16      rsvd2;
 }PsNvmCcmConfig_v00;    //20 bytes
 
+typedef struct PsNvmCcmConfig_v01_Tag
+{
+    UINT8       srvType;    //UeService
+    UINT8       nwMode;     //NwMode
+    BOOL        bAutoApn;   //whether AUTO APN
+    BOOL        reserved;   //bSIMTest replaced by bEnableSimPsm
+
+    BOOL        bRohc;      //whether enable "header compression"
+    BOOL        bIpv6RsForTestSim;
+    BOOL        bUsimSimulator;//whether USIM simulator
+    BOOL        bAutoBand;
+
+    UINT8       powerOnCfun;    //default CFUN state (0/1/4), when power on/reboot; CMI_DEV_MIN_FUNC
+    UINT16      powerOnMaxDelay;//default random delay value(seconds) before triggering PS power on in CCM
+    UINT8       smsService;     //MsgService
+
+
+    BOOL        bEnableBip;      //whether enable BIP
+    BOOL        bEnableSimPsm;      //whether enable USIM card power saving mode
+    UINT16      ipv6GetPrefixTime; //the maximum time of getting IPv6 prefix Unit: second.
+
+    UINT8       resvd1; //bSimSleep not need saved in NVM
+
+    BOOL        eventStatisMode;    //EMM, RRC event statis mode
+    UINT8       uint8Default0Rsvd;
+    BOOL        bEnablePsSoftReset;
+
+    UINT8       uint8Default0Rsvd1;
+    UINT32      uint32Default0Rsvd;
+    UINT32      uint32Default1Rsvd;
+#ifdef FEAT_JIO_PLMN_LOCK
+    PsplmnLockNvmConfig plmnLockConfig;
+#endif
+
+	
+}PsNvmCcmConfig_v01;    //32 bytes
+
 #ifdef FEAT_JIO_PLMN_LOCK
 
 #define MAX_TABLE_LEN 30
@@ -84,6 +126,13 @@ typedef struct PsplmnLockNvmConfig_tag
 } PsplmnLockNvmConfig;
 
 #endif
+
+#define MAX_TABLE_LEN 30
+typedef struct PsplmnNvmConfig_tag
+{
+    UINT8                   tableLen; 
+    Plmn plmnList[MAX_TABLE_LEN];
+} PsplmnNvmConfig;
 
 typedef struct PsNvmCcmConfig_Tag
 {
@@ -111,21 +160,44 @@ typedef struct PsNvmCcmConfig_Tag
     BOOL        eventStatisMode;    //EMM, RRC event statis mode
     UINT8       uint8Default0Rsvd;
     BOOL        bEnablePsSoftReset;
-    #ifdef FEAT_RPM
-    UINT8       currRpmFx[4];  //Current no of PDN Connectivity Requests allowed by RPM following a PDP Activation Ignore Scenario
-    UINT32      rpmTimerStartTime[4];
-    UINT8       iccid[10];  // SIM iccid written in NVM to identify of SIM change
-    #endif
+	#if (RTE_PPP_EN==1)
+	UINT8       bTcpTptOpt;
+	#else
     UINT8       uint8Default0Rsvd1;
+    #endif
+	
     UINT32      uint32Default0Rsvd;
     UINT32      uint32Default1Rsvd;
-    
-    #ifdef FEAT_JIO_PLMN_LOCK
+
+#ifdef FEAT_JIO_PLMN_LOCK
     PsplmnLockNvmConfig plmnLockConfig;
 #endif
+
+	
 }PsNvmCcmConfig;    //32 bytes
 
-#define CUR_CCM_CFG_VER 0x01
+#define CUR_CCM_CFG_VER 0x02
+
+#ifdef FEAT_RPM
+#define CUR_CCM_RPM_NVM_CFG_VER 0x01   /*Modify from 0x00 to 0x01, 2022-2-3*/
+typedef struct PsNvmCcmRpmConfig_Tag
+{
+    UINT8                     rpmVersion;
+    UINT8                     rpmEnabled;
+    BOOL                     rpmParamPresentOnSimCard;
+    UINT8                     n1;
+    UINT8                     iccid[10];  // SIM iccid written in NVM to identify of SIM change
+    UINT8                     currRpmFx[5];
+    CcmRpmParam               rpmParam;
+    CcmRpmOmCounter           omCounter;
+    CcmRpmOmCountersLeakRate  omCountersLeakRate;
+    CcmRpmTimer               rpmTimerFx[5];
+    CcmRpmTimer               rpmTimerFxTimeElapsed[5];
+    CcmRpmTimer               rpmN1Timer;
+    CcmRpmTimer               n1TimerTimeElapased;
+    PsplmnNvmConfig             plmnConfig;
+}PsNvmCcmRpmConfig;
+#endif
 
 
 /******************************************************************************
@@ -418,6 +490,77 @@ typedef struct CePlmnNvmConfig_v01_Tag
     UINT32  uint32Default1Rsvd;
 }CePlmnNvmConfig_v01; //200 bytes
 
+typedef struct CePlmnNvmConfig_v02_Tag
+{
+    UINT16  plmnSelectType : 3;         //CemmPlmnSelectTypeEnum
+    UINT16  plmnSearchPowerLevel : 3;   //plmnSearchPowerLevel
+    UINT16  bCellLock : 1;
+    UINT16  bEnableHPPlmnSearch : 1;
+    UINT16  reserved0 : 9;
+
+    //BOOL    bCellLock;          //Be cell lock;
+    //UINT16  lockPhyCellId;      //if "bCellLock" = TRUE, could lock to dedicated PHY CELL, 0xFFFF means invalid
+    /*
+     * Lock/Preferred PHY Cell ID, used in two cases:
+     * 1> Cell lock, if phyCellId specified to lock;
+     * 2> PhyCellId which need PHY prefer to find, last serving cell phyCellId
+    */
+    UINT16  phyCellId;   //range(0..503), 0xFFFF means invalid
+
+    Plmn    manualPlmn;
+    Plmn    rplmn;              //previous registered PLMN
+
+    Imsi    preImsi;
+
+    //PlmnSearchPowerLevel    plmnSearchPowerLevel;
+
+    /*
+     * 24.301 - 5.3.4
+     * When the UE is switched off, it shall keep the stored list so that it can
+     *  be used for PLMN selection after switch on. The UE shall delete the stored
+     *  list if the USIM is removed,
+     * The maximum number of possible entries in the stored list is 16
+     * if plmn is set to 0, just means invalid PLMN
+    */
+    Plmn    eplmnList[CEMM_PLMN_LIST_MAX_NUM];  //64 bytes
+
+    /*
+     * 23.122 - 3.1
+     * If a message with cause value "PLMN not allowed" is received by an MS in response to an LR request from a VPLMN,
+     * that VPLMN is added to a list of "forbidden PLMNs" in the SIM and thereafter that VPLMN will not be accessed by
+     * the MS when in automatic mode.
+     * This list is retained when the MS is switched off or the SIM is removed. The HPLMN (if the EHPLMN list is not present or is empty)
+     * or an EHPLMN (if the EHPLMN list is present) shall not be stored on the list of "forbidden PLMNs"
+     * As the FPLMN should still remained, even if SIM removed, so need to store into NVM
+     * if plmn is set to 0, just means invalid PLMN
+    */
+    Plmn    fPlmnList[CEMM_PLMN_LIST_MAX_NUM];  //64 bytes
+
+    /*
+     * if band is set to 0, just means invalid PLMN
+    */
+    UINT8   band[SUPPORT_MAX_BAND_NUM];   //UE BAND info, 32 bytes
+    /*
+     * UE power class, 3/5/6, 0 means invlalid
+     * Each powerClass is correspond with one band, i.e. powerClass[] has the same valid number as band[]
+     * ERRC always get the UE power class and supported band together, using CePlmnGetBandAndPowerClassCapability()
+     * The powerClass is ONLY modified by ERRC, not by PLMN module, using CePlmnSavePowerClass()
+    */
+
+    /* EARFCN locked by AT+QCFREQ=2,earfcn */
+    UINT32  lockedFreq;
+    /*
+     * if no prefer Frequency, set to 0;
+    */
+    UINT32  preFreq[SUPPORT_MAX_FREQ_NUM];  //32 bytes
+
+    UINT16  numPlmnOos;         //used for AT+ECEVENTSTATIS?
+    UINT16  uint16Default0Rsvd;
+    UINT16  uint16Default1Rsvd;
+    UINT32  uint32Default0Rsvd;
+    UINT32  uint32Default1Rsvd;
+}CePlmnNvmConfig_v02; //200 bytes
+
 typedef struct CePlmnNvmConfig_Tag
 {
     UINT16  plmnSelectType : 3;         //CemmPlmnSelectTypeEnum
@@ -483,18 +626,38 @@ typedef struct CePlmnNvmConfig_Tag
     UINT32  preFreq[SUPPORT_MAX_FREQ_NUM];  //32 bytes
 
     UINT16  numPlmnOos;         //used for AT+ECEVENTSTATIS?
+    #if MCC_FEATURE_ENABLED
+    UINT8 mccIndex;
+    UINT16 mcc[SUPPORT_MAX_MCC_BAND];
+	UINT8   mccBand[SUPPORT_MAX_BAND_NUM][SUPPORT_MAX_BAND_NUM];   //UE BAND info, 32 bytes
+	BOOL mccFeature;
+	UINT8 mccNum;
+	UINT16 rsvd0;
+	#endif
     UINT16  uint16Default0Rsvd;
     UINT16  uint16Default1Rsvd;
     UINT32  uint32Default0Rsvd;
     UINT32  uint32Default1Rsvd;
+    BOOL    bwSetByUser;
 }CePlmnNvmConfig; //200 bytes
 
-#define CUR_CEMM_PLMN_NVM_CFG_VER 0x02
+
+typedef struct CePlmnNvmMccBandConfig_Tag
+{
+    UINT8 mccIndex;
+    UINT8 mcc[20];
+	//UINT8   band[SUPPORT_MAX_BAND_NUM][SUPPORT_MAX_BAND_NUM];   //UE BAND info, 32 bytes
+	BOOL mccFeature;
+	UINT16 rsvd0;
+}CePlmnNvmMccBandConfig;
+
+
+#define CUR_CEMM_PLMN_NVM_CFG_VER 0x03
 
 /******************************************************************************
  * CESM NVM
 ******************************************************************************/
-#define CUR_CEMM_ESM_NVM_CFG_VER 0x01
+#define CUR_CEMM_ESM_NVM_CFG_VER 0x03
 #define MAX_APN_LEN_NVM          100
 #define MAX_AUTH_STR_LEN_NVM     81
 #define MAX_APN_LIST_LEN         3
@@ -650,6 +813,8 @@ typedef struct CemmEsmNvmConfig_v0_Tag
 }
 CemmEsmNvmConfig_v0;
 
+#define MAX_EPS_BEARER_CONTEXT_NUM      11
+
 typedef struct CemmEsmNvmConfig_v1_Tag
 {
     BOOL                eitfPresent;
@@ -673,7 +838,28 @@ typedef struct CemmEsmNvmConfig_v1_Tag
 }
 CemmEsmNvmConfig_v1;
 
-#define MAX_EPS_BEARER_CONTEXT_NUM      11
+typedef struct CemmEsmNvmConfig_v2_Tag
+{
+    BOOL                eitfPresent;
+    UINT8               eitf;
+    BOOL                NSLPIPresent;
+    UINT8               NSLPI;
+    UINT8               pdnType;    //PdnType
+    BOOL                epcoFlag;
+    BOOL                ipv4DnsToBeRead;
+    BOOL                ipv6DnsToBeRead;
+
+    UINT8               apnLen;
+    UINT8               apnData[MAX_APN_LEN_NVM];
+    PdnPcoInfoNvm_v0    pdnPcoInfo;
+    UINT16              maxConn;
+    UINT16              maxConnT;
+    UINT16              waitTime;
+    CemmEsmApnProfileList apnProfileList;
+    BOOL                userSetPdnType[MAX_EPS_BEARER_CONTEXT_NUM];
+    CemmCid0NwConfig        cid0NwConfig;
+    PsApnEntity         psApn;
+}CemmEsmNvmConfig_v2;
 
 typedef struct CemmEsmNvmConfig_Tag
 {
@@ -695,6 +881,7 @@ typedef struct CemmEsmNvmConfig_Tag
     CemmEsmApnProfileList apnProfileList;
     CemmCid0NwConfig        cid0NwConfig;
     BOOL                userSetPdnType[MAX_EPS_BEARER_CONTEXT_NUM];
+    PsApnEntity                     psApn;
 }
 CemmEsmNvmConfig;
 
@@ -907,7 +1094,6 @@ typedef struct CerrcNvmConfig_Tag
 
 }
 CerrcNvmConfig;
-
 
 /******************************************************************************
  *****************************************************************************

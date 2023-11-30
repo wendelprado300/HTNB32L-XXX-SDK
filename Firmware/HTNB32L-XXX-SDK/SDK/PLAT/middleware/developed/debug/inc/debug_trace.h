@@ -192,7 +192,7 @@ typedef enum {
 extern void uniLogDebugLevelSet(debugTraceLevelType debugLevel);
 extern void uniLogInitStart(unilogPeripheralType periphType);
 
-#define QCOMM_TRACE(moduleID, subID, debugLevel, argLen, format,  ...) \
+#define HT_TRACE(moduleID, subID, debugLevel, argLen, format,  ...) \
         if(uniLogTraceAllowCheck(moduleID, debugLevel)) \
         { \
             swLogMsgPrint(moduleID##_##subID, debugLevel, argLen, ##__VA_ARGS__); \
@@ -210,7 +210,7 @@ extern void uniLogInitStart(unilogPeripheralType periphType);
             swLogEcDumpPolling(moduleID##_##subID, debugLevel, dumpLen, dump); \
         }
 
-#define QCOMM_STRING(moduleID, subID, debugLevel, format, string) \
+#define HT_STRING(moduleID, subID, debugLevel, format, string) \
         if(uniLogTraceAllowCheck(moduleID, debugLevel)) \
         { \
             swLogEcStr(moduleID##_##subID, debugLevel, string); \

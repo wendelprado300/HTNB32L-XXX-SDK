@@ -359,22 +359,22 @@ void TCP_RMV(struct tcp_pcb **pcbs, struct tcp_pcb *npcb);
 #if 0
 #define TCP_REG(pcbs, npcb) do {  \
                             struct tcp_pcb *tcp_tmp_pcb; \
-                              QCOMM_TRACE(UNILOG_TCPIP_LWIP, TCP_REG_1, P_INFO, 2, "TCP_REG 0x%x local port %d", (npcb), (npcb)->local_port);  \
+                              HT_TRACE(UNILOG_TCPIP_LWIP, TCP_REG_1, P_INFO, 2, "TCP_REG 0x%x local port %d", (npcb), (npcb)->local_port);  \
                             for (tcp_tmp_pcb = *(pcbs); tcp_tmp_pcb != NULL; tcp_tmp_pcb = tcp_tmp_pcb->next) { \
                                   if(tcp_tmp_pcb == (npcb)) { \
-                                    QCOMM_TRACE(UNILOG_TCPIP_LWIP, TCP_REG_2, P_ERROR, 0, "TCP_REG:tcp_tmp_pcb == (npcb)");  \
+                                    HT_TRACE(UNILOG_TCPIP_LWIP, TCP_REG_2, P_ERROR, 0, "TCP_REG:tcp_tmp_pcb == (npcb)");  \
                                   } \
                             } \
                               if(((pcbs) != &tcp_bound_pcbs) && ((npcb)->state == CLOSED)) { \
-                                QCOMM_TRACE(UNILOG_TCPIP_LWIP, TCP_REG_3, P_ERROR, 0, "TCP_REG: pcb->state == CLOSED");  \
+                                HT_TRACE(UNILOG_TCPIP_LWIP, TCP_REG_3, P_ERROR, 0, "TCP_REG: pcb->state == CLOSED");  \
                               } \
                             (npcb)->next = *(pcbs); \
                             if((npcb)->next == (npcb)) {  \
-                                QCOMM_TRACE(UNILOG_TCPIP_LWIP, TCP_REG_4, P_ERROR, 0, "TCP_REG: npcb->next == npcb");  \
+                                HT_TRACE(UNILOG_TCPIP_LWIP, TCP_REG_4, P_ERROR, 0, "TCP_REG: npcb->next == npcb");  \
                             } \
                             *(pcbs) = (npcb); \
                             if(!tcp_pcbs_sane()) {  \
-                                QCOMM_TRACE(UNILOG_TCPIP_LWIP, TCP_REG_5, P_ERROR, 0, "TCP_REG: tcp_pcbs sane");  \
+                                HT_TRACE(UNILOG_TCPIP_LWIP, TCP_REG_5, P_ERROR, 0, "TCP_REG: tcp_pcbs sane");  \
                             }  \
                             } while(0)
 
@@ -405,9 +405,9 @@ void TCP_RMV(struct tcp_pcb **pcbs, struct tcp_pcb *npcb);
 #define TCP_RMV(pcbs, npcb) do { \
                             struct tcp_pcb *tcp_tmp_pcb; \
                               if(*(pcbs) == NULL) { \
-                                QCOMM_TRACE(UNILOG_TCPIP_LWIP, TCP_RMV_1, P_ERROR, 0, "TCP_RMV: pcbs == NULL");  \
+                                HT_TRACE(UNILOG_TCPIP_LWIP, TCP_RMV_1, P_ERROR, 0, "TCP_RMV: pcbs == NULL");  \
                               } \
-                              QCOMM_TRACE(UNILOG_TCPIP_LWIP, TCP_RMV_2, P_INFO, 2, "TCP_RMV removing 0x%x from 0x%x", (npcb), *(pcbs));  \
+                              HT_TRACE(UNILOG_TCPIP_LWIP, TCP_RMV_2, P_INFO, 2, "TCP_RMV removing 0x%x from 0x%x", (npcb), *(pcbs));  \
                             if(*(pcbs) == (npcb)) { \
                                *(pcbs) = (*pcbs)->next; \
                             } else { \
@@ -420,7 +420,7 @@ void TCP_RMV(struct tcp_pcb **pcbs, struct tcp_pcb *npcb);
                             } \
                             (npcb)->next = NULL; \
                             if(!tcp_pcbs_sane()) { \
-                                QCOMM_TRACE(UNILOG_TCPIP_LWIP, TCP_RMV_3, P_ERROR, 0, "TCP_RMV: tcp_pcbs sane");  \
+                                HT_TRACE(UNILOG_TCPIP_LWIP, TCP_RMV_3, P_ERROR, 0, "TCP_RMV: tcp_pcbs sane");  \
                             } \
                             } while(0) 
 #endif

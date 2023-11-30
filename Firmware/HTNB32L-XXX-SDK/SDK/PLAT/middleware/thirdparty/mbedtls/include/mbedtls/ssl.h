@@ -221,8 +221,8 @@
  * Default range for DTLS retransmission timer value, in milliseconds.
  * RFC 6347 4.2.4.1 says from 1 second to 60 seconds.
  */
-#define MBEDTLS_SSL_DTLS_TIMEOUT_DFL_MIN   1000 // 20000   //1000
-#define MBEDTLS_SSL_DTLS_TIMEOUT_DFL_MAX   60000 // 1200000 //60000
+#define MBEDTLS_SSL_DTLS_TIMEOUT_DFL_MIN    20000   //1000
+#define MBEDTLS_SSL_DTLS_TIMEOUT_DFL_MAX    1200000 //60000
 
 /**
  * \name SECTION: Module settings
@@ -256,7 +256,7 @@
 #endif
 
 #if !defined(MBEDTLS_SSL_OUT_CONTENT_LEN)
-#define MBEDTLS_SSL_OUT_CONTENT_LEN MBEDTLS_SSL_MAX_CONTENT_LEN
+#define MBEDTLS_SSL_OUT_CONTENT_LEN MBEDTLS_SSL_MAX_OUT_CONTENT_LEN
 #endif
 
 /*
@@ -1064,7 +1064,7 @@ struct mbedtls_ssl_config
      * Numerical settings (int then char)
      */
      unsigned int check_flag;
-     uint32_t read_timeout;          /*!< timeout for mbedtls_ssl_read (ms)  */
+    uint32_t read_timeout;          /*!< timeout for mbedtls_ssl_read (ms)  */
 
 #if defined(MBEDTLS_SSL_PROTO_DTLS)
     uint32_t hs_timeout_min;        /*!< initial value of the handshake
@@ -1098,7 +1098,7 @@ struct mbedtls_ssl_config
 
     unsigned int endpoint : 1;      /*!< 0: client, 1: server               */
     unsigned int transport : 1;     /*!< stream (TLS) or datagram (DTLS)    */
-    unsigned int authmode : 3;      /*!< MBEDTLS_SSL_VERIFY_XXX             */
+    unsigned int authmode : 2;      /*!< MBEDTLS_SSL_VERIFY_XXX             */
     /* needed even with renego disabled for LEGACY_BREAK_HANDSHAKE          */
     unsigned int allow_legacy_renegotiation : 2 ; /*!< MBEDTLS_LEGACY_XXX   */
 #if defined(MBEDTLS_ARC4_C)
@@ -1221,7 +1221,6 @@ struct mbedtls_ssl_context
     unsigned char *in_iv;       /*!< ivlen-byte IV                    */
     unsigned char *in_msg;      /*!< message contents (in_iv+ivlen)   */
     unsigned char *in_offt;     /*!< read offset in application data  */
-	unsigned char *in_hshdr;    /*!< original handshake header start  */
 
     int in_msgtype;             /*!< record header: message type      */
     size_t in_msglen;           /*!< record header: message length    */
@@ -1241,7 +1240,6 @@ struct mbedtls_ssl_context
 
     size_t in_hslen;            /*!< current handshake message length,
                                      including the handshake header   */
-	size_t in_hsfraglen;        /*!< accumulated hs fragments length  */
     int nb_zero;                /*!< # of 0-length encrypted messages */
 
     int keep_current_message;   /*!< drop or reuse current message
@@ -1337,7 +1335,6 @@ struct mbedtls_ssl_context
                             *   Possible values are #MBEDTLS_SSL_CID_ENABLED
                             *   and #MBEDTLS_SSL_CID_DISABLED. */
 #endif /* MBEDTLS_SSL_DTLS_CONNECTION_ID */
-	uint8_t mfl_accepted;
 };
 
 #if defined(MBEDTLS_SSL_HW_RECORD_ACCEL)

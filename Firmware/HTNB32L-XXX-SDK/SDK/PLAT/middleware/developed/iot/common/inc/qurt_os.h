@@ -311,13 +311,13 @@ static uint32_t qurt_signal_wait(qurt_signal_t *signal, uint32_t mask, uint32_t 
 	if (signal == NULL) return 0;
 	attribute = ((attribute & QURT_SIGNAL_ATTR_CLEAR_MASK) == 0) ? (attribute | osFlagsNoClear) : (attribute & ~osFlagsNoClear);	
 	ret = osEventFlagsWait((osEventFlagsId_t) *signal, mask, attribute, osWaitForever);
-	QCOMM_TRACE(UNILOG_LWM2M, qurt_signal_wait_1,P_INFO,3,"return value:%d %u %x", ret, ret, ret);
+	HT_TRACE(UNILOG_LWM2M, qurt_signal_wait_1,P_INFO,3,"return value:%d %u %x", ret, ret, ret);
 	if ((ret & 0x80000000) != 0)
 	{
-		QCOMM_TRACE(UNILOG_LWM2M, qurt_signal_wait_2,P_INFO,1,"return value:%d", (ret & 0x80000000));
+		HT_TRACE(UNILOG_LWM2M, qurt_signal_wait_2,P_INFO,1,"return value:%d", (ret & 0x80000000));
 		return 0;
 	}
-	QCOMM_TRACE(UNILOG_LWM2M, qurt_signal_wait_3,P_INFO,3,"return value:%d %u %x", ret, ret, ret);
+	HT_TRACE(UNILOG_LWM2M, qurt_signal_wait_3,P_INFO,3,"return value:%d %u %x", ret, ret, ret);
 	return ret;
 }	
 
@@ -441,7 +441,7 @@ static inline uint32_t time_get_ms_native()
 {
     //OsaUtcTimeTValue *utcTimePtr = NULL;
     //utcTimePtr = OsaSystemTimeReadUtc();
-	//QCOMM_TRACE(UNILOG_LWM2M, time_ms, P_VALUE, 1, "%u", utcTimePtr->UTCms);
+	//HT_TRACE(UNILOG_LWM2M, time_ms, P_VALUE, 1, "%u", utcTimePtr->UTCms);
     //return utcTimePtr->UTCms;
     return (uint32_t)(1000 * OsaSystemTimeReadSecs());
 }

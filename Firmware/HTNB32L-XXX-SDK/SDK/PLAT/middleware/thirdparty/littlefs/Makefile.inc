@@ -30,16 +30,3 @@ $(BUILDDIR)/lib/liblfs.a: $(LFS_COBJS)
 	$(Q)$(AR) -cr $@ $^
 
 endif
-
-ifeq ($(TOOLCHAIN),ARMCC)
-
-CFLAGS_INC += -I $(TOP)/SDK/PLAT/os/freertos/portable/keil
-
-lib-y += liblfs.lib
-
-$(BUILDDIR)/lib/liblfs.lib: $(LFS_COBJS)
-	@mkdir -p $(dir $@)
-	$(ECHO) AR $@
-	$(Q)$(AR) $(ARFLAGS) $@ $^
-
-endif

@@ -35,6 +35,13 @@
             "args": ["-j4", "gccall", "TARGET=qcx212_0h00", "V=0", "PROJECT=Slpman_Example"]
         },
         {
+            "label": "Compile - HTTPS_Example",
+            "group": "build",
+            "type": "shell",
+            "command": "make",
+            "args": ["-j4", "gccall", "TARGET=qcx212_0h00", "V=0", "PROJECT=HTTPS_Example"]
+        },
+        {
             "label": "Debug - MQTT_Example",
             "group": "build",
             "type": "shell",
@@ -42,11 +49,25 @@
             "args": ["Debug/Scripts/debug.py", "MQTT_Example"]
         },
         {
+            "label": "Debug - HTTPS_Example",
+            "group": "build",
+            "type": "shell",
+            "command": "python",
+            "args": ["Debug/Scripts/debug.py", "HTTPS_Example"]
+        },
+        {
             "label": "Run - MQTT_Example",
             "group": "build",
             "type": "shell",
             "command": "python",
             "args": ["Debug/Scripts/debug.py", "MQTT_Example"]
+        },
+        {
+            "label": "Run - HTTPS_Example",
+            "group": "build",
+            "type": "shell",
+            "command": "python",
+            "args": ["Debug/Scripts/debug.py", "HTTPS_Example"]
         },
         {
             "label": "Run - Driver_Example",

@@ -112,6 +112,8 @@ void CcmPsSendCedrPktStatsReq(UINT8 cid);
 void CcmPsProcRegAttachIndMsg(UINT8 srcId, UINT8 argvUint8, UINT16 argvUint16, UINT32 argvUint32, void* argvPtr);
 void CcmPsProcRegAttachCnfMsg(UINT8 srcId, UINT8 argvUint8, UINT16 argvUint16, UINT32 argvUint32, void* argvPtr);
 void CcmPsProcRegDetachCnfMsg(UINT8 srcId, UINT8 argvUint8, UINT16 argvUint16, UINT32 argvUint32, void* argvPtr);
+void CcmPsSendGetAllBearerBasicInfoReqSig(UINT8 reqCmdId);
+void CcmPsSendCesmGetEpsBearersCtxReqSig(UINT16 psCmiId, UINT8 cid, BOOL bReqAll);
 
 #endif
 

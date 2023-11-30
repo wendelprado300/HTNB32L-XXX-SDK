@@ -12,11 +12,8 @@
 #include "cms_sock_mgr.h"
 #include "mw_config.h"
 
-#if defined CHIP_QCX212 || defined CHIP_QCX212_Z0
 #include "ecpm_qcx212_external.h"
 #include "slpman_qcx212.h"
-#endif
-
 
 /******************************************************************************
  *****************************************************************************

@@ -19,6 +19,7 @@
 ******************************************************************************/
 #define SUPPORT_MAX_BAND_NUM            32                         //Extend from 16 to 32, 2020-7-28
 #define RRC_PHY_SUPPORT_BAND_NUM        SUPPORT_MAX_BAND_NUM       //this value should be the same as PHY_SUPPORT_BAND_NUM
+#define SUPPORT_MAX_MCC_BAND            10
 #define SUPPORT_MAX_FREQ_NUM            8
 #define MAX_PLMN_LIST_SIZE              6       //this value is max number of plmn Id in SIB1, maxPLMN-r11
 #define CE_INVALID_MCC                  0xFFFF

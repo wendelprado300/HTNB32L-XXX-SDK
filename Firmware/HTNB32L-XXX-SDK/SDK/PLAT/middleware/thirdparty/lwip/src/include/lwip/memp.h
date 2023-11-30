@@ -149,8 +149,14 @@ void *memp_malloc(memp_t type);
 void  memp_free(memp_t type, void *mem);
 
 #if MEMP_STATS
+#if (RTE_PPP_EN==0)
 #if !PBUF_POOL_MM_USE_CUSTOM
 u8_t is_any_free_memp(memp_t type);
+#endif
+#else
+#if !(PBUF_POOL_MM_USE_CUSTOM || LWIP_USE_PS_DL_PKG_MEM)
+u8_t is_any_free_memp(memp_t type);
+#endif
 #endif
 #endif
 

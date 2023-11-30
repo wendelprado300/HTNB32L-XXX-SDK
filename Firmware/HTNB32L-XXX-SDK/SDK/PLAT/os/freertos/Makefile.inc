@@ -9,10 +9,6 @@ CFLAGS_INC += -I$(TOP)/SDK/PLAT/os/freertos/inc          \
 FREERTOS_SRC_DIRS += $(FREERTOS_DIR)/src            \
                      $(FREERTOS_DIR)/CMSIS/src
 
-ifeq ($(TOOLCHAIN),ARMCC)
-FREERTOS_SRC_DIRS += $(FREERTOS_DIR)/portable/keil
-endif
-
 ifeq ($(TOOLCHAIN),GCC)
 FREERTOS_SRC_DIRS += $(FREERTOS_DIR)/portable/gcc
 CFLAGS += -DconfigUSE_NEWLIB_REENTRANT=1
@@ -52,18 +48,5 @@ $(BUILDDIR)/lib/libfreertos.a: $(FREERTOS_COBJS)
 	@mkdir -p $(dir $@)
 	$(ECHO) AR $@
 	$(Q)$(AR) -cr $@ $^
-
-endif
-
-ifeq ($(TOOLCHAIN),ARMCC)
-
-CFLAGS_INC += -I $(TOP)/SDK/PLAT/os/freertos/portable/keil
-
-lib-y += libfreertos.lib
-
-$(BUILDDIR)/lib/libfreertos.lib: $(FREERTOS_COBJS)
-	@mkdir -p $(dir $@)
-	$(ECHO) AR $@
-	$(Q)$(AR) $(ARFLAGS) $@ $^
 
 endif

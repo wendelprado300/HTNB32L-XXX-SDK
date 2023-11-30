@@ -180,8 +180,11 @@ typedef enum CcmDevCurrOperatorEnum_Tag
     CCM_DEV_OPERATOR_TMOBILE = 0x03,
     CCM_DEV_OPERATOR_TELSTRA = 0x05,
 	CCM_DEV_OPERATOR_KT = 0x06,
-    CCM_DEV_OPERATOR_LGU = 0x07
-   
+    CCM_DEV_OPERATOR_LGU = 0x07,
+    CCM_DEV_OPERATOR_DT = 0x08,
+    CCM_DEV_OPERATOR_TELEFONICA = 0x09,
+    CCM_DEV_OPERATOR_TEST = 0x10
+
 }CcmDevCurrOperatorEnum;
 
 /******************************************************************************
@@ -265,8 +268,18 @@ void CcmDevSetPsSleepCfgReq(CmiDevSetPsSleepCfgReq *pSetPsSlpCfgReq);
 void CcmDevGetPsSleepCfgReq(void);
 void CcmDevGetPsSleepCfgCnf(CcmCemmRcCodeEnum emmRc, CcmGetPsSleepCfgParm *pPsSlpCfgCnf);
 void CcmDevGetDrxReq(void);
-void CcmDevGetLapiInfoReq();
-
+void CcmDevGetLapiInfoReq(void);
+void CcmDevgetPlmnList(CacCmiReq *pCmiReq);
+void CcmDevPrintPlmnList(void *plmnlist);
+void CcmDevsetPlmnListReq(CmiDevSetPlmnListReq *pSetPlmnLockReq);
+void CcmDevHandleInvalidSim(BOOL sim_invalid);
+void CcmDevSetLapiInfoReq(CmiDevSetLapiReq *setLapiInfo);
+void CcmDevSetRoamingDataInfoReq(CmiDevSetRoamingDataReq *setRoamingDataReq);
+void CcmDevGetRoamingDataInfoReq(void);
+void CcmCemmDevGetEmmStatusCnf(CemmCcmGetEmmStatusCnf *pGetEmmStatusCnf);
+void CcmCemmDevGetLapiInfoCnf(CemmCcmGetLapicnf *pGetEmmGetLapiCnf);
+void CcmCemmDevGetRoamingDataInfoCnf(CemmCcmGetRoamingDataCnf *pGetRoamingDataCnf);
+void CcmDevGetEmmStatusCnf();
 
 #endif
 

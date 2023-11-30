@@ -3,18 +3,24 @@
         {
             "name": "HTNB32L-XXX SDK",
             "includePath": [
-                "${workspaceFolder}/**",
                 "C:/gcc_arm/bin",
                 "${workspaceFolder}/Applications/Driver_Example/Inc",
                 "${workspaceFolder}/Applications/MQTT_Example/Inc",
                 "${workspaceFolder}/Applications/Sleep_Example/Inc",
+                "${workspaceFolder}/Applications/HTTPS_Example/Inc",
+                "${workspaceFolder}/Applications/Slpman_Example/Inc",
                 "${workspaceFolder}/SDK/HT_API/Common/Inc",
                 "${workspaceFolder}/SDK/HT_API/Driver_I2C/Inc",
                 "${workspaceFolder}/SDK/HT_API/Driver_SPI/Inc",
                 "${workspaceFolder}/SDK/HT_API/Driver_UART/Inc",
                 "${workspaceFolder}/SDK/HT_API/Sleep_API/Inc",
                 "${workspaceFolder}/SDK/HT_API/Startup/Inc",
-                "${workspaceFolder}/SDK/PLAT/os/freertos/portable/gcc"
+                "${workspaceFolder}/SDK/PLAT/os/freertos/portable/gcc",
+                "${workspaceFolder}/SDK/PLAT/driver/hal/qcx212/inc",
+                "${workspaceFolder}/SDK/PLAT/driver/chip/qcx212/inc",
+                "${workspaceFolder}/SDK/PLAT/device/target/board/common/ARMCM3/inc",
+                "${workspaceFolder}/SDK/PLAT/driver/board/qcx212_0h00/inc",
+                "${workspaceFolder}/SDK/PLAT/os/freertos/inc"
             ],
             "defines": [
                 "DEBUG"
@@ -24,24 +30,30 @@
             "cppStandard": "c++20",
             "browse": {
                 "path": [
-                    "${workspaceFolder}/**",
                     "C:/gcc_arm/bin",
                     "${workspaceFolder}/Applications/Driver_Example/Inc",
                     "${workspaceFolder}/Applications/MQTT_Example/Inc",
                     "${workspaceFolder}/Applications/Sleep_Example/Inc",
+                    "${workspaceFolder}/Applications/HTTPS_Example/Inc",
+                    "${workspaceFolder}/Applications/Slpman_Example/Inc",
                     "${workspaceFolder}/SDK/HT_API/Common/Inc",
                     "${workspaceFolder}/SDK/HT_API/Driver_I2C/Inc",
                     "${workspaceFolder}/SDK/HT_API/Driver_SPI/Inc",
                     "${workspaceFolder}/SDK/HT_API/Driver_UART/Inc",
                     "${workspaceFolder}/SDK/HT_API/Sleep_API/Inc",
                     "${workspaceFolder}/SDK/HT_API/Startup/Inc",
-                    "${workspaceFolder}/SDK/PLAT/os/freertos/portable/gcc"
+                    "${workspaceFolder}/SDK/PLAT/os/freertos/portable/gcc",
+                    "${workspaceFolder}/SDK/PLAT/driver/hal/qcx212/inc",
+                    "${workspaceFolder}/SDK/PLAT/driver/chip/qcx212/inc",
+                    "${workspaceFolder}/SDK/PLAT/device/target/board/common/ARMCM3/inc",
+                    "${workspaceFolder}/SDK/PLAT/driver/board/qcx212_0h00/inc",
+                    "${workspaceFolder}/SDK/PLAT/os/freertos/inc"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db"
             },
-            "configurationProvider": "ms-vscode.makefile-tools",
-            "compilerPath": "C:/gcc_arm/bin/arm-none-eabi-gdb"
+            // "configurationProvider": "ms-vscode.makefile-tools",
+            "compilerPath": "C:/gcc_arm/bin/arm-none-eabi-gcc.exe"
         }
     ],
     "version": 4

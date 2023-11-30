@@ -29,7 +29,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- * $Id: //partner/altran/QCX212_INT_BRANCH_Driver_Example/PLAT/middleware/thirdparty/tinydtls/sha2/sha2.h#1 $
+ * $Id: //partner/altran/DEV_BRANCHES/QCX212_INT_BRANCH_SF_06843540/PLAT/middleware/thirdparty/tinydtls/sha2/sha2.h#1 $
  */
 
 #ifndef __SHA2_H__
@@ -213,4 +213,3 @@ char* dtls_sha512_data();
 #endif /* __cplusplus */
 
 #endif /* __SHA2_H__ */
-

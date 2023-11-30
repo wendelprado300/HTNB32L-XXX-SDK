@@ -757,6 +757,21 @@ typedef enum CemmSetBandFreqTypeEnumTag
 }CemmSetBandFreqType;
 
 //#define SUPPORT_MAX_BAND_NUM 32
+#define CMI_DEV_SUPPORT_MAX_BAND_NUM  32
+
+typedef struct CemmPlmnSetMccBandReqTag
+{
+    UINT8   mccNum;
+	UINT8   bandNum;
+    UINT16  reserved1;
+    UINT16  mcc[10];
+    UINT8   orderedBand[CMI_DEV_SUPPORT_MAX_BAND_NUM];
+}CemmPlmnSetMccBandReq;
+
+typedef GosEmptySignal CemmPlmnGetMccBandReq;
+
+
+//#define SUPPORT_MAX_BAND_NUM 32
 typedef struct CemmPlmnSetBandInfoTag
 {
     UINT8 nwMode; // NwMode current NB only
@@ -996,6 +1011,9 @@ typedef struct CcmSetEmmCapaParm_Tag
     UINT32  t3324ValueS;
     BOOL    overrideLrplmnsiPresent;
     BOOL    overrideLrplmnsi;
+
+    BOOL    bEnableHPPlmnSearchPresent;
+    UINT8   bEnableHPPlmnSearch;
 }CcmSetEmmCapaParm;
 
 typedef struct CcmSetPlmnRegTypeParm_Tag

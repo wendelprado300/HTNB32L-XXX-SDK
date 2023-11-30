@@ -152,6 +152,7 @@ typedef enum
     PHY_ALGO_TYPE_NPRS_DUMP         = 0x17,
     PHY_ALGO_TYPE_BI_DISABLE        = 0x18,
     PHY_ALGO_TYPE_DLBMP_DBG         = 0x19,
+    PHY_ALGO_TYPE_IDLE_SPDEST       = 0x1A,
 }phyDbgAlgoType;
 typedef UINT8 phyDbgAlgoType_t;
 
@@ -426,6 +427,7 @@ BOOL PhyFalseDciSimCheck(void);
 BOOL PhyFakeEdrxCheck(void);
 BOOL PhyRfIp2DebugCheck(void);
 BOOL PhyDlBmpDbgCheck(void);
+BOOL PhyIdleSpeedEstDbgCheck(void);
 
 
 #endif

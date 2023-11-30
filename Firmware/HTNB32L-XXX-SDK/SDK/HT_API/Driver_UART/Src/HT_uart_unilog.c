@@ -25,13 +25,13 @@ void logToolCommandHandle(uint32_t event, uint8_t *cmd_buffer, uint32_t len) {
     if(ec_strnstr((const char *)cmd_buffer, "^logversion", len))
     {
 
-        QCOMM_STRING(UNILOG_PLA_INTERNAL_CMD, get_log_version, P_SIG, "LOGVERSION:%s",LogDbVserion);
+        HT_STRING(UNILOG_PLA_INTERNAL_CMD, get_log_version, P_SIG, "LOGVERSION:%s",LogDbVserion);
 
     }
     else
     {
 
-        QCOMM_STRING(UNILOG_PLA_STRING, get_log_version_1, P_ERROR, "%s", (uint8_t*)"invalid command from EPAT");
+        HT_STRING(UNILOG_PLA_STRING, get_log_version_1, P_ERROR, "%s", (uint8_t*)"invalid command from EPAT");
 
     }
 

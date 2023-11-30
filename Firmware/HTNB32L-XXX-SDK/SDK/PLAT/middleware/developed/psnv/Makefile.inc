@@ -36,19 +36,3 @@ $(BUILDDIR)/lib/libpsnv.a: $(PSNV_COBJS)
 	$(Q)$(AR) -cr $@ $^
 
 endif
-
-ifeq ($(TOOLCHAIN),ARMCC)
-
-CFLAGS_INC += -I $(TOP)/SDK/PLAT/os/freertos/portable/keil
-
-
-ifeq ($(BUILD_USE_PREBUILD_LIB),n)
-lib-y += libpsnv.lib
-endif
-
-$(BUILDDIR)/lib/libpsnv.lib: $(PSNV_COBJS)
-	@mkdir -p $(dir $@)
-	$(ECHO) AR $@
-	$(Q)$(AR) $(ARFLAGS) $@ $^
-
-endif

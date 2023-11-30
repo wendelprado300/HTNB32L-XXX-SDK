@@ -39,15 +39,3 @@ $(BUILDDIR)/lib/libtinydtls.a: $(TINYDTLS_COBJS)
 	$(Q)$(AR) -cr $@ $^
 
 endif
-
-ifeq ($(TOOLCHAIN),ARMCC)
-
-CFLAGS_INC += -I $(TOP)/SDK/PLAT/os/freertos/portable/keil
-lib-y += libtinydtls.lib
-
-$(BUILDDIR)/lib/libtinydtls.lib: $(TINYDTLS_COBJS)
-	@mkdir -p $(dir $@)
-	$(ECHO) AR $@
-	$(Q)$(AR) $(ARFLAGS) $@ $^
-
-endif

@@ -54,8 +54,10 @@
         "phyatcmddebug.h": "c",
         "ht_aon_demo.h": "c",
         "timer_qcx212.h": "c",
-        "ht_wdt_demo.h": "c"
+        "ht_wdt_demo.h": "c",
+        "freertos.h": "c"
     },
     "cortex-debug.variableUseNaturalFormat": false,
-    "cortex-debug.gdbPath": "C:/gcc_arm/bin/arm-none-eabi-gdb"
+    "cortex-debug.gdbPath": "C:/gcc_arm/bin/arm-none-eabi-gdb",
+    "C_Cpp.errorSquiggles": "disabled"
 }
