@@ -172,8 +172,8 @@ static Network mqttNetwork;
 
 //Buffer that will be published.
 static uint8_t mqtt_payload[128] = {"Undefined Button"};
-static uint8_t mqttSendbuf[HT_MQTT_BUFFER_SIZE];
-static uint8_t mqttReadbuf[HT_MQTT_BUFFER_SIZE];
+static uint8_t mqttSendbuf[HT_MQTT_BUFFER_SIZE] = {0};
+static uint8_t mqttReadbuf[HT_MQTT_BUFFER_SIZE] = {0};
 
 static const char clientID[] = {"SIP_HTNB32L-XXX"};
 static const char username[] = {"HTNB32L-XXX"};
@@ -300,15 +300,9 @@ static void HT_FSM_LedStatus(HT_Led_Type led, uint16_t state) {
 
 static HT_ConnectionStatus HT_FSM_MQTTConnect(void) {
 
-    memset(mqttSendbuf, 0, HT_MQTT_BUFFER_SIZE);
-    memset(mqttReadbuf, 0, HT_MQTT_BUFFER_SIZE);
-
-    // Initialize MQTT client and network
-    HT_MQTT_Init(&mqttClient, &mqttNetwork, 40000, mqttSendbuf, HT_MQTT_BUFFER_SIZE, mqttReadbuf, HT_MQTT_BUFFER_SIZE);
-
     // Connect to MQTT Broker using client, network and parameters needded. 
     if(HT_MQTT_Connect(&mqttClient, &mqttNetwork, (char *)addr, HT_MQTT_PORT, HT_MQTT_SEND_TIMEOUT, HT_MQTT_RECEIVE_TIMEOUT,
-                (char *)clientID, (char *)username, (char *)password, HT_MQTT_VERSION, HT_MQTT_KEEP_ALIVE_INTERVAL)) {
+                (char *)clientID, (char *)username, (char *)password, HT_MQTT_VERSION, HT_MQTT_KEEP_ALIVE_INTERVAL, mqttSendbuf, HT_MQTT_BUFFER_SIZE, mqttReadbuf, HT_MQTT_BUFFER_SIZE)) {
         return HT_NOT_CONNECTED;   
     }
 

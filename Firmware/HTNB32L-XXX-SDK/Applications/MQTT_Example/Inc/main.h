@@ -77,12 +77,10 @@
 #define QMSG_ID_SOCK_SENDPKG       (QMSG_ID_BASE + 4)
 #define QMSG_ID_SOCK_RECVPKG       (QMSG_ID_BASE + 5)
 
-#define INIT_TASK_STACK_SIZE    (1024*4)
+#define INIT_TASK_STACK_SIZE    (1024*6)
 #define RINGBUF_READY_FLAG      (0x06)
 #define APP_EVENT_QUEUE_SIZE    (10)
 #define MAX_PACKET_SIZE         (256)
-
-#define EC_TEST_MQTT_ONENET
 
 #endif /* __MAIN_H__ */
 

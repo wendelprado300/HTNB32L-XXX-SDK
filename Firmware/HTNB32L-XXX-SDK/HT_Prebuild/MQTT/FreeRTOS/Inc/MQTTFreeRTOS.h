@@ -87,9 +87,7 @@ int FreeRTOS_disconnect(Network*);
 void NetworkInit(Network*);
 int NetworkConnect(Network*, char*, int);
 int NetworkSetConnTimeout(Network* n, int send_timeout, int recv_timeout);
-#if defined(AZURE_IOT_ENABLE)
+
 int TLSNetworkConnect(Network* n, char* addr, int port, int timeout_ms);
-#endif
-/*int NetworkConnectTLS(Network*, char*, int, SlSockSecureFiles_t*, unsigned char, unsigned int, char);*/
 
 #endif

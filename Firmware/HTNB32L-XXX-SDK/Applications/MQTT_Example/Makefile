@@ -21,6 +21,8 @@ HT_LIBRARY_MQTT_ENABLE = y
 HT_LIBRARY_CJSON_ENABLE = y
 UART_UNILOG_ENABLE = y
 
+AZURE_IOT_ENABLE = y
+
 CFLAGS_INC        +=  -I Inc
 
 obj-y             += Src/main.o \

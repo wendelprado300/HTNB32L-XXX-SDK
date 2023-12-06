@@ -41,26 +41,11 @@
 #include "MQTTClient.h"
 #include "uart_qcx212.h"
 
+#define MQTT_TLS_ENABLE 1
+
+#define MQTT_GENERAL_TIMEOUT 60000
+
 /* Functions ------------------------------------------------------------------*/
-
-/*!******************************************************************
- * \fn void HT_MQTT_Init(MQTTClient *mqtt_client, Network *mqtt_network, 
-                            uint32_t command_timeout_ms, uint8_t *sendbuf, uint32_t sendbuf_size, uint8_t *readbuf, uint32_t readbuf_size)
- * \brief Create an MQTT client object and set network settings.
- *
- * \param[in] uint32_t command_timeout_ms       Command timeout in ms
- * \param[in] uint32_t sendbuf                  Buffer allocated for TX process.
- * \param[in] uint32_t sendbuf_size             Size of TX buffer.
- * \param[in] uint32_t readbuf                  Buffer allocated for RX process.
- * \param[in] uint32_t readbuf_size             Size of RX buffer.
- * \param[out] MQTTClient *mqtt_client          MQTT client handle.
- * \param[out] Network *mqtt_network            Network handle.
- *
- * \retval none
- *******************************************************************/
-void HT_MQTT_Init(MQTTClient *mqtt_client, Network *mqtt_network, 
-                            uint32_t command_timeout_ms, uint8_t *sendbuf, uint32_t sendbuf_size, uint8_t *readbuf, uint32_t readbuf_size);
-
 
 /*!******************************************************************
  * \fn uint8_t HT_MQTT_Connect(MQTTClient *mqtt_client, Network *mqtt_network, char *addr, int32_t port, uint32_t send_timeout, uint32_t rcv_timeout, char *clientID, 
@@ -78,11 +63,16 @@ void HT_MQTT_Init(MQTTClient *mqtt_client, Network *mqtt_network,
  * \param[in] char *password                    Password to access MQTT topic.
  * \param[in] uint8_t mqtt_version              MQTT version.
  * \param[in] uint32_t keep_alive_interval      MQTT keep alive interval.
+ * \param[in] uint32_t sendbuf                  Buffer allocated for TX process.
+ * \param[in] uint32_t sendbuf_size             Size of TX buffer.
+ * \param[in] uint32_t readbuf                  Buffer allocated for RX process.
+ * \param[in] uint32_t readbuf_size             Size of RX buffer.
  * 
  * \retval none
  *******************************************************************/
 uint8_t HT_MQTT_Connect(MQTTClient *mqtt_client, Network *mqtt_network, char *addr, int32_t port, uint32_t send_timeout, uint32_t rcv_timeout, char *clientID, 
-                                        char *username, char *password, uint8_t mqtt_version, uint32_t keep_alive_interval);
+                                        char *username, char *password, uint8_t mqtt_version, uint32_t keep_alive_interval, uint8_t *sendbuf, 
+                                        uint32_t sendbuf_size, uint8_t *readbuf, uint32_t readbuf_size);
 
 /*!******************************************************************
  * \fn void HT_MQTT_Publish(MQTTClient *mqtt_client, char *topic, uint8_t *payload, uint32_t len, enum QoS qos, uint8_t retained, uint16_t id, uint8_t dup)

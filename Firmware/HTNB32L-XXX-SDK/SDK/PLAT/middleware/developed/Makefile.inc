@@ -64,10 +64,6 @@ ifeq ($(LWM2M_MDM_ENABLE),y)
     include $(TOP)/SDK/PLAT/middleware/developed/iot/Makefile.inc
 endif
 
-ifeq ($(AZURE_IOT_ENABLE),y)
-    include $(TOP)/SDK/PLAT/middleware/developed/azure/Makefile.inc
-endif
-
 ifeq ($(GTPLITE_ENABLE),y)
 	include $(TOP)/SDK/PLAT/middleware/developed/gtplite/Makefile.inc
 endif
