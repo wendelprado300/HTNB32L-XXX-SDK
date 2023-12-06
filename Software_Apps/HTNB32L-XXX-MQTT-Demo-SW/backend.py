@@ -37,12 +37,13 @@ import random
 import time
 
 from paho.mqtt import client as mqtt_client
+import paho.mqtt.client as mqtt
 
 #MQTT broker host
 broker = 'broker.hivemq.com'
 
 #MQTT port'
-port = 1883 
+port = 8883 
 
 # generate client ID with pub prefix randomly
 client_id = f'HTNB32L-XXX_MQTT_Client-{random.randint(0, 1000)}'
@@ -193,6 +194,7 @@ class Backend(QtWidgets.QMainWindow, Ui_MainWindow):
 
         client = mqtt_client.Client(client_id)
         client.username_pw_set(username, password)
+        client.tls_set(tls_version=mqtt.ssl.PROTOCOL_TLSv1_2)
         client.on_connect = on_connect
         client.on_message = on_message
         client.connect(broker, port)
