@@ -45,11 +45,18 @@
 #include "entropy.h"
 #include "ctr_drbg.h"
 
-#define MAX_TIMEOUT (2*60)  //2 min
+/* Defines  ------------------------------------------------------------------*/
+#define MAX_TIMEOUT (2*60)                  /**</ 2 min. */
 
-#define HT_MQTT_TX_BUF_LEN 1024
-#define HT_MQTT_RX_BUF_LEN 1024
+#define HT_MQTT_TX_BUF_LEN 1024             /**</ MQTT sendBuff max length. */
+#define HT_MQTT_RX_BUF_LEN 1024             /**</ MQTT rcvBuff max length. */
 
+/* Typedefs  ------------------------------------------------------------------*/
+
+/**
+ * \enum MqttClientSsl
+ * \brief MQTT Client SSL parameters for TLS implementation.
+ */
 typedef struct MqttClientSslTag {
     mbedtls_ssl_context sslContext;
     mbedtls_net_context netContext;
@@ -62,6 +69,10 @@ typedef struct MqttClientSslTag {
     mbedtls_pk_context pkContext;
 } MqttClientSsl;
 
+/**
+ * \enum MqttClientContext
+ * \brief MQTT Client SSL parameters for TLS implementation.
+ */
 typedef struct MqttClientContextTag {
     int32_t socket;
     int32_t timeout_s;
@@ -88,6 +99,17 @@ typedef struct MqttClientContextTag {
     uint32_t timeout_ms;
 } MqttClientContext;
 
+/* Functions ------------------------------------------------------------------*/
+
+/*!******************************************************************
+ * \fn int32_t HT_MQTT_TLSConnect(MqttClientContext *context, Network *network)
+ * \brief Starts the MQTT connection through TLS.
+ *
+ * \param[in] MqttClientContext *context       MQTT SSL parameters that will be used during connection.
+ * \param[in] Network *network                 Network parameters to establish the connection to a broker. 
+ *
+ * \retval none
+ *******************************************************************/
 int32_t HT_MQTT_TLSConnect(MqttClientContext *context, Network *network);
 
 #endif /*__HT_MQTT_H__*/
