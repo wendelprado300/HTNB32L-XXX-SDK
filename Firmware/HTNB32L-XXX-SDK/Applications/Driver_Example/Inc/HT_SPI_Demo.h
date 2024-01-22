@@ -38,10 +38,10 @@
 
 #include "main.h"
 #include "HT_bsp.h"
-#include "HT_spi_qcx212.h"
 #include "Driver_SPI.h"
 #include "bsp.h"
 #include "HT_gpio_qcx212.h"
+#include "HT_UART_Api.h"
 
 /* Defines  ------------------------------------------------------------------*/
 

@@ -14,17 +14,13 @@
  */
 
 #include "HT_SPI_Demo.h"
-#include "bsp_spi.h"
-
-static SPI_InitType spi_handle;
+#include "htnb32lxxx_hal_spi.h"
 
 static __ALIGNED(4) uint8_t tx_buffer[] = {"HelloSpi1"};
 static __ALIGNED(4) uint8_t rx_buffer[SPI_BUFFER_SIZE] = {0};
 
-extern ARM_DRIVER_SPI Driver_SPI1;
-extern SPI_RESOURCES SPI1_Resources;
-
-static volatile uint8_t spi_callback = 0;
+extern SPI_HandleTypeDef hspi1;
+volatile uint8_t spi_irq = 0;
 
 /*!******************************************************************
  * \fn static void HT_SPI_AppInit(void)
@@ -37,41 +33,55 @@ static volatile uint8_t spi_callback = 0;
  *******************************************************************/
 static void HT_SPI_AppInit(void);
 
+static void HT_SPI_IRQCallback(uint32_t event) {
+    if(event & ARM_SPI_EVENT_TX_RX_COMPLETE)
+        spi_irq = 1;
+}
+
 static void HT_SPI_AppInit(void) {
-    spi_handle.cb_event = NULL;
-    spi_handle.ctrl = (ARM_SPI_MODE_MASTER | ARM_SPI_CPOL0_CPHA0 | ARM_SPI_DATA_BITS(TRANSFER_DATA_WIDTH) |
-                                  ARM_SPI_MSB_LSB | ARM_SPI_SS_MASTER_UNUSED);
+    uint32_t ctrl = (ARM_SPI_MODE_MASTER | ARM_SPI_CPOL0_CPHA0 | ARM_SPI_DATA_BITS(TRANSFER_DATA_WIDTH) | ARM_SPI_MSB_LSB | ARM_SPI_SS_MASTER_UNUSED);
 
-
-    spi_handle.power_state = ARM_POWER_FULL;
-    spi_handle.spi_id = HT_SPI1;
-    spi_handle.hspi = &Driver_SPI1;
-
-    HT_SPI_Init(&spi_handle);
+    HAL_SPI_Initialize(HT_SPI_IRQCallback, &hspi1);
+    HAL_SPI_PowerControl(ARM_POWER_FULL, &hspi1);
+    HAL_SPI_Control(ctrl, 100000U, &hspi1);
 }
 
 void HT_SPI_App(void) {
-    char tx_str[SPI_BUFFER_SIZE+25] = {'\0'};
-    char rx_str[SPI_BUFFER_SIZE+25] = {'\0'};
 
     HT_SPI_AppInit();
+    HAL_SPI_CleanRxFifo(&hspi1);
 
     print_uart("HTNB32L-XXX SPI Example Start!\n");
     
     //Wait for slave device
-    delay_us(2000000);
+    delay_us(10000000);
 
-    sprintf(tx_str, "\nTransmitting: %s\n", (char *)tx_buffer);
+    hspi1.info->xfer.num = (SPI_BUFFER_SIZE-1);
+    hspi1.info->transfer_type = SPI_TRANSMIT_RECEIVE;
 
     while (1) {
 
-        print_uart(tx_str);
-        HT_SPI_TransmitReceive(tx_buffer, rx_buffer, (SPI_BUFFER_SIZE-1));
+        print_uart("Transmitting: ");
+        print_uart((char *)tx_buffer);
+        print_uart("\n");
 
-        sprintf(rx_str, "Received: %s\n", (char *)rx_buffer);
-        print_uart(rx_str);
+        hspi1.info->xfer.tx_cnt   = 0;
+        hspi1.info->xfer.rx_cnt   = 0;
 
-        delay_us(2000000);
+        HAL_SPI_TransmitReceive_IT(&hspi1, tx_buffer, rx_buffer, SPI_BUFFER_SIZE-1);
+        HAL_SPI_EnableIRQ(&hspi1);
+
+        while(!spi_irq);
+        spi_irq = 0;
+
+        print_uart("Received: ");
+        print_uart((char *)rx_buffer);
+        print_uart("\n");
+        
+        memset(rx_buffer, 0, sizeof(rx_buffer));
+        HAL_SPI_CleanRxFifo(&hspi1);
+
+        delay_us(1000000);
         
     }
     

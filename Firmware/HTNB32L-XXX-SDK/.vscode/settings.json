@@ -2,5 +2,13 @@
     "makefile.extensionOutputFolder": "./.vscode",
     "cortex-debug.variableUseNaturalFormat": false,
     "cortex-debug.gdbPath": "C:/gcc_arm/bin/arm-none-eabi-gdb",
-    "C_Cpp.errorSquiggles": "enabled"
+    "C_Cpp.errorSquiggles": "enabled",
+    "files.associations": {
+        "*.inc": "makefile",
+        "cmsis_gcc.h": "c",
+        "stdio.h": "c",
+        "qcx212.h": "c",
+        "htnb32lxxx_hal_spi.h": "c",
+        "ht_spi_demo.h": "c"
+    }
 }

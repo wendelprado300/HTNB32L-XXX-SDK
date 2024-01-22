@@ -87,7 +87,7 @@ ________________________________________________________________________________
 #define RTE_UART2_RX_IO_MODE    POLLING_MODE
 
 #define RTE_SPI0_IO_MODE        POLLING_MODE
-#define RTE_SPI1_IO_MODE        POLLING_MODE
+#define RTE_SPI1_IO_MODE        IRQ_MODE
 
 #define RTE_I2C0_IO_MODE          IRQ_MODE
 #define RTE_I2C1_IO_MODE          POLLING_MODE

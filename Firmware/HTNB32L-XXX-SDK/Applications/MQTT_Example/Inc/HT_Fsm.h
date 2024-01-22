@@ -50,8 +50,8 @@
 #define HT_MQTT_KEEP_ALIVE_INTERVAL 240                   /**</ Keep alive interval in ms. */
 #define HT_MQTT_VERSION 4                                 /**</ MQTT protocol version. */
 #define HT_MQTT_PORT   8883                               /**</ MQTT port. */
-#define HT_MQTT_SEND_TIMEOUT 60000                         /**</ MQTT TX timeout. */
-#define HT_MQTT_RECEIVE_TIMEOUT   60000                    /**</ MQTT RX timeout. */
+#define HT_MQTT_SEND_TIMEOUT 60000                        /**</ MQTT TX timeout. */
+#define HT_MQTT_RECEIVE_TIMEOUT   60000                   /**</ MQTT RX timeout. */
 #define HT_MQTT_BUFFER_SIZE 1024                          /**</ Maximum MQTT buffer size. */
 #define HT_SUBSCRIBE_BUFF_SIZE  6                         /**</ Maximum buffer size to received from MQTT subscribe. */
 

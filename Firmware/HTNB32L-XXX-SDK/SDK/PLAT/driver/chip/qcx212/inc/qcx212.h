@@ -28,6 +28,7 @@
  extern "C" {
 #endif
 #include "commontypedef.h"
+#include "HT_qcx212_types.h"
 
 /** @addtogroup Interrupt_number_definiton Interrupt Number Definition
   * @{
@@ -1009,6 +1010,22 @@ typedef struct {
 
 #define SPI_RIS_TXRIS_Pos                        (3)
 #define SPI_RIS_TXRIS_Msk                        (0x1UL << SPI_RIS_TXRIS_Pos)
+
+/**
+ * @brief	Get the raw interrupt status
+ * @param	hspi	: The base of SSP peripheral on the chip
+ * @param	value	: Interrupt condition to be get status, shoud be :
+ *						- SSP_RORRIS
+ *						- SSP_RTRIS
+ *						- SSP_RXRIS
+ *						- SSP_TXRIS
+ * @return	 Raw interrupt status corresponding to interrupt condition , SET or RESET
+ * @note	Get the status of each interrupt condition ,regardless of whether or not the interrupt is enabled
+ */
+static inline FlagStatus HT_SPI_ReadIrqStatus(SPI_TypeDef *hspi, uint32_t value) {
+	return (hspi->RIS & value) ? SET : RESET;
+}
+
 /** @} */
 
 /** @name MIS - SPI_MIS register */
@@ -1033,6 +1050,11 @@ typedef struct {
 
 #define SPI_ICR_RTIC_Pos                         (1)
 #define SPI_ICR_RTIC_Msk                         (0x1UL << SPI_ICR_RTIC_Pos)
+
+//HBG
+#define SPI_ICR_INT_CLEAR_Pos                     (3)
+#define SPI_ICR_INT_CLEAR_Msk                     (0x1UL << SPI_ICR_INT_CLEAR_Pos)
+
 /** @} */
 
 /** @name DMACR - SPI_DMACR register */

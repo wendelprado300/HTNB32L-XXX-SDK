@@ -107,7 +107,7 @@ SECTIONS
   {
     . = ALIGN(4);
     Image$$LOAD_DRAM_BSP$$Base = .;
-    *bsp_spi.o(.data*)
+    *htnb32lxxx_hal_spi.o(.data*)
 /*  cache_qcx212.o(.data*) */
     *flash_qcx212.o(.data*)
     *flash_qcx212_rt.o(.data*)
@@ -138,7 +138,7 @@ SECTIONS
     Image$$LOAD_DRAM_BSP$$Limit = .;
     . = ALIGN(4);
     Image$$LOAD_DRAM_BSP$$ZI$$Base = .;
-    *bsp_spi.o(.bss*)
+    *htnb32lxxx_hal_spi.o(.bss*)
 /*  cache_qcx212.o(.bss*) */
     *flash_qcx212.o(.bss*)
     *flash_qcx212_rt.o(.bss*)
