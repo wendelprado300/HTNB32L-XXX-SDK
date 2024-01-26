@@ -50,6 +50,7 @@ vpath %.S $(TOP)
 
 OBJS := $(addprefix $(BUILDDIR)/, $(obj-y))
 HT_DRIVER_LIB := $(addprefix $(BUILDDIR)/,$(ht_app_api-y))
+HT_THIRDPARTY_LIB := $(addprefix $(BUILDDIR)/,$(ht_thirdparty_api-y))
 HT_STARTUP_OBJS := $(addprefix $(BUILDDIR)/,$(ht_startup_lib-y))
 HT_MODULAR_LIBRARIES := $(addprefix $(BUILDDIR)/,$(ht_prebuild_libraries))
 
@@ -97,8 +98,8 @@ $(BUILDDIR)/%.o: %.S
 	$(ECHO) ASM $<
 	$(Q)$(CC) $(CFLAGS) $(CFLAGS_CPU) $(CFLAGS_INC) $(CFLAGS_DEFS) $(DEPFLAGS) -c $< -o $@
 
-$(BUILDDIR)/$(BINNAME).elf: $(HT_MODULAR_LIBRARIES) $(OBJS) $(HT_STARTUP_OBJS) $(HT_DRIVER_LIB) $(linker-script-y)
-	$(Q)$(CC) $(LDFLAGS) $(CFLAGS_CPU) $(CFLAGS_DEFS) -T$(linker-script-y) -Wl,-Map,$(BUILDDIR)/$(BINNAME).map -o $@ $(OBJS) -Wl,--start-group $(HT_DRIVER_LIB) $(HT_STARTUP_OBJS) $(HT_MODULAR_LIBRARIES) $(PREBUILDLIBS) -Wl,--end-group -Wl,--no-undefined
+$(BUILDDIR)/$(BINNAME).elf: $(HT_MODULAR_LIBRARIES) $(OBJS) $(HT_STARTUP_OBJS) $(HT_DRIVER_LIB) $(HT_THIRDPARTY_LIB) $(linker-script-y)
+	$(Q)$(CC) $(LDFLAGS) $(CFLAGS_CPU) $(CFLAGS_DEFS) -T$(linker-script-y) -Wl,-Map,$(BUILDDIR)/$(BINNAME).map -o $@ $(OBJS) -Wl,--start-group $(HT_DRIVER_LIB) $(HT_THIRDPARTY_LIB) $(HT_STARTUP_OBJS) $(HT_MODULAR_LIBRARIES) $(PREBUILDLIBS) -Wl,--end-group -Wl,--no-undefined
 	@echo 'Finished building target: $@'
 	@echo ' '
 

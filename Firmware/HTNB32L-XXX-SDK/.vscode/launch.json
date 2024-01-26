@@ -20,7 +20,7 @@
             "runToEntryPoint": "main_entry",
             "preLaunchTask": "Debug - MQTT_Example", // configured in tasks.json
             // "preLaunchCommands": ["Build all"], // you can execute command instead of task
-            //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
+            // "svdFile": "${workspaceRoot}/Debug/SVD/HTNB32L-XXX.svd", // Include svd to watch device peripherals
             "swoConfig":
             {
                 "enabled": true,
@@ -51,7 +51,7 @@
             "runToEntryPoint": "main_entry",
             "preLaunchTask": "Debug - HTTPS_Example", // configured in tasks.json
             // "preLaunchCommands": ["Build all"], // you can execute command instead of task
-            //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
+            // "svdFile": "${workspaceRoot}/Debug/SVD/HTNB32L-XXX.svd", // Include svd to watch device peripherals
             "swoConfig":
             {
                 "enabled": true,
@@ -82,7 +82,7 @@
             "runToEntryPoint": "main_entry",
             "preLaunchTask": "Debug - Driver_Example", // configured in tasks.json
             // "preLaunchCommands": ["Build all"], // you can execute command instead of task
-            //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
+            // "svdFile": "${workspaceRoot}/Debug/SVD/HTNB32L-XXX.svd", // Include svd to watch device peripherals
             "swoConfig":
             {
                 "enabled": true,
@@ -113,7 +113,7 @@
             "runToEntryPoint": "main_entry",
             "preLaunchTask": "Debug - Sleep_Example", // configured in tasks.json
             // "preLaunchCommands": ["Build all"], // you can execute command instead of task
-            //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
+            // "svdFile": "${workspaceRoot}/Debug/SVD/HTNB32L-XXX.svd", // Include svd to watch device peripherals
             "swoConfig":
             {
                 "enabled": true,
@@ -144,7 +144,7 @@
             "runToEntryPoint": "main_entry",
             "preLaunchTask": "Debug - Slpman_Example", // configured in tasks.json
             // "preLaunchCommands": ["Build all"], // you can execute command instead of task
-            //"svdFile": "${workspaceRoot}/LPC18xx.svd", // Include svd to watch device peripherals
+            // "svdFile": "${workspaceRoot}/Debug/SVD/HTNB32L-XXX.svd", // Include svd to watch device peripherals
             "swoConfig":
             {
                 "enabled": true,

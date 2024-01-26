@@ -49,7 +49,13 @@
 /* Defines  ------------------------------------------------------------------*/
 #define HT_MQTT_KEEP_ALIVE_INTERVAL 240                   /**</ Keep alive interval in ms. */
 #define HT_MQTT_VERSION 4                                 /**</ MQTT protocol version. */
-#define HT_MQTT_PORT   8883                               /**</ MQTT port. */
+
+#if MQTT_TLS_ENABLE == 1
+#define HT_MQTT_PORT   8883                               /**</ MQTT TCP TLS port. */
+#else
+#define HT_MQTT_PORT   1883                               /**</ MQTT TCP port. */
+#endif
+
 #define HT_MQTT_SEND_TIMEOUT 60000                        /**</ MQTT TX timeout. */
 #define HT_MQTT_RECEIVE_TIMEOUT   60000                   /**</ MQTT RX timeout. */
 #define HT_MQTT_BUFFER_SIZE 1024                          /**</ Maximum MQTT buffer size. */

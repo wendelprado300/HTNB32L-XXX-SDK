@@ -17,13 +17,6 @@
 #include "htnb32lxxx_hal_spi.h"
 #include "slpman_qcx212.h"
 
-#define SPI_DEBUG  0
-#if SPI_DEBUG
-#define SPIDEBUG(...)     printf(__VA_ARGS__)
-#else
-#define SPIDEBUG(...)
-#endif
-
 #ifndef DISTANCE
 #define DISTANCE(a,b)  ((a>b)?(a-b):(b-a))
 #endif
@@ -219,7 +212,7 @@ static SPI_IRQ SPI0_IRQ = {
                           };
 #endif
 
-static SPI_HandleTypeDef SPI0_Resources = {
+SPI_HandleTypeDef hspi0 = {
     SPI0,
     {
        &SPI0_pin_sclk,
@@ -727,8 +720,6 @@ int32_t SPI_Send(const void *data, uint32_t num, SPI_HandleTypeDef *spi)
 
     uint8_t data_width;
 
-    SPIDEBUG("SPI_Send len=%d\n", num);
-
     if ((data == NULL) || (num == 0))
         return ARM_DRIVER_ERROR_PARAMETER;
 
@@ -767,7 +758,6 @@ int32_t SPI_Send(const void *data, uint32_t num, SPI_HandleTypeDef *spi)
         LOCK_SLEEP(instance);
 #endif
 
-        SPIDEBUG("dma configure\n");
         // Configure tx DMA and start it
         g_dmaTxConfig.dataWidth = (dma_data_width_t)data_width;
         g_dmaTxConfig.addressIncrement = DMA_AddressIncrementSource;
@@ -778,7 +768,6 @@ int32_t SPI_Send(const void *data, uint32_t num, SPI_HandleTypeDef *spi)
         DMA_TransferSetup(spi->dma->tx_ch, &g_dmaTxConfig);
         DMA_EnableChannelInterrupts(spi->dma->tx_ch, DMA_EndInterruptEnable);
 
-        SPIDEBUG("spi tx dma start\n");
         DMA_StartChannel(spi->dma->tx_ch);
 
         // retrieve data from RX FIFO to get rid of overflow
@@ -914,6 +903,10 @@ int32_t SPI_Receive(void *data, uint32_t num, SPI_HandleTypeDef *spi)
     }
     return ARM_DRIVER_OK;
 
+}
+
+void HAL_SPI_DmaEnable(SPI_HandleTypeDef *spi) {
+    spi->reg->DMACR |= SPI_DMACR_BITMASK;
 }
 
 static void SPI_Read2BytesFifo(SPI_HandleTypeDef *spi) {
@@ -1654,13 +1647,11 @@ void SPI_IRQHandler(SPI_HandleTypeDef *spi) {
   \param[in]   event DMA Tx Event
   \param[in]   spi   Pointer to SPI resources
 */
-void SPI_DmaTxEvent(uint32_t event, SPI_HandleTypeDef *spi)
-{
+void SPI_DmaTxEvent(uint32_t event, SPI_HandleTypeDef *spi) {
 
     switch (event)
     {
         case DMA_EVENT_END:
-            SPIDEBUG("SPI_DmaTxEvent\n");
             // Disable DMA
             spi->reg->DMACR &= ~SPI_DMACR_TXDMAE_Msk;
             spi->info->xfer.tx_cnt = spi->info->xfer.num;
@@ -1743,69 +1734,17 @@ void HAL_SPI_DmaRxEvent(uint32_t event, SPI_HandleTypeDef *spi)
 
 #if (RTE_SPI0)
 
-static int32_t SPI0_Initialize(ARM_SPI_SignalEvent_t pSignalEvent)
-{
-    return HAL_SPI_Initialize(pSignalEvent, &SPI0_Resources);
-}
-static int32_t SPI0_Uninitialize(void)
-{
-    return HAL_SPI_Uninitialize(&SPI0_Resources);
-}
-static int32_t SPI0_PowerControl(ARM_POWER_STATE state)
-{
-    return HAL_SPI_PowerControl(state, &SPI0_Resources);
-}
-static int32_t SPI0_Send(const void *data, uint32_t num)
-{
-    return SPI_Send(data, num, &SPI0_Resources);
-}
-static int32_t SPI0_Receive(void *data, uint32_t num)
-{
-    return SPI_Receive(data, num, &SPI0_Resources);
-}
-static int32_t SPI0_Transfer(const void *data_out, void *data_in, uint32_t num)
-{
-    return SPI_TransmitReceive(data_out, data_in, num, &SPI0_Resources);
-}
-static uint32_t SPI0_GetDataCount(void)
-{
-    return SPI_GetDataCount(&SPI0_Resources);
-}
-static int32_t SPI0_Control(uint32_t control, uint32_t arg)
-{
-    return HAL_SPI_Control(control, arg, &SPI0_Resources);
-}
-static ARM_SPI_STATUS SPI0_GetStatus(void)
-{
-    return SPI_GetStatus(&SPI0_Resources);
-}
-void SPI0_IRQHandler(void)
-{
-    SPI_IRQHandler(&SPI0_Resources);
-}
-void SPI0_DmaTxEvent(uint32_t event)
-{
-    SPI_DmaTxEvent(event, &SPI0_Resources);
-}
-void SPI0_DmaRxEvent(uint32_t event)
-{
-    HAL_SPI_DmaRxEvent(event, &SPI0_Resources);
+void SPI0_IRQHandler(void) {
+    SPI_IRQHandler(&hspi0);
 }
 
-// SPI0 Driver Control Block
-ARM_DRIVER_SPI Driver_SPI0 = {
-    SPI_GetVersion,
-    SPI_GetCapabilities,
-    SPI0_Initialize,
-    SPI0_Uninitialize,
-    SPI0_PowerControl,
-    SPI0_Send,
-    SPI0_Receive,
-    SPI0_Transfer,
-    SPI0_GetDataCount,
-    SPI0_Control,
-    SPI0_GetStatus
-};
+void SPI0_DmaTxEvent(uint32_t event) {
+    SPI_DmaTxEvent(event, &hspi0);
+}
+
+void SPI0_DmaRxEvent(uint32_t event) {
+    HAL_SPI_DmaRxEvent(event, &hspi0);
+}
 
 #endif
 

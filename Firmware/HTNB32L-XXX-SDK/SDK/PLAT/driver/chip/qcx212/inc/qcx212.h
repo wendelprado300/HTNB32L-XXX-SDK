@@ -1064,6 +1064,9 @@ static inline FlagStatus HT_SPI_ReadIrqStatus(SPI_TypeDef *hspi, uint32_t value)
 
 #define SPI_DMACR_TXDMAE_Pos                     (1)
 #define SPI_DMACR_TXDMAE_Msk                     (0x1UL << SPI_DMACR_TXDMAE_Pos)
+
+#define SPI_DMACR_BITMASK                         (uint32_t)0x03
+
 /** @} */
 
 /** Peripheral SPI0 base pointer */

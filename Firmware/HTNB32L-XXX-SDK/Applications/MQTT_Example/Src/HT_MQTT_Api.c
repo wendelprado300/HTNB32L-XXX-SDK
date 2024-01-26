@@ -21,7 +21,7 @@ extern volatile uint8_t subscribe_callback;
 
 static MQTTPacket_connectData connectData = MQTTPacket_connectData_initializer;
 
-#ifdef MQTT_TLS_ENABLE
+#if  MQTT_TLS_ENABLE == 1
 static MqttClientContext mqtt_client_ctx;
 #endif
 
@@ -30,7 +30,7 @@ uint8_t HT_MQTT_Connect(MQTTClient *mqtt_client, Network *mqtt_network, char *ad
                                         uint32_t sendbuf_size, uint8_t *readbuf, uint32_t readbuf_size) {
 
 
-#ifdef MQTT_TLS_ENABLE
+#if  MQTT_TLS_ENABLE == 1
     mqtt_client_ctx.caCertLen = 0;
     mqtt_client_ctx.port = port;
     mqtt_client_ctx.host = addr;
@@ -39,6 +39,7 @@ uint8_t HT_MQTT_Connect(MQTTClient *mqtt_client, Network *mqtt_network, char *ad
     mqtt_client_ctx.timeout_r = MQTT_GENERAL_TIMEOUT;
     mqtt_client_ctx.timeout_s = MQTT_GENERAL_TIMEOUT;
 #endif
+
     connectData.MQTTVersion = mqtt_version;
     connectData.clientID.cstring = clientID;
     connectData.username.cstring = username;
@@ -47,7 +48,7 @@ uint8_t HT_MQTT_Connect(MQTTClient *mqtt_client, Network *mqtt_network, char *ad
     connectData.will.qos = QOS0;
     connectData.cleansession = false;
 
-#ifdef MQTT_TLS_ENABLE
+#if  MQTT_TLS_ENABLE == 1
 
     printf("Starting TLS handshake...\n");
 
@@ -67,12 +68,15 @@ uint8_t HT_MQTT_Connect(MQTTClient *mqtt_client, Network *mqtt_network, char *ad
 
 #else
 
+    NetworkInit(mqtt_network);
+    MQTTClientInit(mqtt_client, mqtt_network, MQTT_GENERAL_TIMEOUT, (unsigned char *)sendbuf, sendbuf_size, (unsigned char *)readbuf, readbuf_size);
+    
     if((NetworkSetConnTimeout(mqtt_network, send_timeout, rcv_timeout)) != 0) {
         mqtt_client->keepAliveInterval = connectData.keepAliveInterval;
         mqtt_client->ping_outstanding = 1;
 
     } else {
-
+        
         if ((NetworkConnect(mqtt_network, addr, port)) != 0) {
             mqtt_client->keepAliveInterval = connectData.keepAliveInterval;
             mqtt_client->ping_outstanding = 1;
@@ -82,7 +86,6 @@ uint8_t HT_MQTT_Connect(MQTTClient *mqtt_client, Network *mqtt_network, char *ad
         } else {
             if ((MQTTConnect(mqtt_client, &connectData)) != 0) {
                 mqtt_client->ping_outstanding = 1;
-    
                 return 1;
     
             } else {

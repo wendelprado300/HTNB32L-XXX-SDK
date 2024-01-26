@@ -9,6 +9,10 @@
         "stdio.h": "c",
         "qcx212.h": "c",
         "htnb32lxxx_hal_spi.h": "c",
-        "ht_spi_demo.h": "c"
+        "ht_spi_demo.h": "c",
+        "stdint.h": "c",
+        "ht_gpio_api.h": "c",
+        "ht_mqtt_api.h": "c",
+        "uart_qcx212.h": "c"
     }
 }

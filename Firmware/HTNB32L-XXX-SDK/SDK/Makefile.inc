@@ -1,8 +1,10 @@
 
 ht_app_api-y :=
 ht_startup_lib-y :=
+ht_thirdparty_api-y :=
 
 include $(TOP)/SDK/HT_API/Makefile.inc
+include $(TOP)/SDK/Thirdparty/Makefile.inc
 
 HT_DRIVER_OBJ := $(addprefix $(BUILDDIR)/,$(ht_app_api-y))
 
@@ -30,3 +32,16 @@ $(BUILDDIR)/libHTStartup.a: $(HT_STARTUP_OBJS)
 	$(ECHO) AR $@
 	$(Q)$(AR) -cr $@ $^
 
+###############################################################
+
+HT_THIRDPARTY_OBJ := $(addprefix $(BUILDDIR)/,$(ht_thirdparty_api-y))
+-include $(HT_THIRDPARTY_OBJ:.o=.d)
+
+ifneq ($(HT_THIRDPARTY_OBJ),)
+ht_thirdparty_api-y += libHTThirdparty.a
+endif
+
+$(BUILDDIR)/libHTThirdparty.a: $(HT_THIRDPARTY_OBJ)
+	@mkdir -p $(dir $@)
+	$(ECHO) AR $@
+	$(Q)$(AR) -cr $@ $^

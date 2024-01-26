@@ -5,12 +5,8 @@ ht_prebuild_libraries += $(HT_LIBDIR)/libdriver_private_ht.a \
 						$(HT_LIBDIR)/liblfs.a
 
 ifeq ($(HT_LIBRARY_MQTT_ENABLE),y)
-CFLAGS_INC += 	-I $(TOP)/HT_Prebuild/MQTT/MQTTClient/Inc \
-				-I $(TOP)/HT_Prebuild/MQTT/FreeRTOS/Inc \
-				-I $(TOP)/HT_Prebuild/MQTT/MQTTPacket/Inc
 
 ht_prebuild_libraries += $(HT_LIBDIR)/libfreertos.a \
-                        $(HT_LIBDIR)/libHTmqtt.a \
                         $(HT_LIBDIR)/libiperf.a \
                         $(HT_LIBDIR)/liblwip.a \
                         $(HT_LIBDIR)/libmbedtls.a \
