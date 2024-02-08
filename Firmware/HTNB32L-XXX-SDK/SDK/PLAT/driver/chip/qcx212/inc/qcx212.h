@@ -907,147 +907,167 @@ typedef struct {
   *
   */
 typedef struct {
-    __IO uint32_t CR0;                           /**< Control Register 0,                     offset: 0x0 */
-    __IO uint32_t CR1;                           /**< Control Register 1,                     offset: 0x4 */
-    __IO uint32_t DR;                            /**< Data Register,                          offset: 0x8 */
-    __IO uint32_t SR;                            /**< Status Register,                        offset: 0xC */
-    __IO uint32_t CPSR;                          /**< Clock Prescale Register,                offset: 0x10 */
-    __IO uint32_t IMSC;                          /**< Interrupt Mask Set or Clear Register,   offset: 0x14 */
-    __IO uint32_t RIS;                           /**< Raw Interrupt Status Register,          offset: 0x18 */
-    __IO uint32_t MIS;                           /**< Masked Interrupt Status Register,       offset: 0x1C */
-    __IO uint32_t ICR;                           /**< Interrupt Clear Register,               offset: 0x20 */
-    __IO uint32_t DMACR;                         /**< DMA Control Register,                   offset: 0x24 */
+    __IO uint32_t CR0;          /**< Control Register 0. Selects the serial clock rate, bus type, and data size.         offset: 0x0 */
+    __IO uint32_t CR1;          /**< Control Register 1. Selects master/slave and other modes.                           offset: 0x4 */
+    __IO uint32_t DR;           /**< Data Register. Writes fill the transmit FIFO, and reads empty the receive FIFO.     offset: 0x8 */
+    __IO uint32_t SR;           /**< Status Register                                                                     offset: 0xC */
+    __IO uint32_t CPSR;         /**< Clock Prescale Register                                                             offset: 0x10 */
+    __IO uint32_t IMSC;         /**< Interrupt Mask Set and Clear Register                                               offset: 0x14 */
+    __IO uint32_t RIS;          /**< Raw Interrupt Status Register                                                       offset: 0x18 */
+    __IO uint32_t MIS;          /**< Masked Interrupt Status Register                                                    offset: 0x1C */
+    __IO uint32_t ICR;          /**< Interrupt Clear Register                                                            offset: 0x20 */
+    __IO uint32_t DMACR;        /**< DMA control register                                                                offset: 0x24 */
 } SPI_TypeDef;
 
-/** @name CR0 - SPI_CR0 register */
+/** @name CR0 - SPI Control Register 0 */
 /** @{ */
+
+/** SPI data size select, must be 4 bits to 16 bits */
 #define SPI_CR0_DSS_Pos                          (0)
 #define SPI_CR0_DSS_Msk                          (0xFUL << SPI_CR0_DSS_Pos)
 
+/** SPI Frame Format */
 #define SPI_CR0_FRF_Pos                          (4)
 #define SPI_CR0_FRF_Msk                          (0x3UL << SPI_CR0_FRF_Pos)
 
+/** SPI Clock Out Polarity */
 #define SPI_CR0_SPO_Pos                          (6)
 #define SPI_CR0_SPO_Msk                          (0x1UL << SPI_CR0_SPO_Pos)
 
+/** SPI Clock Out Phase */
 #define SPI_CR0_SPH_Pos                          (7)
 #define SPI_CR0_SPH_Msk                          (0x1UL << SPI_CR0_SPH_Pos)
 
+/** SPI Serial Clock Rate */
 #define SPI_CR0_SCR_Pos                          (8)
 #define SPI_CR0_SCR_Msk                          (0xFFUL << SPI_CR0_SCR_Pos)
 /** @} */
 
 /** @name CR1 - SPI_CR1 register */
 /** @{ */
+
+/** SPI Loop Back Mode */
 #define SPI_CR1_LBM_Pos                          (0)
 #define SPI_CR1_LBM_Msk                          (0x1UL << SPI_CR1_LBM_Pos)
 
+/** SPI Enable */
 #define SPI_CR1_SSE_Pos                          (1)
 #define SPI_CR1_SSE_Msk                          (0x1UL << SPI_CR1_SSE_Pos)
 
+/** SPI Master/Slave Mode. */
 #define SPI_CR1_MS_Pos                           (2)
 #define SPI_CR1_MS_Msk                           (0x1UL << SPI_CR1_MS_Pos)
 
+/** SPI Slave Output Disable. */
 #define SPI_CR1_SOD_Pos                          (3)
 #define SPI_CR1_SOD_Msk                          (0x1UL << SPI_CR1_SOD_Pos)
 /** @} */
 
-/** @name DR - SPI_DR register */
+/** @name DR - SPI Data register */
 /** @{ */
 #define SPI_DR_DATA_Pos                          (0)
 #define SPI_DR_DATA_Msk                          (0xFFFFUL << SPI_DR_DATA_Pos)
 /** @} */
 
-/** @name SR - SPI_SR register */
+/** @name SR - SPI Status Register */
 /** @{ */
+
+/** SPI Transmit FIFO Empty. */
 #define SPI_SR_TFE_Pos                           (0)
 #define SPI_SR_TFE_Msk                           (0x1UL << SPI_SR_TFE_Pos)
 
+/** SPI Transmit FIFO Not Empty. */
 #define SPI_SR_TNF_Pos                           (1)
 #define SPI_SR_TNF_Msk                           (0x1UL << SPI_SR_TNF_Pos)
 
+/** SPI Receive FIFO Not Empty. */
 #define SPI_SR_RNE_Pos                           (2)
 #define SPI_SR_RNE_Msk                           (0x1UL << SPI_SR_RNE_Pos)
 
+/** SPI Receive FIFO Full. */
 #define SPI_SR_RFF_Pos                           (3)
 #define SPI_SR_RFF_Msk                           (0x1UL << SPI_SR_RFF_Pos)
 
+/** SPI Busy Status. */
 #define SPI_SR_BSY_Pos                           (4)
 #define SPI_SR_BSY_Msk                           (0x1UL << SPI_SR_BSY_Pos)
 /** @} */
 
-/** @name CPSR - SPI_CPSR register */
+/** @name CPSR - SPI Clock Prescale Register */
 /** @{ */
 #define SPI_CPSR_CPSDVSR_Pos                     (0)
 #define SPI_CPSR_CPSDVSR_Msk                     (0xFFUL << SPI_CPSR_CPSDVSR_Pos)
 /** @} */
 
-/** @name IMSC - SPI_IMSC register */
+/** @name IMSC - SPI Interrupt Mask Set/Clear Register */
 /** @{ */
+
+/** SPI Receive Overrun Interruption. */
 #define SPI_IMSC_RORIM_Pos                       (0)
 #define SPI_IMSC_RORIM_Msk                       (0x1UL << SPI_IMSC_RORIM_Pos)
 
+/** SPI Receive Timeout Interruption. */
 #define SPI_IMSC_RTIM_Pos                        (1)
 #define SPI_IMSC_RTIM_Msk                        (0x1UL << SPI_IMSC_RTIM_Pos)
 
+/** SPI RX FIFO At Least Half Full Interrupt. */
 #define SPI_IMSC_RXIM_Pos                        (2)
 #define SPI_IMSC_RXIM_Msk                        (0x1UL << SPI_IMSC_RXIM_Pos)
 
+/** SPI TX FIFO At Least Half Empty Interrupt. */
 #define SPI_IMSC_TXIM_Pos                        (3)
 #define SPI_IMSC_TXIM_Msk                        (0x1UL << SPI_IMSC_TXIM_Pos)
 /** @} */
 
-/** @name RIS - SPI_RIS register */
+/** @name RIS - SPI Raw Interrupt Register */
 /** @{ */
+
+/** SPI Receive Overrun Status. */
 #define SPI_RIS_RORRIS_Pos                       (0)
 #define SPI_RIS_RORRIS_Msk                       (0x1UL << SPI_RIS_RORRIS_Pos)
 
+/** SPI RX FIFO is not empty and has not been read for a period of 32 bit times. */
 #define SPI_RIS_RTRIS_Pos                        (1)
 #define SPI_RIS_RTRIS_Msk                        (0x1UL << SPI_RIS_RTRIS_Pos)
 
+/** SPI RX FIFO At Least Half Full. */
 #define SPI_RIS_RXRIS_Pos                        (2)
 #define SPI_RIS_RXRIS_Msk                        (0x1UL << SPI_RIS_RXRIS_Pos)
 
+/** SPI TX FIFO At Least Half Empty. */
 #define SPI_RIS_TXRIS_Pos                        (3)
 #define SPI_RIS_TXRIS_Msk                        (0x1UL << SPI_RIS_TXRIS_Pos)
 
-/**
- * @brief	Get the raw interrupt status
- * @param	hspi	: The base of SSP peripheral on the chip
- * @param	value	: Interrupt condition to be get status, shoud be :
- *						- SSP_RORRIS
- *						- SSP_RTRIS
- *						- SSP_RXRIS
- *						- SSP_TXRIS
- * @return	 Raw interrupt status corresponding to interrupt condition , SET or RESET
- * @note	Get the status of each interrupt condition ,regardless of whether or not the interrupt is enabled
- */
-static inline FlagStatus HT_SPI_ReadIrqStatus(SPI_TypeDef *hspi, uint32_t value) {
-	return (hspi->RIS & value) ? SET : RESET;
-}
-
 /** @} */
 
-/** @name MIS - SPI_MIS register */
+/** @name MIS - SPI Masked Interrupt Status Register */
 /** @{ */
+
+/** SPI This bit is 1 if another frame was completely received while the RxFIFO was full, and this interrupt is enabled. */
 #define SPI_MIS_RORMIS_Pos                       (0)
 #define SPI_MIS_RORMIS_Msk                       (0x1UL << SPI_MIS_RORMIS_Pos)
 
+/** SPI This bit is 1 if the Rx FIFO is not empty, has not been read for a period of 32 bit times, and this interrupt is enabled. */
 #define SPI_MIS_RTMIS_Pos                        (1)
 #define SPI_MIS_RTMIS_Msk                        (0x1UL << SPI_MIS_RTMIS_Pos)
 
+/** SPI This bit is 1 if the Rx FIFO is at least half full, and this interrupt is enabled. */
 #define SPI_MIS_RXMIS_Pos                        (2)
 #define SPI_MIS_RXMIS_Msk                        (0x1UL << SPI_MIS_RXMIS_Pos)
 
+/** SPI This bit is 1 if the Tx FIFO is at least half empty, and this interrupt is enabled. */
 #define SPI_MIS_TXMIS_Pos                        (3)
 #define SPI_MIS_TXMIS_Msk                        (0x1UL << SPI_MIS_TXMIS_Pos)
 /** @} */
 
-/** @name ICR - SPI_ICR register */
+/** @name ICR - SPI Interrupt Clear Register */
 /** @{ */
+
+/** SPI Writing a 1 to this bit clears the “frame was received when RxFIFO was full” interrupt. */
 #define SPI_ICR_RORIC_Pos                        (0)
 #define SPI_ICR_RORIC_Msk                        (0x1UL << SPI_ICR_RORIC_Pos)
 
+/** SPI Writing a 1 to this bit clears the "Rx FIFO was not empty and has not been read for a period of 32 bit times" interrupt. */
 #define SPI_ICR_RTIC_Pos                         (1)
 #define SPI_ICR_RTIC_Msk                         (0x1UL << SPI_ICR_RTIC_Pos)
 
@@ -1057,11 +1077,14 @@ static inline FlagStatus HT_SPI_ReadIrqStatus(SPI_TypeDef *hspi, uint32_t value)
 
 /** @} */
 
-/** @name DMACR - SPI_DMACR register */
+/** @name DMACR - SPI DMA Control Register */
 /** @{ */
+
+/** SPI Receive DMA Enable. */
 #define SPI_DMACR_RXDMAE_Pos                     (0)
 #define SPI_DMACR_RXDMAE_Msk                     (0x1UL << SPI_DMACR_RXDMAE_Pos)
 
+/** SPI Transmit DMA Enable. */
 #define SPI_DMACR_TXDMAE_Pos                     (1)
 #define SPI_DMACR_TXDMAE_Msk                     (0x1UL << SPI_DMACR_TXDMAE_Pos)
 

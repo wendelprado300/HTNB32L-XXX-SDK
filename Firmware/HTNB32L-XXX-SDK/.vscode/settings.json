@@ -1,6 +1,6 @@
 {
     "makefile.extensionOutputFolder": "./.vscode",
-    "cortex-debug.variableUseNaturalFormat": false,
+    "cortex-debug.variableUseNaturalFormat": true,
     "cortex-debug.gdbPath": "C:/gcc_arm/bin/arm-none-eabi-gdb",
     "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
@@ -13,6 +13,9 @@
         "stdint.h": "c",
         "ht_gpio_api.h": "c",
         "ht_mqtt_api.h": "c",
-        "uart_qcx212.h": "c"
+        "uart_qcx212.h": "c",
+        "random": "c",
+        "driver_common.h": "c",
+        "ht_peripheral_config.h": "c"
     }
 }

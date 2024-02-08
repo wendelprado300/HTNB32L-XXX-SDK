@@ -48,7 +48,13 @@
 #define TRANFER_DATA_WIDTH_8_BITS        8                            /**</ SPI data width number. */
 #define TRANSFER_DATA_WIDTH              TRANFER_DATA_WIDTH_8_BITS    /**</ SPI data width. */
 
+#if (RTE_SPI1_IO_MODE == IRQ_MODE) || (RTE_SPI1_IO_MODE == POLLING_MODE)
 #define SPI_BUFFER_SIZE 10                                            /**</ SPI buffer size. */
+#elif (RTE_SPI1_IO_MODE == DMA_MODE)
+/* DMA buffer shall be aligend on a 16 bytes boundary in memory! */
+#define SPI_BUFFER_SIZE 9
+#endif
+
 
 /* Functions  ----------------------------------------------------------------*/
 

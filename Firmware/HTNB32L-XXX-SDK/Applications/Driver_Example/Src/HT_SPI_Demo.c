@@ -16,7 +16,15 @@
 #include "HT_SPI_Demo.h"
 #include "htnb32lxxx_hal_spi.h"
 
+#if (RTE_SPI1_IO_MODE == IRQ_MODE) || (RTE_SPI1_IO_MODE == POLLING_MODE)
 static __ALIGNED(4) uint8_t tx_buffer[] = {"HelloSpi1"};
+#elif (RTE_SPI1_IO_MODE == DMA_MODE)
+/* DMA buffer shall be aligend on a 16 bytes boundary in memory! */
+static __ALIGNED(4) uint8_t tx_buffer[] = {"HelloSpi"};
+#else
+#error "None SPI mode selected!"
+#endif
+
 static __ALIGNED(4) uint8_t rx_buffer[SPI_BUFFER_SIZE] = {0};
 
 extern SPI_HandleTypeDef hspi1;
@@ -68,11 +76,22 @@ void HT_SPI_App(void) {
         hspi1.info->xfer.tx_cnt   = 0;
         hspi1.info->xfer.rx_cnt   = 0;
 
-        HAL_SPI_TransmitReceive_IT(&hspi1, tx_buffer, rx_buffer, SPI_BUFFER_SIZE-1);
+#if (RTE_SPI1_IO_MODE == IRQ_MODE)
+        HAL_SPI_TransmitReceive_IT(&hspi1, tx_buffer, rx_buffer, (SPI_BUFFER_SIZE-1));
         HAL_SPI_EnableIRQ(&hspi1);
 
         while(!spi_irq);
         spi_irq = 0;
+
+#elif (RTE_SPI1_IO_MODE == DMA_MODE)
+        HAL_SPI_TransmitReceive_DMA(&hspi1, tx_buffer, rx_buffer, (SPI_BUFFER_SIZE-1));
+        HAL_SPI_EnableIRQ(&hspi1);
+
+        while(!spi_irq);
+        spi_irq = 0;
+#else
+        HAL_SPI_TransmitReceive_Polling(&hspi1, tx_buffer, rx_buffer, (SPI_BUFFER_SIZE-1));
+#endif
 
         print_uart("Received: ");
         print_uart((char *)rx_buffer);

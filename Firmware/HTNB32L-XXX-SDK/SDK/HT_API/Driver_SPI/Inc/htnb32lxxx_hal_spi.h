@@ -8,7 +8,7 @@
  |_|  |_|  |_|    |_|  |_|_____\_____|_|  \_\\____/|_| \_|
  =================== Advanced R&D ========================
 
- Copyright (c) 2023 HT Micron Semicondutores S.A.
+ Copyright (c) 2024 HT Micron Semicondutores S.A.
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -37,14 +37,13 @@
 #ifndef  __HTNB32Lxxx_HAL_SPI_H__
 #define  __HTNB32Lxxx_HAL_SPI_H__
 
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include <stdio.h>
 #include "string.h"
 #include "qcx212.h"
 #include "bsp.h"
 #include "HT_Peripheral_Config.h"
+
+/* Defines  ------------------------------------------------------------------*/
 
 // SPI flags
 #define SPI_FLAG_INITIALIZED          (1UL << 0)     // SPI initialized
@@ -52,6 +51,8 @@ extern "C" {
 #define SPI_FLAG_CONFIGURED           (1UL << 2)     // SPI configured
 #define SPI_FLAG_DATA_LOST            (1UL << 3)     // SPI data lost occurred
 #define SPI_FLAG_MODE_FAULT           (1UL << 4)     // SPI mode fault occurred
+
+/* Typedefs  ------------------------------------------------------------------*/
 
 typedef enum {
   SPI_TRANSMIT_RECEIVE = 0,
@@ -123,31 +124,291 @@ typedef struct {
   SPI_INFO                    *info;                 // Run-Time Information
 } SPI_HandleTypeDef;
 
-/**
-  \fn          void HAL_SPI_DmaRxEvent(uint32_t event, SPI_HandleTypeDef *spi)
-  \brief       SPI DMA Rx Event handler.
-  \param[in]   event DMA Rx Event
-  \param[in]   spi   Pointer to SPI resources
-*/
+/* Functions  ----------------------------------------------------------------*/
+
+/*!******************************************************************
+ * \fn void HAL_SPI_CleanRxFifo(SPI_HandleTypeDef *spi)
+ * \brief Clean RX FIFO.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[out] none
+ *
+ * \retval none
+ *******************************************************************/
+void HAL_SPI_CleanRxFifo(SPI_HandleTypeDef *spi);
+
+/*!******************************************************************
+ * \fn void HAL_SPI_EnableIRQ(SPI_HandleTypeDef *spi)
+ * \brief Enable the SPI IRQn.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[out] none
+ *
+ * \retval none
+ *******************************************************************/
+void HAL_SPI_EnableIRQ(SPI_HandleTypeDef *spi);
+
+/*!******************************************************************
+ * \fn void HAL_SPI_DisableIRQ(SPI_HandleTypeDef *spi)
+ * \brief Disable all SPI IRQn.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[out] none
+ *
+ * \retval none
+ *******************************************************************/
+void HAL_SPI_DisableIRQ(SPI_HandleTypeDef *spi);
+
+/*!******************************************************************
+ * \fn void HAL_SPI_DmaTxEvent(uint32_t event, SPI_HandleTypeDef *spi)
+ * \brief SPI DMA Tx Event handler.
+ *
+ * \param[in] uint32_t event 
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[out] none
+ *
+ * \retval none
+ *******************************************************************/
+void HAL_SPI_DmaTxEvent(uint32_t event, SPI_HandleTypeDef *spi);
+
+/*!******************************************************************
+ * \fn void HAL_SPI_DmaRxEvent(uint32_t event, SPI_HandleTypeDef *spi)
+ * \brief SPI DMA Rx Event handler.
+ * 
+ * \param[in]  uint32_t event DMA Rx Event
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ *
+ * \retval none
+ *******************************************************************/
 void HAL_SPI_DmaRxEvent(uint32_t event, SPI_HandleTypeDef *spi);
 
-void HAL_SPI_CleanRxFifo(SPI_HandleTypeDef *spi);
-void HAL_SPI_EnableIRQ(SPI_HandleTypeDef *spi);
-void HAL_SPI_DisableIRQ(SPI_HandleTypeDef *spi);
-int32_t HAL_SPI_TransmitReceive_Polling(SPI_HandleTypeDef *spi);
-int32_t HAL_SPI_Initialize(ARM_SPI_SignalEvent_t cb_event, SPI_HandleTypeDef *spi);
-int32_t HAL_SPI_Uninitialize(SPI_HandleTypeDef *spi);
-int32_t HAL_SPI_PowerControl(ARM_POWER_STATE state, SPI_HandleTypeDef *spi);
-int32_t HAL_SPI_Control(uint32_t control, uint32_t arg, SPI_HandleTypeDef *spi);
-int32_t HAL_SPI_Transmit_Polling(SPI_HandleTypeDef *spi);
-int32_t HAL_SPI_Receive_Polling(SPI_HandleTypeDef *spi);
+/*!******************************************************************
+ * \fn  void HAL_SPI0_IRQHandler(void);
+ * \brief SPI0 IRQn handler.
+ * 
+ * \param[in]  none
+ * \param[out] none
+ *
+ * \retval none
+ *******************************************************************/
+void HAL_SPI0_IRQHandler(void);
 
+/*!******************************************************************
+ * \fn  void HAL_SPI1_IRQHandler(void);
+ * \brief SPI1 IRQn handler.
+ * 
+ * \param[in]  none
+ * \param[out] none
+ *
+ * \retval none
+ *******************************************************************/
+void HAL_SPI1_IRQHandler(void);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_Initialize(ARM_SPI_SignalEvent_t cb_event, SPI_HandleTypeDef *spi)
+ * \brief Initialize SPI peripheral.
+ *
+ * \param[in] ARM_SPI_SignalEvent_t cb_event      Pointer to the callback function.
+ * \param[in]  SPI_HandleTypeDef *spi             spi handle.
+ * \param[out] none
+ *
+ * \retval Error code.
+ *******************************************************************/
+int32_t HAL_SPI_Initialize(ARM_SPI_SignalEvent_t cb_event, SPI_HandleTypeDef *spi);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_Uninitialize(SPI_HandleTypeDef *spi)
+ * \brief Uninitialize SPI peripheral.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[out] none
+ *
+ * \retval Error code.
+ *******************************************************************/
+int32_t HAL_SPI_Uninitialize(SPI_HandleTypeDef *spi);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_PowerControl(ARM_POWER_STATE state, SPI_HandleTypeDef *spi);
+ * \brief Configures the power control of SPI peripheral, as well as initiliazes the SPI
+ * clock and DMA or IRQn, if used.
+ * 
+ * \param[in] ARM_POWER_STATE state       Power mode state.  
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[out] none
+ *
+ * \retval Error code.
+ *******************************************************************/
+int32_t HAL_SPI_PowerControl(ARM_POWER_STATE state, SPI_HandleTypeDef *spi);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_Control(uint32_t control, uint32_t arg, SPI_HandleTypeDef *spi)
+ * \brief Configures the SPI mode (MASTER/SLAVE), bus speed, flow control options and
+ * all ctrl registers.
+ * 
+ * \param[in]  uint32_t control           Control arg.
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[out] none
+ *
+ * \retval none
+ *******************************************************************/
+int32_t HAL_SPI_Control(uint32_t control, uint32_t arg, SPI_HandleTypeDef *spi);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_TransmitReceive_Polling(SPI_HandleTypeDef *spi, uint8_t *pTxData, uint8_t *pRxData, uint16_t size)
+ * \brief SPI polling transmit/receive (FULL-DUPLEX) in blocking mode.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[in] uint8_t *pTxData            TX buffer
+ * \param[in] uint16_t size               TX/RX buffer size
+ * \param[out] uint8_t *pRxData           RX buffer
+ *
+ * \retval Error code.
+ *******************************************************************/
+int32_t HAL_SPI_TransmitReceive_Polling(SPI_HandleTypeDef *spi, uint8_t *pTxData, uint8_t *pRxData, uint16_t size);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_Transmit_Polling(SPI_HandleTypeDef *spi, uint8_t *pTxData, uint16_t size)
+ * \brief SPI polling transmit in blocking mode.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[in] uint8_t *pTxData            TX buffer
+ * \param[in] uint16_t size               TX/RX buffer size
+ *
+ * \retval Error code.
+ *******************************************************************/
+int32_t HAL_SPI_Transmit_Polling(SPI_HandleTypeDef *spi, uint8_t *pTxData, uint16_t size);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_Receive_Polling(SPI_HandleTypeDef *spi, uint8_t *pRxData, uint16_t size)
+ * \brief SPI polling receive in blocking mode.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[in] uint16_t size               TX/RX buffer size
+ * \param[out] uint8_t *pRxData           RX buffer
+ *
+ * \retval Error code.
+ *******************************************************************/
+int32_t HAL_SPI_Receive_Polling(SPI_HandleTypeDef *spi, uint8_t *pRxData, uint16_t size);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *spi, uint8_t *pTxData, uint8_t *pRxData, uint16_t size)
+ * \brief SPI transmit/receive in DMA mode.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[in] uint8_t *pTxData            TX buffer
+ * \param[in] uint16_t size               TX/RX buffer size
+ * \param[out] uint8_t *pRxData           RX buffer
+ *
+ * \retval Error code.
+ *******************************************************************/
+int32_t HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *spi, uint8_t *pTxData, uint8_t *pRxData, uint16_t size);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *spi, uint8_t *pTxData, uint16_t size)
+ * \brief SPI transmit in DMA mode.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[in] uint8_t *pTxData            TX buffer
+ * \param[in] uint16_t size               TX/RX buffer size
+ *
+ * \retval Error code.
+ *******************************************************************/
+int32_t HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *spi, uint8_t *pTxData, uint16_t size);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_Receive_DMA(SPI_HandleTypeDef *spi, uint8_t *pRxData, uint16_t size)
+ * \brief SPI receive in DMA mode.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[in] uint16_t size               TX/RX buffer size
+ * \param[out] uint8_t *pRxData           RX buffer
+ *
+ * \retval Error code.
+ *******************************************************************/
+int32_t HAL_SPI_Receive_DMA(SPI_HandleTypeDef *spi, uint8_t *pRxData, uint16_t size);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *spi, uint8_t *pTxData, uint8_t *pRxData, uint16_t size)
+ * \brief SPI transmit/receive in IRQn mode.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[in] uint8_t *pTxData            TX buffer
+ * \param[in] uint16_t size               TX/RX buffer size
+ * \param[out] uint8_t *pRxData           RX buffer
+ *
+ * \retval Error code.
+ *******************************************************************/
 int32_t HAL_SPI_TransmitReceive_IT(SPI_HandleTypeDef *spi, uint8_t *pTxData, uint8_t *pRxData, uint16_t size);
-int32_t HAL_SPI_Receive_IT(SPI_HandleTypeDef *spi, uint8_t *pData, uint16_t size);
+
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_Transmit_IT(SPI_HandleTypeDef *spi, uint8_t *pTxData, uint16_t size)
+ * \brief SPI transmit in IRQn mode.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[in] uint8_t *pTxData            TX buffer
+ * \param[in] uint16_t size               TX/RX buffer size
+ *
+ * \retval Error code.
+ *******************************************************************/
 int32_t HAL_SPI_Transmit_IT(SPI_HandleTypeDef *spi, uint8_t *pData, uint16_t size);
 
-#ifdef __cplusplus
-}
-#endif
+/*!******************************************************************
+ * \fn int32_t HAL_SPI_Receive_IT(SPI_HandleTypeDef *spi, uint8_t *pRxData, uint16_t size)
+ * \brief SPI receive in IRQn mode.
+ *
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[in] uint16_t size               TX/RX buffer size
+ * \param[out] uint8_t *pRxData           RX buffer
+ *
+ * \retval Error code.
+ *******************************************************************/
+int32_t HAL_SPI_Receive_IT(SPI_HandleTypeDef *spi, uint8_t *pData, uint16_t size);
+
+/*!******************************************************************
+ * \fn void HAL_SPI1_DmaTxEvent(uint32_t event)
+ * \brief SPI DMA Tx Event handler.
+ *
+ * \param[in] uint32_t event 
+ * \param[in]  SPI_HandleTypeDef *spi     spi handle.
+ * \param[out] none
+ *
+ * \retval none
+ *******************************************************************/
+void HAL_SPI1_DmaTxEvent(uint32_t event);
+
+/*!******************************************************************
+ * \fn void HAL_SPI1_DmaRxEvent(uint32_t event)
+ * \brief SPI DMA Rx Event handler.
+ * 
+ * \param[in]  uint32_t event DMA Rx Event
+ * \param[out] none
+ *
+ * \retval none
+ *******************************************************************/
+void HAL_SPI1_DmaRxEvent(uint32_t event);
+
+/*!******************************************************************
+ * \fn void HAL_SPI0_DmaTxEvent(uint32_t event)
+ * \brief SPI DMA Tx Event handler.
+ *
+ * \param[in] uint32_t event 
+ * \param[out] none
+ *
+ * \retval none
+ *******************************************************************/
+void HAL_SPI0_DmaTxEvent(uint32_t event);
+
+/*!******************************************************************
+ * \fn void HAL_SPI0_DmaRxEvent(uint32_t event)
+ * \brief SPI DMA Rx Event handler.
+ * 
+ * \param[in]  uint32_t event DMA Rx Event
+ * \param[out] none
+ *
+ * \retval none
+ *******************************************************************/
+void HAL_SPI0_DmaRxEvent(uint32_t event);
 
 #endif /* __HTNB32Lxxx_HAL_SPI_H__ */
+
+/************************ HT Micron Semicondutores S.A *****END OF FILE****/
