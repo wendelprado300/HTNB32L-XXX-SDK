@@ -36,7 +36,7 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 
-#include "HT_hal_uart.h"
+#include "htnb32lxxx_hal_usart.h"
 #include "HT_Fsm.h"
 #include "HT_GPIO_Api.h"
 

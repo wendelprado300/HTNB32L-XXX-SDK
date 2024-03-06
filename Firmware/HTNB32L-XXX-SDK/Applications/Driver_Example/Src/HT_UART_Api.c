@@ -15,11 +15,12 @@
  */
 
 #include "HT_UART_Api.h"
+#include "htnb32lxxx_hal_usart.h"
 
-extern ARM_DRIVER_USART *UsartPrintHandle;
+extern USART_HandleTypeDef huart1;
 
 void print_uart(char *str) {
-    UsartPrintHandle->SendPolling(str, strlen(str));
+    HAL_USART_SendPolling(&huart1, (uint8_t *)str, strlen(str));
 }
 
 /************************ HT Micron Semicondutores S.A *****END OF FILE****/

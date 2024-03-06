@@ -35,6 +35,8 @@ trace_add_module(APP, P_INFO);
 
 extern void mqtt_demo_onenet(void);
 
+extern USART_HandleTypeDef huart1;
+
 static void HT_SetConnectioParameters(void) {
     uint8_t cid = 0;
     PsAPNSetting apnSetting;
@@ -140,7 +142,7 @@ static void HT_MQTTExampleTask(void *arg){
     slpManPlatVoteDisableSleep(mqttEpSlpHandler, SLP_ACTIVE_STATE); //SLP_SLP2_STATE 
     HT_TRACE(UNILOG_MQTT, mqttAppTask1, P_INFO, 0, "first time run mqtt example");
 
-    HT_UART_InitPrint(HT_UART1, GPR_UART1ClkSel_26M, uart_cntrl, 115200);
+    HAL_USART_InitPrint(&huart1, GPR_UART1ClkSel_26M, uart_cntrl, 115200);
     printf("HTNB32L-XXX MQTT Example!\n");
     printf("Trying to connect...\n");
     while(!simReady);

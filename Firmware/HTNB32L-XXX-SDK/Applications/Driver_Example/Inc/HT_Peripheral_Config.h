@@ -80,7 +80,7 @@ ________________________________________________________________________________
 #define RTE_UART0_RX_IO_MODE    POLLING_MODE
 #define USART0_RX_TRIG_LVL      (30)
 
-#define RTE_UART1_TX_IO_MODE    POLLING_MODE
+#define RTE_UART1_TX_IO_MODE    IRQ_MODE
 #define RTE_UART1_RX_IO_MODE    POLLING_MODE
 
 #define RTE_UART2_TX_IO_MODE    POLLING_MODE
@@ -140,7 +140,7 @@ ________________________________________________________________________________
 
 // UART0 (Universal asynchronous receiver transmitter) [Driver_USART0]
 // Configuration settings for Driver_USART0 in component ::Drivers:USART
-#define RTE_UART0                       0
+#define RTE_UART0                       1
 #define RTE_UART0_CTS_PIN_EN            0
 #define RTE_UART0_RTS_PIN_EN            0
 
@@ -219,6 +219,13 @@ ________________________________________________________________________________
 //   Rx
 //     Channel    <0=>0 <1=>1 <2=>2 <3=>3 <4=>4 <5=>5 <6=>6 <7=>7
 #define RTE_UART2_DMA_RX_REQID          DMA_RequestUSART2RX
+
+#define HAL_USART0_SELECT 0
+#define HAL_USART1_SELECT 1
+#define HAL_USART2_SELECT 2
+
+#define USART_PRINT_SELECT  HAL_USART1_SELECT
+#define USART_UNILOG_SELECT HAL_USART0_SELECT
 
 // SPI0 (Serial Peripheral Interface) [Driver_SPI0]
 // Configuration settings for Driver_SPI0 in component ::Drivers:SPI

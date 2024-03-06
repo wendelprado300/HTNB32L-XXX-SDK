@@ -104,6 +104,7 @@ obj-y             += Src/HT_UART_Api.o \
                      Src/HT_I2C_Demo.o \
                      Src/HT_ADC_Demo.o \
                      Src/HT_WDT_Demo.o \
+                     Src/HT_USART_Demo.o \
                      Src/stub_os.o \
                      Src/main.o
 

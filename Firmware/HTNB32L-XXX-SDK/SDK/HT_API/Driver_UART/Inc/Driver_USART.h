@@ -55,11 +55,6 @@
 #ifndef DRIVER_USART_H_
 #define DRIVER_USART_H_
 
-#ifdef  __cplusplus
-extern "C"
-{
-#endif
-
 #include "Driver_Common.h"
 
 #define ARM_USART_API_VERSION ARM_DRIVER_VERSION_MAJOR_MINOR(2,3)  /* API version */
@@ -203,7 +198,8 @@ typedef volatile struct _ARM_USART_MODEM_STATUS {
 #define ARM_USART_EVENT_DCD                 (1UL << 12) ///< DCD state changed (optional)
 #define ARM_USART_EVENT_RI                  (1UL << 13) ///< RI  state changed (optional)
 #define ARM_USART_EVENT_AUTO_BAUDRATE_DONE  (1UL << 14) ///< Auto baudrate dection completed
-
+#define ARM_USART_EVENT_DMA_TX_COMPLETE     (1UL << 15)  ///< TX completed in DMA mode
+#define ARM_USART_EVENT_DMA_RX_COMPLETE     (1UL << 16)  ///< RX completed in DMA mode
 
 // Function documentation
 /**
@@ -324,7 +320,6 @@ typedef struct _ARM_USART_CAPABILITIES {
   uint32_t reserved           : 11;     ///< Reserved (must be zero)
 } ARM_USART_CAPABILITIES;
 
-
 /**
 \brief Access structure of the USART Driver.
 */
@@ -348,11 +343,5 @@ typedef struct _ARM_DRIVER_USART {
   uint32_t               (*GetBaudRate)     (void);                              ///< Pointer to \ref ARM_USART_GetBaudRate : Get current baud rate.
   int32_t                (*SendPolling)     (const void *data, uint32_t num);    ///< Pointer to \ref ARM_USART_SendPolling : Start sending data to USART transmitter in polling way.
 } const ARM_DRIVER_USART;
-
-
-
-#ifdef  __cplusplus
-}
-#endif
 
 #endif /* DRIVER_USART_H_ */
