@@ -52,10 +52,6 @@ typedef enum usart_port
     PORT_USART_INVALID                     /**< USART invalid. */
 } usart_port_t;
 
-extern ARM_DRIVER_USART *UsartPrintHandle;
-extern ARM_DRIVER_USART *UsartUnilogHandle;
-extern ARM_DRIVER_USART *UsartAtCmdHandle;
-
 /** @brief IRQ Callback functions
  */
 typedef void (*IRQ_Callback_t)();

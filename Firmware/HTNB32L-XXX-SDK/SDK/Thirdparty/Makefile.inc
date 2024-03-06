@@ -13,18 +13,18 @@ CFLAGS_INC    += -I $(TOP)/SDK/PLAT/os/freertos/inc \
 
 CFLAGS += -DFEATURE_MQTT_ENABLE
 
-ht_thirdparty_api-y += $(MQTT_DIR)/MQTTPacket/Src/MQTTConnectClient.o \
-						$(MQTT_DIR)/MQTTPacket/Src/MQTTDeserializePublish.o \
-						$(MQTT_DIR)/MQTTPacket/Src/MQTTPacket.o \
-						$(MQTT_DIR)/MQTTPacket/Src/MQTTSubscribeClient.o \
-						$(MQTT_DIR)/MQTTPacket/Src/MQTTUnsubscribeClient.o \
-						$(MQTT_DIR)/MQTTPacket/Src/MQTTConnectServer.o \
-						$(MQTT_DIR)/MQTTPacket/Src/MQTTFormat.o \
-						$(MQTT_DIR)/MQTTPacket/Src/MQTTSerializePublish.o \
-						$(MQTT_DIR)/MQTTPacket/Src/MQTTSubscribeServer.o \
-						$(MQTT_DIR)/MQTTPacket/Src/MQTTUnsubscribeServer.o \
-						$(MQTT_DIR)/FreeRTOS/Src/MQTTFreeRTOS.o \
-						$(MQTT_DIR)/MQTTClient/Src/HT_MQTT_Tls.o \
-						$(MQTT_DIR)/MQTTClient/Src/MQTTClient.o
+ht_thirdparty_api-y += SDK/Thirdparty/MQTT/MQTTPacket/Src/MQTTConnectClient.o \
+						SDK/Thirdparty/MQTT/MQTTPacket/Src/MQTTDeserializePublish.o \
+						SDK/Thirdparty/MQTT/MQTTPacket/Src/MQTTPacket.o \
+						SDK/Thirdparty/MQTT/MQTTPacket/Src/MQTTSubscribeClient.o \
+						SDK/Thirdparty/MQTT/MQTTPacket/Src/MQTTUnsubscribeClient.o \
+						SDK/Thirdparty/MQTT/MQTTPacket/Src/MQTTConnectServer.o \
+						SDK/Thirdparty/MQTT/MQTTPacket/Src/MQTTFormat.o \
+						SDK/Thirdparty/MQTT/MQTTPacket/Src/MQTTSerializePublish.o \
+						SDK/Thirdparty/MQTT/MQTTPacket/Src/MQTTSubscribeServer.o \
+						SDK/Thirdparty/MQTT/MQTTPacket/Src/MQTTUnsubscribeServer.o \
+						SDK/Thirdparty/MQTT/FreeRTOS/Src/MQTTFreeRTOS.o \
+						SDK/Thirdparty/MQTT/MQTTClient/Src/HT_MQTT_Tls.o \
+						SDK/Thirdparty/MQTT/MQTTClient/Src/MQTTClient.o
 
 endif

@@ -36,7 +36,7 @@
 #ifndef __HT_UART_API_H__
 #define __HT_UART_API_H__
 
-#include "HT_hal_uart.h"
+#include "htnb32lxxx_hal_usart.h"
 #include "Driver_USART.h"
 #include "bsp.h"
 

@@ -14,12 +14,9 @@ LINK_FILE_PATH     ?= SDK/HT_API/Startup/Src
 SYSCALLS_FILE_PATH ?= SDK/HT_API/Startup/Src
 
 ifeq ($(DRIVER_USART_ENABLE), y)
-
-ht_app_api-y   += SDK/HT_API/Driver_UART/Src/bsp_usart.o \
-                SDK/HT_API/Driver_UART/Src/HT_hal_uart.o
-
+ht_app_api-y   += SDK/HT_API/Driver_UART/Src/htnb32lxxx_hal_usart.o
 ifeq ($(UART_UNILOG_ENABLE), y)
-ht_app_api-y   += SDK/HT_API/Driver_UART/Src/HT_uart_unilog.o
+ht_app_api-y   += SDK/HT_API/Driver_UART/Src/HT_usart_unilog.o
 endif
 
 endif

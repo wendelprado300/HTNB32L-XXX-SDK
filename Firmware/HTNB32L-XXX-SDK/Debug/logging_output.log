@@ -1,95 +1,207 @@
-2024-02-07 15:15:18,073 INFO     [FlashTop]    init
-2024-02-07 15:15:18,084 [Process-19464] INFO     [FlashTop]    do_main: cmd loadpara
-2024-02-07 15:15:18,084 [Process-19464] INFO     [Para]    exe path: C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug
-2024-02-07 15:15:18,090 [Process-19464] INFO     [Para]    update digest file :C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\cfg.digest, digest:b'\x73\x8f\x87\xb5\x2d\x73\x71\xe9\xa4\xde\x1e\xc3\x73\x80\x2e\xad\x7c\xd8\x7b\x18\x6c\x1b\xef\xb3\xe0\x44\xeb\xef\x42\x30\xd4\xdb' 
-2024-02-07 15:15:18,091 [Process-19464] INFO     [Para]    LoadPara from cfgfile(C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\htnb32l.ini) 
-2024-02-07 15:15:18,092 [Process-19464] WARNING  [Para]    Load para curdigest b'\x73\x8f\x87\xb5\x2d\x73\x71\xe9\xa4\xde\x1e\xc3\x73\x80\x2e\xad\x7c\xd8\x7b\x18\x6c\x1b\xef\xb3\xe0\x44\xeb\xef\x42\x30\xd4\xdb'
-2024-02-07 15:15:18,093 [Process-19464] INFO     [FlashTop]    Load para sync success
-2024-02-07 15:15:18,093 [Process-19464] INFO     [FlashToolCLI]    Burnbatch Start, burn imglist ['bootloader', 'system'].
-2024-02-07 15:15:18,094 [Process-19464] INFO     [FlashTop]    do_main: cmd burnag, Thread0[38464]
-2024-02-07 15:15:18,094 [Process-19464] INFO     [Thread0]    ProcessStart[38464]
-2024-02-07 15:15:19,101 [Process-19464] INFO     [Thread0]    ResetBoard(Normal Mod) finish
-2024-02-07 15:15:19,105 [Process-19464] INFO     [Thread0]    args.ser.port :COM6
-2024-02-07 15:15:19,116 [Process-19464] INFO     [Image]    SetBaud 921600
-2024-02-07 15:15:19,122 [Process-19464] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\agentboot.bin start
-2024-02-07 15:15:19,125 [Process-19464] INFO     [Thread0]    image size=28568, hdsize=272
-2024-02-07 15:15:19,127 [Process-19464] INFO     [Thread0]    Preamble Send
-2024-02-07 15:15:19,135 [Process-19464] INFO     [Thread0]    Preamble Received Rsp
-2024-02-07 15:15:19,182 [Process-19464] INFO     [Thread0]    Preamble Send
-2024-02-07 15:15:19,189 [Process-19464] INFO     [Thread0]    Preamble Received Rsp
-2024-02-07 15:15:22,067 [Process-19464] INFO     [Thread0]    TryDownload agentboot success
-2024-02-07 15:15:22,073 [Process-19464] INFO     [Thread0]    agbaud: 921600
-2024-02-07 15:15:22,081 [Process-19464] INFO     [Thread0]    Burn OK!
-2024-02-07 15:15:22,083 [Process-19464] INFO     [Thread0]    ProcessEnd[38464]
-2024-02-07 15:15:22,086 [Process-19464] INFO     [FlashTop]    do_main: cmd burnone, Thread0[38464]
-2024-02-07 15:15:22,088 [Process-19464] INFO     [Thread0]    ProcessStart[38464]
-2024-02-07 15:15:22,092 [Process-19464] INFO     [Thread0]    args.ser.port :COM6
-2024-02-07 15:15:22,097 [Process-19464] INFO     [Thread0]    agentboot is downloaded already
-2024-02-07 15:15:22,099 [Process-19464] INFO     [Thread0]    TryDownload agentboot skip
-2024-02-07 15:15:22,104 [Process-19464] INFO     [Thread0]    agbaud: 921600
-2024-02-07 15:15:22,110 [Process-19464] INFO     [Thread0]    LPC Preamble Send
-2024-02-07 15:15:22,115 [Process-19464] INFO     [Thread0]    LPC Preamble Received Rsp
-2024-02-07 15:15:22,118 [Process-19464] INFO     [Thread0]    LPCSetSyncStat(1)
-2024-02-07 15:15:22,118 [Process-19464] INFO     [Thread0]    LPCSyncDetect: success
-2024-02-07 15:15:22,119 [Process-19464] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader)
-2024-02-07 15:15:22,120 [Process-19464] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader), burnaddr(0x0), imgid(0x4f424d49)
-2024-02-07 15:15:22,120 [Process-19464] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin 
-2024-02-07 15:15:22,123 [Process-19464] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin start
-2024-02-07 15:15:22,124 [Process-19464] INFO     [Thread0]    LPCBurnOneTrig start       			******
-2024-02-07 15:15:22,130 [Process-19464] INFO     [Thread0]    LPCBurnOneTrig success
-2024-02-07 15:15:22,130 [Process-19464] INFO     [Thread0]    DLDPreSync Preamble Send
-2024-02-07 15:15:22,662 [Process-19464] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
-2024-02-07 15:15:22,667 [Process-19464] INFO     [Thread0]    image size=29248, hdsize=272
-2024-02-07 15:15:22,669 [Process-19464] INFO     [Thread0]    
-2024-02-07 15:15:22,671 [Process-19464] INFO     [Thread0]    imginfo.size=29248, RemainLen=29248, Offset=0
-2024-02-07 15:15:22,675 [Process-19464] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
-2024-02-07 15:15:22,677 [Process-19464] INFO     [Thread0]    
-2024-02-07 15:15:22,679 [Process-19464] INFO     [Thread0]    Preamble Send
-2024-02-07 15:15:22,691 [Process-19464] INFO     [Thread0]    Preamble Received Rsp
-2024-02-07 15:15:22,706 [Process-19464] INFO     [Thread0]    imginfo.size=29248, RemainLen=28976, Offset=272
-2024-02-07 15:15:22,708 [Process-19464] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
-2024-02-07 15:15:22,709 [Process-19464] INFO     [Thread0]    
-2024-02-07 15:15:22,709 [Process-19464] INFO     [Thread0]    Preamble Send
-2024-02-07 15:15:23,184 [Process-19464] INFO     [Thread0]    Preamble Received Rsp
-2024-02-07 15:15:23,808 [Process-19464] INFO     [Thread0]    imginfo.size=29248, RemainLen=0, Offset=272
-2024-02-07 15:15:23,811 [Process-19464] INFO     [Thread0]    {bootloader.bin-percent files transferred   100%}
-2024-02-07 15:15:23,812 [Process-19464] INFO     [Thread0]    
-2024-02-07 15:15:23,817 [Process-19464] INFO     [Thread0]    TryDownload success
-2024-02-07 15:15:23,820 [Process-19464] INFO     [Thread0]    Burn OK!
-2024-02-07 15:15:23,822 [Process-19464] INFO     [Thread0]    ProcessEnd[38464]
-2024-02-07 15:15:23,824 [Process-19464] INFO     [FlashTop]    do_main: cmd burnone, Thread0[38464]
-2024-02-07 15:15:23,827 [Process-19464] INFO     [Thread0]    ProcessStart[38464]
-2024-02-07 15:15:23,831 [Process-19464] INFO     [Thread0]    args.ser.port :COM6
-2024-02-07 15:15:23,838 [Process-19464] INFO     [Thread0]    agentboot is downloaded already
-2024-02-07 15:15:23,841 [Process-19464] INFO     [Thread0]    TryDownload agentboot skip
-2024-02-07 15:15:23,845 [Process-19464] INFO     [Thread0]    agbaud: 921600
-2024-02-07 15:15:23,851 [Process-19464] INFO     [Thread0]    LPC Preamble Send
-2024-02-07 15:15:23,862 [Process-19464] INFO     [Thread0]    LPC Preamble Received Rsp
-2024-02-07 15:15:23,863 [Process-19464] INFO     [Thread0]    LPCSyncDetect: success
-2024-02-07 15:15:23,864 [Process-19464] INFO     [Thread0]    DownloadBurnOne imgtype(system)
-2024-02-07 15:15:23,864 [Process-19464] INFO     [Thread0]    DownloadBurnOne imgtype(system), burnaddr(0x0), imgid(0x444b4249)
-2024-02-07 15:15:23,865 [Process-19464] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/Driver_Example/HTNB32L-XXX-Driver_Example.bin 
-2024-02-07 15:15:23,868 [Process-19464] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/Driver_Example/HTNB32L-XXX-Driver_Example.bin start
-2024-02-07 15:15:23,869 [Process-19464] INFO     [Thread0]    LPCBurnOneTrig start       			******
-2024-02-07 15:15:23,875 [Process-19464] INFO     [Thread0]    LPCBurnOneTrig success
-2024-02-07 15:15:23,875 [Process-19464] INFO     [Thread0]    DLDPreSync Preamble Send
-2024-02-07 15:15:24,401 [Process-19464] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
-2024-02-07 15:15:24,405 [Process-19464] INFO     [Thread0]    image size=46240, hdsize=272
-2024-02-07 15:15:24,407 [Process-19464] INFO     [Thread0]    
-2024-02-07 15:15:24,408 [Process-19464] INFO     [Thread0]    imginfo.size=46240, RemainLen=46240, Offset=0
-2024-02-07 15:15:24,411 [Process-19464] INFO     [Thread0]    {HTNB32L-XXX-Driver_Example.bin-percent files transferred   0%}
-2024-02-07 15:15:24,413 [Process-19464] INFO     [Thread0]    
-2024-02-07 15:15:24,415 [Process-19464] INFO     [Thread0]    Preamble Send
-2024-02-07 15:15:24,428 [Process-19464] INFO     [Thread0]    Preamble Received Rsp
-2024-02-07 15:15:24,441 [Process-19464] INFO     [Thread0]    imginfo.size=46240, RemainLen=45968, Offset=272
-2024-02-07 15:15:24,443 [Process-19464] INFO     [Thread0]    {HTNB32L-XXX-Driver_Example.bin-percent files transferred   0%}
-2024-02-07 15:15:24,444 [Process-19464] INFO     [Thread0]    
-2024-02-07 15:15:24,445 [Process-19464] INFO     [Thread0]    Preamble Send
-2024-02-07 15:15:24,893 [Process-19464] INFO     [Thread0]    Preamble Received Rsp
-2024-02-07 15:15:25,764 [Process-19464] INFO     [Thread0]    imginfo.size=46240, RemainLen=0, Offset=272
-2024-02-07 15:15:25,766 [Process-19464] INFO     [Thread0]    {HTNB32L-XXX-Driver_Example.bin-percent files transferred   100%}
-2024-02-07 15:15:25,767 [Process-19464] INFO     [Thread0]    
-2024-02-07 15:15:25,770 [Process-19464] INFO     [Thread0]    TryDownload success
-2024-02-07 15:15:25,773 [Process-19464] INFO     [Thread0]    Burn OK!
-2024-02-07 15:15:25,775 [Process-19464] INFO     [Thread0]    ProcessEnd[38464]
-2024-02-07 15:15:25,776 [Process-19464] INFO     [FlashToolCLI]    Burnbatch OK, imglist ['bootloader', 'system']
+2024-03-06 14:03:20,256 INFO     [FlashTop]    init
+2024-03-06 14:03:20,276 [Process-28284] INFO     [FlashTop]    do_main: cmd loadpara
+2024-03-06 14:03:20,277 [Process-28284] INFO     [Para]    exe path: C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug
+2024-03-06 14:03:20,287 [Process-28284] INFO     [Para]    update digest file :C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\cfg.digest, digest:b'\x68\x10\x41\x85\xc6\x9c\x10\x24\x84\xfb\xd0\xc0\x91\x0f\x33\xb8\xf1\x2c\xd4\x5b\x6c\x08\x7b\xfd\x49\x23\x44\xca\x60\x5e\xd3\xe3' 
+2024-03-06 14:03:20,288 [Process-28284] INFO     [Para]    LoadPara from cfgfile(C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\htnb32l.ini) 
+2024-03-06 14:03:20,291 [Process-28284] WARNING  [Para]    Load para curdigest b'\x68\x10\x41\x85\xc6\x9c\x10\x24\x84\xfb\xd0\xc0\x91\x0f\x33\xb8\xf1\x2c\xd4\x5b\x6c\x08\x7b\xfd\x49\x23\x44\xca\x60\x5e\xd3\xe3'
+2024-03-06 14:03:20,293 [Process-28284] INFO     [FlashTop]    Load para sync success
+2024-03-06 14:03:20,293 [Process-28284] INFO     [FlashToolCLI]    Burnbatch Start, burn imglist ['bootloader', 'system'].
+2024-03-06 14:03:20,294 [Process-28284] INFO     [FlashTop]    do_main: cmd burnag, Thread0[25816]
+2024-03-06 14:03:20,295 [Process-28284] INFO     [Thread0]    ProcessStart[25816]
+2024-03-06 14:03:21,344 [Process-28284] INFO     [Thread0]    ResetBoard(Normal Mod) finish
+2024-03-06 14:03:21,468 [Process-28284] INFO     [Thread0]    args.ser.port :COM9
+2024-03-06 14:03:21,488 [Process-28284] INFO     [Image]    SetBaud 921600
+2024-03-06 14:03:21,490 [Process-28284] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\agentboot.bin start
+2024-03-06 14:03:21,490 [Process-28284] INFO     [Thread0]    image size=28568, hdsize=272
+2024-03-06 14:03:21,491 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:21,502 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:21,614 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:21,630 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:24,800 [Process-28284] INFO     [Thread0]    TryDownload agentboot success
+2024-03-06 14:03:24,919 [Process-28284] INFO     [Thread0]    agbaud: 921600
+2024-03-06 14:03:25,060 [Process-28284] INFO     [Thread0]    Burn OK!
+2024-03-06 14:03:25,061 [Process-28284] INFO     [Thread0]    ProcessEnd[25816]
+2024-03-06 14:03:25,062 [Process-28284] INFO     [FlashTop]    do_main: cmd burnone, Thread0[25816]
+2024-03-06 14:03:25,064 [Process-28284] INFO     [Thread0]    ProcessStart[25816]
+2024-03-06 14:03:25,067 [Process-28284] INFO     [Thread0]    args.ser.port :COM9
+2024-03-06 14:03:25,087 [Process-28284] INFO     [Thread0]    agentboot is downloaded already
+2024-03-06 14:03:25,088 [Process-28284] INFO     [Thread0]    TryDownload agentboot skip
+2024-03-06 14:03:25,202 [Process-28284] INFO     [Thread0]    agbaud: 921600
+2024-03-06 14:03:25,222 [Process-28284] INFO     [Thread0]    LPC Preamble Send
+2024-03-06 14:03:25,235 [Process-28284] INFO     [Thread0]    LPC Preamble Received Rsp
+2024-03-06 14:03:25,237 [Process-28284] INFO     [Thread0]    LPCSetSyncStat(1)
+2024-03-06 14:03:25,238 [Process-28284] INFO     [Thread0]    LPCSyncDetect: success
+2024-03-06 14:03:25,238 [Process-28284] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader)
+2024-03-06 14:03:25,239 [Process-28284] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader), burnaddr(0x0), imgid(0x4f424d49)
+2024-03-06 14:03:25,239 [Process-28284] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin 
+2024-03-06 14:03:25,241 [Process-28284] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin start
+2024-03-06 14:03:25,242 [Process-28284] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2024-03-06 14:03:25,251 [Process-28284] INFO     [Thread0]    LPCBurnOneTrig success
+2024-03-06 14:03:25,253 [Process-28284] INFO     [Thread0]    DLDPreSync Preamble Send
+2024-03-06 14:03:25,764 [Process-28284] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2024-03-06 14:03:25,766 [Process-28284] INFO     [Thread0]    image size=29248, hdsize=272
+2024-03-06 14:03:25,767 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:25,769 [Process-28284] INFO     [Thread0]    imginfo.size=29248, RemainLen=29248, Offset=0
+2024-03-06 14:03:25,772 [Process-28284] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2024-03-06 14:03:25,774 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:25,775 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:25,797 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:25,893 [Process-28284] INFO     [Thread0]    imginfo.size=29248, RemainLen=28976, Offset=272
+2024-03-06 14:03:25,893 [Process-28284] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2024-03-06 14:03:25,894 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:25,894 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:26,405 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:26,421 [Process-28284] ERROR    [Thread0]    FCS:0xcc85d38a, self.FCS:0xc0032cd
+2024-03-06 14:03:26,422 [Process-28284] ERROR    [Thread0]    MsgProcess: CheckRsp Ret=0x9a
+2024-03-06 14:03:27,068 [Process-28284] INFO     [Thread0]    imginfo.size=29248, RemainLen=0, Offset=272
+2024-03-06 14:03:27,069 [Process-28284] INFO     [Thread0]    {bootloader.bin-percent files transferred   100%}
+2024-03-06 14:03:27,070 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:27,077 [Process-28284] INFO     [Thread0]    TryDownload success
+2024-03-06 14:03:27,207 [Process-28284] INFO     [Thread0]    Burn OK!
+2024-03-06 14:03:27,208 [Process-28284] INFO     [Thread0]    ProcessEnd[25816]
+2024-03-06 14:03:27,209 [Process-28284] INFO     [FlashTop]    do_main: cmd burnone, Thread0[25816]
+2024-03-06 14:03:27,209 [Process-28284] INFO     [Thread0]    ProcessStart[25816]
+2024-03-06 14:03:27,211 [Process-28284] INFO     [Thread0]    args.ser.port :COM9
+2024-03-06 14:03:27,232 [Process-28284] INFO     [Thread0]    agentboot is downloaded already
+2024-03-06 14:03:27,233 [Process-28284] INFO     [Thread0]    TryDownload agentboot skip
+2024-03-06 14:03:27,346 [Process-28284] INFO     [Thread0]    agbaud: 921600
+2024-03-06 14:03:27,366 [Process-28284] INFO     [Thread0]    LPC Preamble Send
+2024-03-06 14:03:27,380 [Process-28284] INFO     [Thread0]    LPC Preamble Received Rsp
+2024-03-06 14:03:27,382 [Process-28284] INFO     [Thread0]    LPCSyncDetect: success
+2024-03-06 14:03:27,383 [Process-28284] INFO     [Thread0]    DownloadBurnOne imgtype(system)
+2024-03-06 14:03:27,384 [Process-28284] INFO     [Thread0]    DownloadBurnOne imgtype(system), burnaddr(0x0), imgid(0x444b4249)
+2024-03-06 14:03:27,385 [Process-28284] INFO     [Thread0]    DownloadBurnOne file C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/Slpman_Example/HTNB32L-XXX-Slpman_Example.bin 
+2024-03-06 14:03:27,411 [Process-28284] INFO     [Thread0]    TryDownload C:\Users\hendrick.goncalves\Documents\NB-IoT\Firmware\Development_Repository\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/Slpman_Example/HTNB32L-XXX-Slpman_Example.bin start
+2024-03-06 14:03:27,412 [Process-28284] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2024-03-06 14:03:27,428 [Process-28284] INFO     [Thread0]    LPCBurnOneTrig success
+2024-03-06 14:03:27,429 [Process-28284] INFO     [Thread0]    DLDPreSync Preamble Send
+2024-03-06 14:03:27,941 [Process-28284] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2024-03-06 14:03:27,945 [Process-28284] INFO     [Thread0]    image size=1457800, hdsize=272
+2024-03-06 14:03:27,946 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:27,948 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=1457800, Offset=0
+2024-03-06 14:03:27,951 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   0%}
+2024-03-06 14:03:27,953 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:27,955 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:27,972 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:28,069 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=1457528, Offset=272
+2024-03-06 14:03:28,071 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   0%}
+2024-03-06 14:03:28,072 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:28,072 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:28,164 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:29,118 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=1391992, Offset=65808
+2024-03-06 14:03:29,119 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   4%}
+2024-03-06 14:03:29,120 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:29,121 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:29,173 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:30,130 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=1326456, Offset=131344
+2024-03-06 14:03:30,132 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   9%}
+2024-03-06 14:03:30,133 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:30,133 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:30,165 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:31,122 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=1260920, Offset=196880
+2024-03-06 14:03:31,124 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   13%}
+2024-03-06 14:03:31,125 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:31,127 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:31,158 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:32,119 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=1195384, Offset=262416
+2024-03-06 14:03:32,120 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   18%}
+2024-03-06 14:03:32,120 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:32,121 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:32,150 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:33,114 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=1129848, Offset=327952
+2024-03-06 14:03:33,115 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   22%}
+2024-03-06 14:03:33,115 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:33,116 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:33,142 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:34,093 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=1064312, Offset=393488
+2024-03-06 14:03:34,094 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   26%}
+2024-03-06 14:03:34,095 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:34,096 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:34,134 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:35,091 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=998776, Offset=459024
+2024-03-06 14:03:35,091 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   31%}
+2024-03-06 14:03:35,093 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:35,093 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:35,127 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:36,085 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=933240, Offset=524560
+2024-03-06 14:03:36,086 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   35%}
+2024-03-06 14:03:36,086 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:36,086 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:36,118 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:37,083 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=867704, Offset=590096
+2024-03-06 14:03:37,086 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   40%}
+2024-03-06 14:03:37,087 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:37,088 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:37,112 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:38,062 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=802168, Offset=655632
+2024-03-06 14:03:38,064 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   44%}
+2024-03-06 14:03:38,064 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:38,065 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:38,104 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:39,062 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=736632, Offset=721168
+2024-03-06 14:03:39,062 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   49%}
+2024-03-06 14:03:39,062 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:39,063 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:39,096 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:40,058 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=671096, Offset=786704
+2024-03-06 14:03:40,059 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   53%}
+2024-03-06 14:03:40,060 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:40,060 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:40,088 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:41,040 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=605560, Offset=852240
+2024-03-06 14:03:41,044 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   58%}
+2024-03-06 14:03:41,045 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:41,047 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:41,080 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:42,031 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=540024, Offset=917776
+2024-03-06 14:03:42,033 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   62%}
+2024-03-06 14:03:42,033 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:42,034 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:42,072 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:43,027 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=474488, Offset=983312
+2024-03-06 14:03:43,030 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   67%}
+2024-03-06 14:03:43,032 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:43,033 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:43,065 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:44,022 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=408952, Offset=1048848
+2024-03-06 14:03:44,024 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   71%}
+2024-03-06 14:03:44,024 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:44,025 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:44,057 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:45,019 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=343416, Offset=1114384
+2024-03-06 14:03:45,019 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   76%}
+2024-03-06 14:03:45,020 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:45,021 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:45,049 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:46,011 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=277880, Offset=1179920
+2024-03-06 14:03:46,012 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   80%}
+2024-03-06 14:03:46,013 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:46,013 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:46,041 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:46,995 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=212344, Offset=1245456
+2024-03-06 14:03:46,996 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   85%}
+2024-03-06 14:03:46,996 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:46,996 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:47,034 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:47,989 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=146808, Offset=1310992
+2024-03-06 14:03:47,991 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   89%}
+2024-03-06 14:03:47,993 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:47,994 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:48,026 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:48,979 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=81272, Offset=1376528
+2024-03-06 14:03:48,980 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   94%}
+2024-03-06 14:03:48,980 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:48,981 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:49,019 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:49,972 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=15736, Offset=1442064
+2024-03-06 14:03:49,974 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   98%}
+2024-03-06 14:03:49,975 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:49,976 [Process-28284] INFO     [Thread0]    Preamble Send
+2024-03-06 14:03:50,203 [Process-28284] INFO     [Thread0]    Preamble Received Rsp
+2024-03-06 14:03:50,611 [Process-28284] INFO     [Thread0]    imginfo.size=1457800, RemainLen=0, Offset=1442064
+2024-03-06 14:03:50,612 [Process-28284] INFO     [Thread0]    {HTNB32L-XXX-Slpman_Example.bin-percent files transferred   100%}
+2024-03-06 14:03:50,613 [Process-28284] INFO     [Thread0]    
+2024-03-06 14:03:50,620 [Process-28284] INFO     [Thread0]    TryDownload success
+2024-03-06 14:03:50,751 [Process-28284] INFO     [Thread0]    Burn OK!
+2024-03-06 14:03:50,752 [Process-28284] INFO     [Thread0]    ProcessEnd[25816]
+2024-03-06 14:03:50,752 [Process-28284] INFO     [FlashToolCLI]    Burnbatch OK, imglist ['bootloader', 'system']

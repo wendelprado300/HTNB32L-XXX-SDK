@@ -14,12 +14,7 @@
  */
 
 #include "HT_BSP_Custom.h"
-#include "HT_hal_uart.h"
-
-extern ARM_DRIVER_USART Driver_USART0;
-extern ARM_DRIVER_USART Driver_USART1;
-
-extern ARM_DRIVER_USART *UsartPrintHandle;
+#include "htnb32lxxx_hal_usart.h"
 
 /* Function prototypes  ------------------------------------------------------------------*/
 
@@ -44,6 +39,10 @@ static void HT_GPR_SetUartClk(void);
  * \retval none.
  *******************************************************************/
 static void HT_PMU_WakeupPadInit(void);
+
+extern USART_HandleTypeDef huart1;
+extern ARM_DRIVER_USART *UsartPrintHandle;
+extern ARM_DRIVER_USART *UsartUnilogHandle;
 
 /* ---------------------------------------------------------------------------------------*/
 
@@ -104,7 +103,7 @@ void BSP_CustomInit(void) {
 
     HT_GPR_SetUartClk();
 
-    HT_UART_InitPrint(HT_UART1, GPR_UART1ClkSel_26M, uart_cntrl, 115200);
+    HAL_USART_InitPrint(&huart1, GPR_UART1ClkSel_26M, uart_cntrl, 115200);
 
     plat_config_raw_flash_t* rawFlashPlatConfig;
 

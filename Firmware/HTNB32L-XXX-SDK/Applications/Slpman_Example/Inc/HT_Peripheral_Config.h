@@ -220,6 +220,13 @@ ________________________________________________________________________________
 //     Channel    <0=>0 <1=>1 <2=>2 <3=>3 <4=>4 <5=>5 <6=>6 <7=>7
 #define RTE_UART2_DMA_RX_REQID          DMA_RequestUSART2RX
 
+#define HAL_USART0_SELECT 0
+#define HAL_USART1_SELECT 1
+#define HAL_USART2_SELECT 2
+
+#define USART_PRINT_SELECT  HAL_USART1_SELECT
+#define USART_UNILOG_SELECT HAL_USART0_SELECT
+
 // SPI0 (Serial Peripheral Interface) [Driver_SPI0]
 // Configuration settings for Driver_SPI0 in component ::Drivers:SPI
 #define RTE_SPI0                        0

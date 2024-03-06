@@ -22,8 +22,6 @@
 #define TEST_SERVER_NAME "https://api.openweathermap.org/data/2.5/weather?q=porto+alegre&appid=3e53f1d247b84848790b704eaad25980&mode=xml&units=metric"
 
 static volatile uint8_t simReady = 0;
-extern ARM_DRIVER_USART *UsartPrintHandle;
-extern ARM_DRIVER_USART Driver_USART1;
 
 uint8_t httpsSlpHandler = 0xff;
 static StaticTask_t initTask;
@@ -35,6 +33,8 @@ static HttpClientContext gHttpClient = {0};
 
 static uint32_t uart_cntrl = (ARM_USART_MODE_ASYNCHRONOUS | ARM_USART_DATA_BITS_8 | ARM_USART_PARITY_NONE | 
                                 ARM_USART_STOP_BITS_1 | ARM_USART_FLOW_CONTROL_NONE);
+
+extern USART_HandleTypeDef huart1;
 
 static void HT_SetConnectioParameters(void) {
     uint8_t cid = 0;
@@ -160,7 +160,7 @@ static void HT_HttpsAppTask (void *argument) {
     char *recvBuf = malloc(HTTP_RECV_BUF_SIZE);
 	memset(recvBuf, 0, HTTP_RECV_BUF_SIZE);
 
-    HT_UART_InitPrint(HT_UART1, GPR_UART1ClkSel_26M, uart_cntrl, 115200);
+    HAL_USART_InitPrint(&huart1, GPR_UART1ClkSel_26M, uart_cntrl, 115200);
     printf("HTNB32L-XXX HTTPS!\n");
     printf("Trying to connect...\n");
 

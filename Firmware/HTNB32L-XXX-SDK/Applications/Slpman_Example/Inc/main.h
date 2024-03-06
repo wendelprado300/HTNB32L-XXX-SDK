@@ -51,7 +51,7 @@
 #include "HT_Peripheral_Config.h"
 #include "hal_uart.h"
 #include "stdio.h"
-#include "HT_hal_uart.h"
+#include "htnb32lxxx_hal_usart.h"
 
 /* Defines  ------------------------------------------------------------------*/
 

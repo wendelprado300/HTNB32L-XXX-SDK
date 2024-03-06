@@ -132,6 +132,8 @@ uint32_t fileContent = 0;
 static uint32_t uart_cntrl = (ARM_USART_MODE_ASYNCHRONOUS | ARM_USART_DATA_BITS_8 | ARM_USART_PARITY_NONE | 
                                 ARM_USART_STOP_BITS_1 | ARM_USART_FLOW_CONTROL_NONE);
 
+extern USART_HandleTypeDef huart1;
+
 static void HT_BeforeHibCallback(void *pdata, slpManLpState state) {
     uint32_t *p_param = (uint32_t *)pdata;
     abc = 1110;
@@ -211,7 +213,7 @@ static void HT_UserAppTask(void *arg) {
     slpManSlpState_t slpstate;
     slpManWakeSrc_e wkpSrc = WAKEUP_FROM_POR;
 
-    HT_UART_InitPrint(HT_UART1, GPR_UART1ClkSel_26M, uart_cntrl, 115200);
+    HAL_USART_InitPrint(&huart1, GPR_UART1ClkSel_26M, uart_cntrl, 115200);
     printf("\nSlpman Example!\n");
 
     appSetCFUN(0);

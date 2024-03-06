@@ -1371,7 +1371,7 @@ typedef struct {
 #define USART_LSR_RX_BREAK_Msk                   (0x1UL << USART_LSR_RX_BREAK_Pos)
 
 #define USART_LSR_TX_DATA_REQ_Pos                (5)
-#define USART_LSR_TX_DATA_REQ_Msk                (0x1UL << USART_LSR_TX_DATA_REQ_Pos)
+#define USART_LSR_TX_DATA_REQ_Msk                (0x1UL << USART_LSR_TX_DATA_REQ_Pos) /*!< Line status: Transmit holding register empty */
 
 #define USART_LSR_TX_EMPTY_Pos                   (6)
 #define USART_LSR_TX_EMPTY_Msk                   (0x1UL << USART_LSR_TX_EMPTY_Pos)

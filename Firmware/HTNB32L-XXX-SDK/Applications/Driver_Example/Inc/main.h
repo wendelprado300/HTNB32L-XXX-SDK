@@ -39,13 +39,14 @@
 #include "string.h"
 #include "HT_UART_Api.h"
 #include "HT_bsp.h"
-#include "HT_hal_uart.h"
+#include "htnb32lxxx_hal_usart.h"
 #include "HT_GPIO_Demo.h"
 #include "HT_I2C_Demo.h"
 #include "HT_ADC_Demo.h"
 #include "HT_SPI_Demo.h"
 #include "HT_AON_Demo.h"
 #include "HT_WDT_Demo.h"
+#include "HT_USART_Demo.h"
 
 /* Defines  ------------------------------------------------------------------*/
 
@@ -64,7 +65,8 @@ typedef enum {
     GPIO_EX,
     AON_EX,
     ADC_EX,
-    WDT_EX
+    WDT_EX,
+    USART_EX
 } HT_Peripheral;
 
 #endif /* __MAIN_H__ */
