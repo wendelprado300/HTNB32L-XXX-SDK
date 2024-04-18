@@ -162,9 +162,7 @@ static void HT_ADC_InitThermal(void) {
 }
 
 void HT_ADC_App(void) {
-    char str[100];
-
-    print_uart("ADC example start!\n");
+    ht_printf("ADC example start!\n");
 
     HT_ADC_InitVbat();
     HT_ADC_Init(DEMO_ADC_CHANNEL);
@@ -179,18 +177,10 @@ void HT_ADC_App(void) {
 
         while(callback != (DEMO_ADC_CHANNEL | ADC_ChannelVbat | ADC_ChannelThermal));
 
-        sprintf(str, "\nThermal: %d\n", (int)HT_ADC_GetTemperatureValue(thermal_result));
-        print_uart(str);
-        memset(str, 0, sizeof(str));
-        
-        sprintf(str, "Vbat: %dmv\n", (int)HT_ADC_GetVoltageValue(vbat_result));
-        print_uart(str);
-        memset(str, 0, sizeof(str));
-
-        sprintf(str, "ADC Value: %dmv\n", (int)HT_ADC_GetVoltageValue(user_adc_channel));
-        print_uart(str);
-        memset(str, 0, sizeof(str));
-
+        ht_printf("\nThermal: %d\n", (int)HT_ADC_GetTemperatureValue(thermal_result));
+        ht_printf("Vbat: %dmv\n", (int)HT_ADC_GetVoltageValue(vbat_result));
+        ht_printf("ADC Value: %dmv\n", (int)HT_ADC_GetVoltageValue(user_adc_channel));
+    
         delay_us(1000000);
     }
 }

@@ -26,8 +26,7 @@ ht_app_api-y   += SDK/HT_API/Driver_SPI/Src/htnb32lxxx_hal_spi.o
 endif
 
 ifeq ($(DRIVER_I2C_ENABLE), y)
-ht_app_api-y   += SDK/HT_API/Driver_I2C/Src/bsp_i2c.o \
-                SDK/HT_API/Driver_I2C/Src/HT_i2c_qcx212.o
+ht_app_api-y   += SDK/HT_API/Driver_I2C/Src/htnb32lxxx_hal_i2c.o
 endif
 
 ht_startup_lib-y += $(PRECINIT_FILE_PATH)/prec_init.o   \

@@ -100,7 +100,7 @@ static void HT_GPIO_InitLed(void) {
 
 void HT_GPIO_App(void) {
 
-  print_uart("GPIO Example Start!\n");
+  ht_printf("GPIO Example Start!\n");
   
   HT_GPIO_InitButton();
   HT_GPIO_InitLed();

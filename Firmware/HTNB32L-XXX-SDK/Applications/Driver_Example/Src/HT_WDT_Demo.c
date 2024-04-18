@@ -94,9 +94,7 @@ static void HT_WDT_Init(void) {
 }
 
 void HT_WDT_App(void) {
-    char str[str_size] = {0};
-
-    print_uart("HTNB32L-XXX WDT Example Start!\n");
+    ht_printf("HTNB32L-XXX WDT Example Start!\n");
 
     HT_WDT_Init();
     WDT_Start();
@@ -106,20 +104,14 @@ void HT_WDT_App(void) {
     {
         if (printDone == 0)
         {
-            sprintf(str, "tick:%2d, wdt interrupt count: %d\n", timerInterruptCount, wdtInterruptCount);
-            print_uart(str);
-            memset(str, 0, sizeof(str));
+            ht_printf("tick:%2d, wdt interrupt count: %d\n", timerInterruptCount, wdtInterruptCount);
 
             if (timerInterruptCount < WDT_KICK_TIMES){
-                sprintf(str, "wdt kick: %d\n", timerInterruptCount);
-                print_uart(str);
-                memset(str, 0, sizeof(str));
-            }
-            else if (timerInterruptCount == WDT_KICK_TIMES){
-                print_uart("Last kick, wdt interrupt will occur in 5 ticks\n");
-            }
-            else if (timerInterruptCount == WDT_KICK_TIMES * 2){
-                print_uart("System will reset in 5 ticks\n");
+                ht_printf("wdt kick: %d\n", timerInterruptCount);
+            } else if (timerInterruptCount == WDT_KICK_TIMES){
+                ht_printf("Last kick, wdt interrupt will occur in 5 ticks\n");
+            } else if (timerInterruptCount == WDT_KICK_TIMES * 2){
+                ht_printf("System will reset in 5 ticks\n");
             }
 
             printDone = 1;

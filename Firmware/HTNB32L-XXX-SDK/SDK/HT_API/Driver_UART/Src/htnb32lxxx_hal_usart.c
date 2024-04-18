@@ -16,6 +16,7 @@
 #include "htnb32lxxx_hal_usart.h"
 #include "slpman_qcx212.h"
 #include "HT_Peripheral_Config.h"
+#include "HT_usart_unilog.h"
 
 /* Function prototypes  ------------------------------------------------------------------*/
 
@@ -78,28 +79,6 @@ static void HAL_USART_DmaRxConfig(USART_HandleTypeDef *usart);
 PLAT_CODE_IN_RAM static void HAL_USART_DmaUpdateRxConfig(USART_HandleTypeDef *usart, uint32_t targetAddress, uint32_t num);
 
 /*!******************************************************************
- * \fn static int32_t __attribute__((unused)) HAL_USART_GetTxCount(USART_HandleTypeDef *usart)
- * \brief Gets the TX count.
- *
- * \param[in] USART_HandleTypeDef *usart           USART handle.
- * \param[out] none
- *
- * \retval TX count.
- *******************************************************************/
-static int32_t __attribute__((unused)) HAL_USART_GetTxCount(USART_HandleTypeDef *usart);
-
-/*!******************************************************************
- * \fn static ARM_USART_STATUS __attribute__((unused)) HAL_USART_GetStatus(USART_HandleTypeDef *usart);
- * \brief Gets the USART status.
- *
- * \param[in] USART_HandleTypeDef *usart           USART handle.
- * \param[out] none
- *
- * \retval ARM USART status.
- *******************************************************************/
-static ARM_USART_STATUS __attribute__((unused)) HAL_USART_GetStatus(USART_HandleTypeDef *usart);
-
-/*!******************************************************************
  * \fn static void __attribute__((unused)) HAL_USART_SetupFifo(USART_HandleTypeDef *huart, uint32_t fcr)
  * \brief Set up the USART FIFO.
  *
@@ -121,19 +100,6 @@ static void __attribute__((unused)) HAL_USART_SetupFifo(USART_HandleTypeDef *hua
  * \retval Read line status.
  *******************************************************************/
 static uint32_t HAL_USART_ReadLineStatus(USART_HandleTypeDef *huart);
-
-/*!******************************************************************
- * \fn static int32_t HAL_USART_Send(USART_HandleTypeDef *huart, uint8_t *data, uint32_t size)
- * \brief Sends a buffer through the USART peripheral.
- *
- * \param[in] USART_HandleTypeDef *usart           USART handle.
- * \param[in] uint8_t *data                        USART TX buffer.
- * \param[in] uint32_t  size                       TX buffer size.
- * \param[out] none
- *
- * \retval Number of bytes sent.
- *******************************************************************/
-static int32_t HAL_USART_Send(USART_HandleTypeDef *huart, uint8_t *data, uint32_t size);
 
 /*!******************************************************************
  * \fn static void HAL_USART_SendByte(USART_HandleTypeDef *huart, uint8_t data)
@@ -450,7 +416,11 @@ static USART_INFO USART0_Info = {0};
 static PIN USART0_pin_tx  = {RTE_UART0_TX_PAD_ID,   RTE_UART0_TX_FUNC};
 static PIN USART0_pin_rx  = {RTE_UART0_RX_PAD_ID,   RTE_UART0_RX_FUNC};
 
+#if (RTE_UART0 && USART_UNILOG_SELECT == HAL_USART0_SELECT)
+extern ARM_DRIVER_USART Driver_USART0;
+#else
 ARM_DRIVER_USART Driver_USART0;
+#endif
 
 #if (RTE_UART0_CTS_PIN_EN == 1)
 static PIN USART0_pin_cts  = {RTE_UART0_CTS_PAD_ID,   RTE_UART0_CTS_FUNC};
@@ -543,7 +513,11 @@ static USART_INFO USART1_Info  = {0};
 static PIN USART1_pin_tx  = {RTE_UART1_TX_PAD_ID,   RTE_UART1_TX_FUNC};
 static PIN USART1_pin_rx  = {RTE_UART1_RX_PAD_ID,   RTE_UART1_RX_FUNC};
 
+#if (RTE_UART1 && USART_UNILOG_SELECT == HAL_USART1_SELECT)
+extern ARM_DRIVER_USART Driver_USART1;
+#else
 ARM_DRIVER_USART Driver_USART1;
+#endif
 
 #if (RTE_UART1_CTS_PIN_EN == 1)
 static PIN USART1_pin_cts  = {RTE_UART1_CTS_PAD_ID,   RTE_UART1_CTS_FUNC};
@@ -634,7 +608,11 @@ static USART_INFO USART2_Info  = {0};
 static PIN USART2_pin_tx  = {RTE_UART2_TX_PAD_ID,   RTE_UART2_TX_FUNC};
 static PIN USART2_pin_rx  = {RTE_UART2_RX_PAD_ID,   RTE_UART2_RX_FUNC};
 
+#if (RTE_UART2 && USART_UNILOG_SELECT == HAL_USART2_SELECT)
+extern ARM_DRIVER_USART Driver_USART2;
+#else
 ARM_DRIVER_USART Driver_USART2;
+#endif
 
 #if (RTE_UART2_CTS_PIN_EN == 1)
 static PIN USART2_pin_cts  = {RTE_UART2_CTS_BIT,   RTE_UART2_CTS_FUNC};
@@ -822,7 +800,6 @@ uint32_t HAL_USART_GetBaudRate(USART_HandleTypeDef *usart) {
     return usart->info->baudrate;
 }
 
-
 static void HAL_USART_DmaRxConfig(USART_HandleTypeDef *usart) {
 
     dma_transfer_config dmaConfig;
@@ -850,6 +827,11 @@ static void HAL_USART_DmaRxConfig(USART_HandleTypeDef *usart) {
 
     DMA_ResetChannel(usart->dma_rx->channel);
 
+}
+
+ARM_USART_MODEM_STATUS HAL_USART_GetModemStatus(USART_HandleTypeDef *usart) {
+    ARM_USART_MODEM_STATUS status = {0};
+    return status;
 }
 
 PLAT_CODE_IN_RAM static void HAL_USART_DmaUpdateRxConfig(USART_HandleTypeDef *usart, uint32_t targetAddress, uint32_t num) {
@@ -1098,7 +1080,11 @@ int32_t HAL_USART_PowerControl(ARM_POWER_STATE state, USART_HandleTypeDef *usart
     return ARM_DRIVER_OK;
 }
 
-static int32_t __attribute__((unused)) HAL_USART_GetTxCount(USART_HandleTypeDef *usart) {
+int32_t HAL_USART_SetModemControl(ARM_USART_MODEM_CONTROL control, USART_HandleTypeDef *usart) {
+    return ARM_DRIVER_ERROR_UNSUPPORTED;
+}
+
+int32_t HAL_USART_GetTxCount(USART_HandleTypeDef *usart) {
     uint32_t cnt;
     if (!(usart->info->flags & USART_FLAG_CONFIGURED))
         return 0U;
@@ -1301,7 +1287,7 @@ int32_t HAL_USART_Control(uint32_t control, uint32_t arg, USART_HandleTypeDef *u
     return ARM_DRIVER_OK;
 }
 
-static ARM_USART_STATUS __attribute__((unused)) HAL_USART_GetStatus(USART_HandleTypeDef *usart) {
+ARM_USART_STATUS __attribute__((unused)) HAL_USART_GetStatus(USART_HandleTypeDef *usart) {
     ARM_USART_STATUS status;
 
     status.tx_busy          = usart->info->xfer.send_active;
@@ -1335,7 +1321,11 @@ static uint32_t HAL_USART_ReadLineStatus(USART_HandleTypeDef *huart) {
     return huart->reg->LSR;
 }
 
-static int32_t HAL_USART_Send(USART_HandleTypeDef *huart, uint8_t *data, uint32_t size) {
+int32_t HAL_USART_Transfer(USART_HandleTypeDef *huart, const void *data_out, void *data_in, uint8_t size) {
+    return ARM_DRIVER_ERROR_UNSUPPORTED;
+}
+
+int32_t HAL_USART_Send(USART_HandleTypeDef *huart, uint8_t *data, uint32_t size) {
 	int32_t sent = 0;
 
 	/* Send until the transmit FIFO is full or out of bytes */
@@ -1348,7 +1338,7 @@ static int32_t HAL_USART_Send(USART_HandleTypeDef *huart, uint8_t *data, uint32_
 	return sent;
 }
 
-void HAL_USART_SendPolling(USART_HandleTypeDef *huart, uint8_t *pTxBuff, uint32_t size) {
+int32_t HAL_USART_SendPolling(USART_HandleTypeDef *huart, uint8_t *pTxBuff, uint32_t size) {
 	int32_t pass;
 
 	while (size > 0) {
@@ -1356,13 +1346,15 @@ void HAL_USART_SendPolling(USART_HandleTypeDef *huart, uint8_t *pTxBuff, uint32_
 		size -= pass;
 		pTxBuff += pass;
 	}
+
+    return ARM_DRIVER_OK;
 }
 
 static uint8_t HAL_USART_ReadByte(USART_HandleTypeDef *huart) {
     return (uint8_t)(huart->reg->RBR & USART_RBR_RX_BUF_Msk);
 }
 
-void HAL_USART_ReceivePolling(USART_HandleTypeDef *huart, uint8_t *pRxBuff, uint32_t size) {
+int32_t HAL_USART_ReceivePolling(USART_HandleTypeDef *huart, uint8_t *pRxBuff, uint32_t size) {
 	int32_t readBytes = 0;
 
 	while ((readBytes < size)) {
@@ -1370,6 +1362,8 @@ void HAL_USART_ReceivePolling(USART_HandleTypeDef *huart, uint8_t *pRxBuff, uint
         pRxBuff[readBytes] = HAL_USART_ReadByte(huart);
 		readBytes++;
 	}
+
+    return ARM_DRIVER_OK;
 }
 
 int32_t HAL_USART_Transmit_DMA(USART_HandleTypeDef *huart, uint8_t *pTxBuff, uint32_t size) {

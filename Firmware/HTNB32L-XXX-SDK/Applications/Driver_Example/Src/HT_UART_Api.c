@@ -19,8 +19,16 @@
 
 extern USART_HandleTypeDef huart1;
 
-void print_uart(char *str) {
-    HAL_USART_SendPolling(&huart1, (uint8_t *)str, strlen(str));
+void ht_printf(const char *format, ...) {
+    char buffer[PRINTF_BUFFER_SIZE] = {0};
+
+    va_list args;
+    
+    va_start(args, format);
+    vsnprintf(buffer, sizeof(buffer), format, args);  // Store formatted string in buffer
+    va_end(args);
+    
+    HAL_USART_SendPolling(&huart1, (uint8_t *)buffer, strlen(buffer));
 }
 
 /************************ HT Micron Semicondutores S.A *****END OF FILE****/

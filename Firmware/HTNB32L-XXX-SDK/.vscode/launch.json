@@ -163,6 +163,37 @@
                 ]
             }
         },
+        {
+            "name": "Debug - Timer_Example",
+            "cwd": "${workspaceRoot}",
+            "executable": "${workspaceRoot}/Build/Timer_Example/HTNB32L-XXX-Timer_Example.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "jlink",
+            "device": "CORTEX-M3",
+            "interface": "swd",
+            "runToEntryPoint": "main_entry",
+            "preLaunchTask": "Debug - Timer_Example", // configured in tasks.json
+            // "preLaunchCommands": ["Build all"], // you can execute command instead of task
+            // "svdFile": "${workspaceRoot}/Debug/SVD/HTNB32L-XXX.svd", // Include svd to watch device peripherals
+            "swoConfig":
+            {
+                "enabled": true,
+                "cpuFrequency": 160000000,
+                "swoFrequency": 4000000,
+                "source": "probe",
+                "decoders":
+                [
+                    {
+                        "label": "ITM port 0 output",
+                        "type": "console",
+                        "port": 0,
+                        "showOnStartup": true,
+                        "encoding": "ascii"
+                    }
+                ]
+            }
+        },
        
     ]
 }

@@ -38,7 +38,6 @@
 
 #include "main.h"
 #include "bsp.h"
-#include "HT_i2c_qcx212.h"
 
 /* Defines  ------------------------------------------------------------------*/
 
