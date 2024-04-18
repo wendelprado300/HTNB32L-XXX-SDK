@@ -37,20 +37,18 @@ void HT_USART_Callback(uint32_t event) {
 
 void HT_USART_App(void) {
 
-    print_uart("HTNB32L-XXX USART Example\n");
+    ht_printf("HTNB32L-XXX USART Example\n");
     
     while(1) {
 
         HAL_USART_IRQnEnable(&huart1, (USART_IER_RX_DATA_REQ_Msk | USART_IER_RX_TIMEOUT_Msk | USART_IER_RX_LINE_STATUS_Msk));
         HAL_USART_Receive_IT(rx_buffer, USART_BUFFER_SIZE-1);
-        print_uart("Waiting for usart rx data...\n");
+        ht_printf("Waiting for usart rx data...\n");
 
         while(!rx_callback);
         rx_callback = 0;
         
-        print_uart("Received: ");
-        print_uart((char *)rx_buffer);
-        print_uart("\n");
+        ht_printf("Received: %s\n, ", (char *)rx_buffer);
 
         memset(rx_buffer, 0, sizeof(rx_buffer));
 

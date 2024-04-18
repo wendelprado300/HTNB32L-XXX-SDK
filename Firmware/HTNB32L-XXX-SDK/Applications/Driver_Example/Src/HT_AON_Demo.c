@@ -43,7 +43,7 @@ static void HT_AON_Init(void) {
 
 void HT_AON_App(void) {
 
-  print_uart("AON Example Start!\n");
+  ht_printf("AON Example Start!\n");
   
   HT_AON_Init();
   pmuAONIOPowerOn(1);
@@ -53,10 +53,10 @@ void HT_AON_App(void) {
 
   while(1) {
 
-      print_uart("AON1 ON...\n");
+      ht_printf("AON1 ON...\n");
       HT_GPIO_WritePin(AON_GPIO_PIN, AON_INSTANCE, AON_ON);
       delay_us(10000000);
-      print_uart("AON1 OFF...\n");
+      ht_printf("AON1 OFF...\n");
       HT_GPIO_WritePin(AON_GPIO_PIN, AON_INSTANCE, AON_OFF);
       delay_us(10000000);
       

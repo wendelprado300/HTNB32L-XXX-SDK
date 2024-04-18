@@ -5,6 +5,7 @@
     "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
         "*.inc": "makefile",
+        "*.rmd": "markdown",
         "cmsis_gcc.h": "c",
         "stdio.h": "c",
         "qcx212.h": "c",
@@ -30,6 +31,11 @@
         "utility": "c",
         "ht_plat_config.h": "c",
         "ht_uart_unilog.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "ps_lib_api.h": "c",
+        "ht_bsp.h": "c",
+        "ht_uart_api.h": "c",
+        "ht_timer_demo.h": "c",
+        "ht_usart_unilog.h": "c"
     }
 }

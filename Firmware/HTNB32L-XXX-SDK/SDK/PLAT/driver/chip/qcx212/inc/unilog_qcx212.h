@@ -41,6 +41,7 @@ typedef enum
 {
     UART_0_FOR_UNILOG = 2,
     UART_1_FOR_UNILOG = 3,
+    UART_2_FOR_UNILOG = 4,
     INVALID_FOR_UNILOG
 } unilogPeripheralType;
 

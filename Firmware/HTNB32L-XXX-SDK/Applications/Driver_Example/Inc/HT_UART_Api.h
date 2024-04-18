@@ -39,19 +39,23 @@
 #include "htnb32lxxx_hal_usart.h"
 #include "Driver_USART.h"
 #include "bsp.h"
+#include "stdarg.h"
+
+/* Defines  ------------------------------------------------------------------*/
+#define PRINTF_BUFFER_SIZE   250                  /**</ USART Max buffer size to be used in the printf function. */
 
 /* Functions  ----------------------------------------------------------------*/
 
 /*!******************************************************************
- * \fn void print_uart(char *str)
+ * \fn void ht_printf(const char *format, ...)
  * \brief Print function. Sends logs through UART TX.
  *
- * \param[in]  char *str                   String to be sent through UART.
+ * \param[in] const char *format                   String to be sent through UART.
  * \param[out] none
  *
  * \retval none
  *******************************************************************/
-void print_uart(char *str);
+void ht_printf(const char *format, ...);
 
 #endif /* __HT_UART_API_H__ */
 

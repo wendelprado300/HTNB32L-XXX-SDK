@@ -59,7 +59,7 @@ void HT_SPI_App(void) {
     HT_SPI_AppInit();
     HAL_SPI_CleanRxFifo(&hspi1);
 
-    print_uart("HTNB32L-XXX SPI Example Start!\n");
+    ht_printf("HTNB32L-XXX SPI Example Start!\n");
     
     //Wait for slave device
     delay_us(10000000);
@@ -69,9 +69,7 @@ void HT_SPI_App(void) {
 
     while (1) {
 
-        print_uart("Transmitting: ");
-        print_uart((char *)tx_buffer);
-        print_uart("\n");
+        ht_printf("Transmitting: %s\n", (char *)tx_buffer);
 
         hspi1.info->xfer.tx_cnt   = 0;
         hspi1.info->xfer.rx_cnt   = 0;
@@ -93,9 +91,7 @@ void HT_SPI_App(void) {
         HAL_SPI_TransmitReceive_Polling(&hspi1, tx_buffer, rx_buffer, (SPI_BUFFER_SIZE-1));
 #endif
 
-        print_uart("Received: ");
-        print_uart((char *)rx_buffer);
-        print_uart("\n");
+        ht_printf("Received: %s\n", (char *)rx_buffer);
         
         memset(rx_buffer, 0, sizeof(rx_buffer));
         HAL_SPI_CleanRxFifo(&hspi1);

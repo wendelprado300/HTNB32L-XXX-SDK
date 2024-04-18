@@ -245,21 +245,21 @@ ARM_USART_CAPABILITIES HAL_USART_GetCapabilities(USART_HandleTypeDef *usart);
  * \param[in] uint32_t size                   TX buffer size.
  * \param[out] none
  *
- * \retval none
+ * \retval ARM Driver status.
  *******************************************************************/
-void HAL_USART_SendPolling(USART_HandleTypeDef *huart, uint8_t *pTxBuff, uint32_t size);
+int32_t HAL_USART_SendPolling(USART_HandleTypeDef *huart, uint8_t *pTxBuff, uint32_t size);
 
 /*!******************************************************************
- * \fn void HAL_USART_ReceivePolling(USART_HandleTypeDef *huart, uint8_t *pRxBuff, uint32_t size)
+ * \fn int32_t HAL_USART_ReceivePolling(USART_HandleTypeDef *huart, uint8_t *pRxBuff, uint32_t size)
  * \brief Receive a buffer through USART in blocking mode.
  *
  * \param[in] USART_HandleTypeDef *huart      USART handle.
  * \param[in] uint32_t size                   RX buffer size.
  * \param[out] uint8_t *pRxBuff                RX buffer.
  *
- * \retval none
+ * \retval ARM Driver status.
  *******************************************************************/
-void HAL_USART_ReceivePolling(USART_HandleTypeDef *huart, uint8_t *pRxBuff, uint32_t size);
+int32_t HAL_USART_ReceivePolling(USART_HandleTypeDef *huart, uint8_t *pRxBuff, uint32_t size);
 
 /*!******************************************************************
  * \fn int32_t HAL_USART_Initialize(ARM_USART_SignalEvent_t cb_event, USART_HandleTypeDef *usart)
@@ -350,6 +350,19 @@ void HAL_USART_IRQnEnable(USART_HandleTypeDef *huart, uint32_t intMask);
 void HAL_USART_InitPrint(USART_HandleTypeDef *huart, clock_select_t uartClkSel, uint32_t control, uint32_t baudrate);
 
 /*!******************************************************************
+ * \fn static int32_t HAL_USART_Send(USART_HandleTypeDef *huart, uint8_t *data, uint32_t size)
+ * \brief Sends a buffer through the USART peripheral.
+ *
+ * \param[in] USART_HandleTypeDef *usart           USART handle.
+ * \param[in] uint8_t *data                        USART TX buffer.
+ * \param[in] uint32_t  size                       TX buffer size.
+ * \param[out] none
+ *
+ * \retval Number of bytes sent.
+ *******************************************************************/
+int32_t HAL_USART_Send(USART_HandleTypeDef *huart, uint8_t *data, uint32_t size);
+
+/*!******************************************************************
  * \fn void HAL_USART_Transmit_IT(USART_HandleTypeDef *huart, uint8_t *pTxBuff, uint32_t size)
  * \brief Transmit a buffer through USART peripheral in interruption mode.
  *
@@ -399,6 +412,94 @@ int32_t HAL_USART_Receive_DMA(USART_HandleTypeDef *huart, uint8_t *pRxBuff, uint
  * \retval none.
  *******************************************************************/
 int32_t HAL_USART_Transmit_DMA(USART_HandleTypeDef *huart, uint8_t *pTxBuff, uint32_t size);
+
+/*!******************************************************************
+ * \fn int32_t HAL_USART_Transfer(USART_HandleTypeDef *huart, const void *data_out, void *data_in, uint8_t size)
+ * \brief Not implemented.
+ *
+ * \param[in] none
+ * \param[out] none
+ *
+ * \retval none.
+ *******************************************************************/
+int32_t HAL_USART_Transfer(USART_HandleTypeDef *huart, const void *data_out, void *data_in, uint8_t size);
+
+/*!******************************************************************
+ * \fn ARM_USART_MODEM_STATUS HAL_USART_GetModemStatus(USART_HandleTypeDef *usart)
+ * \brief Gets the modem status..
+ *
+ * \param[in] USART_HandleTypeDef *huart        USART handle.
+ * \param[out] none
+ *
+ * \retval ARM USART Modem Status.
+ *******************************************************************/
+ARM_USART_MODEM_STATUS HAL_USART_GetModemStatus(USART_HandleTypeDef *usart);
+
+/*!******************************************************************
+ * \fn PLAT_CODE_IN_RAM int32_t HAL_USART_GetRxCount(USART_HandleTypeDef *usart)
+ * \brief Gets the USART rx count. NOT IMPLEMENTED IN THIS SDK VERSION.
+ *
+ * \param[in] USART_HandleTypeDef *huart        USART handle.
+ * \param[out] none
+ *
+ * \retval RX count value.
+ *******************************************************************/
+PLAT_CODE_IN_RAM int32_t HAL_USART_GetRxCount(USART_HandleTypeDef *usart);
+
+/*!******************************************************************
+ * \fn int32_t HAL_USART_SetModemControl(ARM_USART_MODEM_CONTROL control, USART_HandleTypeDef *usart)
+ * \brief Not implemented.
+ *
+ * \param[in] none
+ * \param[out] none
+ *
+ * \retval none.
+ *******************************************************************/
+int32_t HAL_USART_SetModemControl(ARM_USART_MODEM_CONTROL control, USART_HandleTypeDef *usart);
+
+/*!******************************************************************
+ * \fn PLAT_CODE_IN_RAM void USART_IRQHandler(USART_HandleTypeDef *usart)
+ * \brief USART IRQn handler.
+ *
+ * \param[in] USART_HandleTypeDef *huart        USART handle.
+ * \param[out] none
+ *
+ * \retval none.
+ *******************************************************************/
+PLAT_CODE_IN_RAM void USART_IRQHandler(USART_HandleTypeDef *usart);
+
+/*!******************************************************************
+ * \fn uint32_t HAL_USART_GetBaudRate(USART_HandleTypeDef *usart)
+ * \brief Gets the USART baudrate.
+ *
+ * \param[in] USART_HandleTypeDef *huart        USART handle.
+ * \param[out] none
+ *
+ * \retval USART baudrate in uint32_t.
+ *******************************************************************/
+uint32_t HAL_USART_GetBaudRate(USART_HandleTypeDef *usart);
+
+/*!******************************************************************
+ * \fn int32_t HAL_USART_GetTxCount(USART_HandleTypeDef *usart)
+ * \brief Gets the TX count.
+ *
+ * \param[in] USART_HandleTypeDef *usart           USART handle.
+ * \param[out] none
+ *
+ * \retval TX count.
+ *******************************************************************/
+int32_t HAL_USART_GetTxCount(USART_HandleTypeDef *usart);
+
+/*!******************************************************************
+ * \fn ARM_USART_STATUS HAL_USART_GetStatus(USART_HandleTypeDef *usart);
+ * \brief Gets the USART status.
+ *
+ * \param[in] USART_HandleTypeDef *usart           USART handle.
+ * \param[out] none
+ *
+ * \retval ARM USART status.
+ *******************************************************************/
+ARM_USART_STATUS HAL_USART_GetStatus(USART_HandleTypeDef *usart);
 
 /*!******************************************************************
  * \fn void HT_USART_Callback(uint32_t event)

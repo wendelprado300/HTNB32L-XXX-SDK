@@ -47,6 +47,7 @@
 #include "HT_AON_Demo.h"
 #include "HT_WDT_Demo.h"
 #include "HT_USART_Demo.h"
+#include "stdio.h"
 
 /* Defines  ------------------------------------------------------------------*/
 
