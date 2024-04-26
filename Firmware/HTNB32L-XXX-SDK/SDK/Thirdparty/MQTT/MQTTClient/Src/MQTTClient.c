@@ -16,6 +16,7 @@
 //  *   Ian Craggs - add ability to set message handler separately #6
 //  *******************************************************************************/
 #include "MQTTClient.h"
+#include "HT_MQTT_Api.h"
 
 // #include "ht_mqtt_api.h"
 // #include "ht_gpio_api.h"
@@ -381,6 +382,32 @@ int deliverMessage(MQTTClient* c, MQTTString* topicName, MQTTMessage* message)
     return rc;
 }
 
+// int keepalive(MQTTClient* c)
+// {
+//     int rc = SUCCESS;
+//     if (c->keepAliveInterval == 0)
+//         goto exit;
+//     if (TimerIsExpired(&c->last_sent) || TimerIsExpired(&c->last_received))
+//     {
+//         if (c->ping_outstanding)
+//             rc = FAILURE; /* PINGRESP not received in keepalive interval */
+//         else
+//         {
+//             Timer timer;
+//             TimerInit(&timer);
+//             TimerCountdownMS(&timer, 1000);
+//             int len = MQTTSerialize_pingreq(c->buf, c->buf_size);
+//             if (len > 0 && (rc = sendPacket(c, len, &timer)) == SUCCESS) // send the ping packet
+//             {
+//                 TimerCountdownMS(&c->last_received, 3000);      // ADDED NEW
+//                 c->ping_outstanding = 1;
+//             }
+//         }
+//     }
+// exit:
+//     return rc;
+// }
+
 int keepalive(MQTTClient* c)
 {
     int rc = SUCCESS;
@@ -394,7 +421,7 @@ int keepalive(MQTTClient* c)
     {
         if (c->ping_outstanding)
         {
-            mqtt_keepalive_retry_count++;
+            //mqtt_keepalive_retry_count++;
             rc = FAILURE; /* PINGRESP not received in keepalive interval */
         }
         else
@@ -402,7 +429,7 @@ int keepalive(MQTTClient* c)
             Timer timer;
             TimerInit(&timer);
             TimerCountdownMS(&timer, 1000);
-#if !defined(AZURE_IOT_ENABLE)
+#if MQTT_TLS_ENABLE == 1
             memset(c->buf, 0, c->buf_size);
             memset(c->readbuf, 0, c->readbuf_size);
 #endif	    
@@ -433,7 +460,7 @@ int keepaliveRetry(MQTTClient* c)
             TimerInit(&timer);
             TimerCountdownMS(&timer, 1000);
 
-#if !defined(AZURE_IOT_ENABLE)
+#if MQTT_TLS_ENABLE == 1
             memset(c->buf, 0, c->buf_size);
             memset(c->readbuf, 0, c->readbuf_size);
 #endif
@@ -477,7 +504,7 @@ int cycle(MQTTClient* c, Timer* timer)
             /* no more data to read, unrecoverable. Or read packet fails due to unexpected network error */
             rc = packet_type;
             goto exit;
-#if defined(AZURE_IOT_ENABLE)
+#if MQTT_TLS_ENABLE == 1
 	case 100: //to handle Mbedtls EOF
 	    /* no more data to read, unrecoverable. Or read packet fails due to unexpected network error */
 	    rc = -1;
@@ -582,7 +609,7 @@ int cycle(MQTTClient* c, Timer* timer)
 exit:
     if (rc == SUCCESS)
         rc = packet_type;
-#if !defined(AZURE_IOT_ENABLE)
+#if MQTT_TLS_ENABLE == 1
     else if (c->isconnected)
         ;//MQTTCloseSession(c);
 #else
@@ -621,7 +648,7 @@ int MQTTYield(MQTTClient* c, int timeout_ms)
 void MQTTRun(void* parm)
 {
     Timer timer;
-#if !defined(AZURE_IOT_ENABLE)
+#if MQTT_TLS_ENABLE == 1
     MQTTClient* c = (MQTTClient*)parm;
 #else
     MQTTClient* c = (MQTTClient*)parm;
@@ -877,7 +904,7 @@ int MQTTSubscribeWithResults(MQTTClient* c, const char* topicFilter, enum QoS qo
 
 exit:
     if (rc == FAILURE)
-#if !defined(AZURE_IOT_ENABLE)
+#if MQTT_TLS_ENABLE == 1
         ;//MQTTCloseSession(c);
 #else
     	{
@@ -933,7 +960,7 @@ int MQTTUnsubscribe(MQTTClient* c, const char* topicFilter)
 
 exit:
     if (rc == FAILURE)
-#if !defined(AZURE_IOT_ENABLE)
+#if MQTT_TLS_ENABLE == 1
         ;//MQTTCloseSession(c);
 #else
         MQTTCloseSession(c);
@@ -998,7 +1025,7 @@ int MQTTPublish(MQTTClient* c, const char* topicName, MQTTMessage* message)
 
 exit:
     if (rc == FAILURE)
-#if !defined(AZURE_IOT_ENABLE)
+#if MQTT_TLS_ENABLE == 1
         ;//MQTTCloseSession(c);
 #else
     {

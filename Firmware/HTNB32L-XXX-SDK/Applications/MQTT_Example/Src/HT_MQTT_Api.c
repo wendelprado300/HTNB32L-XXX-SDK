@@ -119,9 +119,7 @@ void HT_MQTT_Publish(MQTTClient *mqtt_client, char *topic, uint8_t *payload, uin
 }
 
 void HT_MQTT_SubscribeCallback(MessageData *msg) {
-    printf("Subscribe received: ");
-    printf(msg->message->payload);
-    printf("\n");
+    printf("Subscribe received: %s\n", msg->message->payload);
 
     subscribe_callback = 1;
     HT_FSM_SetSubscribeBuff((uint8_t *)msg->message->payload, (uint8_t)msg->message->payloadlen);

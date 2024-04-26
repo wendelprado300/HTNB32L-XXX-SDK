@@ -4,7 +4,7 @@
     "cortex-debug.gdbPath": "C:/gcc_arm/bin/arm-none-eabi-gdb",
     "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
-        "*.inc": "makefile",
+        "*.inc": "bitbake",
         "*.rmd": "markdown",
         "cmsis_gcc.h": "c",
         "stdio.h": "c",
@@ -36,6 +36,25 @@
         "ht_bsp.h": "c",
         "ht_uart_api.h": "c",
         "ht_timer_demo.h": "c",
-        "ht_usart_unilog.h": "c"
+        "ht_usart_unilog.h": "c",
+        "*.conf": "bitbake"
+    },
+    "python.autoComplete.extraPaths": [
+        "${workspaceFolder}/sources/poky/bitbake/lib",
+        "${workspaceFolder}\\sources\\poky\\meta\\lib"
+    ],
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}/sources/poky/bitbake/lib",
+        "${workspaceFolder}\\sources\\poky\\meta\\lib"
+    ],
+    "[python]": {
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.formatOnType": true,
+        "editor.wordBasedSuggestions": "off",
+        "files.trimTrailingWhitespace": false
+    },
+    "[shellscript]": {
+        "files.eol": "\n",
+        "files.trimTrailingWhitespace": false
     }
 }
