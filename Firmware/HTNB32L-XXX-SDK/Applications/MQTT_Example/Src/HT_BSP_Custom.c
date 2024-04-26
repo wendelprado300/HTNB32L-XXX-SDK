@@ -59,7 +59,7 @@ void BSP_CustomInit(void) {
 
     if(rawFlashPlatConfig && (rawFlashPlatConfig->logControl != 0 ))
     {
-        SetUnilogUart(PORT_USART_0, rawFlashPlatConfig->uartBaudRate, true);
+        SetUnilogUart(PORT_USART_0, rawFlashPlatConfig->uartBaudRate, false);
         uniLogInitStart(UART_0_FOR_UNILOG);
         HT_STRING(UNILOG_PLA_STRING, build_info, P_SIG, "%s", getBuildInfo());
     }
