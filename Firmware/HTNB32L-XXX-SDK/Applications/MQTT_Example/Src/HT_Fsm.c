@@ -193,7 +193,7 @@ static const char blue_button_str[] = {"Blue"};
 static const char white_button_str[] = {"White"};
 
 //FSM state.
-volatile HT_FSM_States state = HT_MQTT_SUBSCRIBE_STATE;
+volatile HT_FSM_States state = HT_WAIT_FOR_BUTTON_STATE;
 
 //Button color definition.
 volatile HT_Button button_color = HT_UNDEFINED;
@@ -257,11 +257,15 @@ static void HT_FSM_UpdateUserLedState(void) {
 
     memset(topic, 0, sizeof(topic));
     sprintf(topic, "htnb32l_set_state");
+    
     HT_MQTT_Subscribe(&mqttClient, topic, QOS0);
+    HT_MQTT_Subscribe(&mqttClient, topic_bluebutton_sw, QOS0);
+    HT_MQTT_Subscribe(&mqttClient, topic_whitebutton_sw, QOS0);
 
+    HT_Yield_Thread(NULL);
     printf("Waiting for callback...\n");
-    while(!subscribe_callback)
-        MQTTYield(&mqttClient, 1);
+    
+    while(!subscribe_callback);
 
     subscribe_callback = 0;
 
@@ -316,8 +320,6 @@ void HT_FSM_SetSubscribeBuff(uint8_t *buff, uint8_t payload_len) {
 }
 
 static void HT_FSM_SubscribeHandleState(void) {
-    printf((char *)subscribe_buffer);
-    printf("\n");
     
     if(!strncmp((char *)subscribe_buffer, blue_button_str, strlen(blue_button_str))){
         blue_button_state ^= 1;
@@ -351,7 +353,6 @@ static void HT_FSM_MQTTSubscribeState(void) {
     HT_MQTT_Subscribe(&mqttClient, topic_bluebutton_sw, QOS0);
     HT_MQTT_Subscribe(&mqttClient, topic_whitebutton_sw, QOS0);
 
-    HT_Yield_Thread(NULL);
     printf("Subscribe done!\n");
     
     // Change state to wait for button interruption
@@ -428,6 +429,8 @@ void HT_Fsm(void) {
 
     // Led to sinalize connection stablished
     HT_LED_GreenLedTask(NULL);
+
+    printf("Executing fsm...\n");
 
     while (1) {
         
