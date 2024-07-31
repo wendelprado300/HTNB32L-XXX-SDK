@@ -176,11 +176,11 @@ static uint8_t mqttSendbuf[HT_MQTT_BUFFER_SIZE] = {0};
 static uint8_t mqttReadbuf[HT_MQTT_BUFFER_SIZE] = {0};
 
 static const char clientID[] = {"SIP_HTNB32L-XXX"};
-static const char username[] = {"HTNB32L-XXX"};
-static const char password[] = {"HTmicron"};
+static const char username[] = {""};
+static const char password[] = {""};
 
 //MQTT broker host address
-static const char addr[] = {"broker.hivemq.com"};
+static const char addr[] = {"test.mosquitto.org"};
 static char topic[25] = {0};
 
 // Blue button topic where the digital twin will transmit its messages.

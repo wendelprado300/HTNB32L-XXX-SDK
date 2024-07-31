@@ -30,6 +30,7 @@ from PyQt5 import QtWidgets
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
+import threading
 
 from Demo_GUI import Ui_MainWindow
 
@@ -40,7 +41,7 @@ from paho.mqtt import client as mqtt_client
 import paho.mqtt.client as mqtt
 
 #MQTT broker host
-broker = 'broker.hivemq.com'
+broker = 'test.mosquitto.org'
 
 #MQTT port'
 port = 8883 
@@ -84,8 +85,8 @@ class Backend(QtWidgets.QMainWindow, Ui_MainWindow):
        
         self.client = self.connect_mqtt()
         self.client.loop_start()
-
         self.subscribe()
+        self.start_periodic_ping()
 
     def blue_button_clicked(self):
         self.blue_button_state ^= 1
@@ -165,6 +166,22 @@ class Backend(QtWidgets.QMainWindow, Ui_MainWindow):
             else:
                 print("Failed to connect, return code %d\n", rc)
         
+        def on_disconnect(client, userdata, rc):
+            print(f"Disconnected with result code {rc}")
+            if rc != 0:
+                print("Unexpected disconnection. Attempting to reconnect...")
+                reconnect(client)
+        
+        def reconnect(client):
+            while True:
+                try:
+                    client.reconnect()
+                    print("Reconnected to MQTT Broker!")
+                    break
+                except Exception as e:
+                    print(f"Reconnection failed due to {e}, retrying in 5 seconds...")
+                    time.sleep(5)
+        
         def on_message(client, usardata, message):
             global subscribe_buff
 
@@ -193,16 +210,18 @@ class Backend(QtWidgets.QMainWindow, Ui_MainWindow):
             print("Subscribe received: ", subscribe_buff)
 
         client = mqtt_client.Client(client_id)
-        client.username_pw_set(username, password)
+        # client.username_pw_set(username, password)
         client.tls_set(tls_version=mqtt.ssl.PROTOCOL_TLSv1_2)
         client.on_connect = on_connect
+        client.on_disconnect = on_disconnect
         client.on_message = on_message
+        client.keep_alive = 60
         client.connect(broker, port)
         return client
 
     def publish(self, msg, topic):
 
-        result = self.client.publish(topic, msg)
+        result = self.client.publish(topic, msg, qos=2)
         # result: [0, 1]
         status = result[0]
         
@@ -212,9 +231,19 @@ class Backend(QtWidgets.QMainWindow, Ui_MainWindow):
             print(f"Failed to send message to topic {topic}")
     
     def subscribe(self):
-        self.client.subscribe("htnb32l_bluebutton_fw", 0)
-        self.client.subscribe("htnb32l_whitebutton_fw", 0)
-        self.client.subscribe("htnb32l_get_state", 0)
+        self.client.subscribe("htnb32l_bluebutton_fw", qos=2)
+        self.client.subscribe("htnb32l_whitebutton_fw", qos=2)
+        self.client.subscribe("htnb32l_get_state", qos=2)
+
+    def start_periodic_ping(self):
+        def send_periodic_ping(client):
+            while True:
+                time.sleep(30)  # Send a ping every 30 seconds
+                client.publish("ping_topic", "ping", qos=2)
+
+        ping_thread = threading.Thread(target=send_periodic_ping, args=(self.client,))
+        ping_thread.daemon = True
+        ping_thread.start()
 
 if __name__=="__main__":
     app = QtWidgets.QApplication(sys.argv)
