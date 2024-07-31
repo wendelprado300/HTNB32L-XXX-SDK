@@ -14,6 +14,13 @@
             "args": ["-j4", "gccall", "TARGET=qcx212_0h00", "V=0", "PROJECT=MQTT_Example"]
         },
         {
+            "label": "Compile - ITTCHIP_Example",
+            "group": "build",
+            "type": "shell",
+            "command": "make.exe",
+            "args": ["-j4", "gccall", "TARGET=qcx212_0h00", "V=0", "PROJECT=ITTCHIP_Example"]
+        },
+        {
             "label": "Compile - Driver_Example",
             "group": "build",
             "type": "shell",
@@ -42,6 +49,13 @@
             "args": ["Debug/Scripts/debug.py", "MQTT_Example"]
         },
         {
+            "label": "Debug - ITTCHIP_Example",
+            "group": "build",
+            "type": "shell",
+            "command": "python",
+            "args": ["Debug/Scripts/debug.py", "ITTCHIP_Example"]
+        },
+        {
             "label": "Debug - HTTPS_Example",
             "group": "build",
             "type": "shell",
@@ -54,6 +68,13 @@
             "type": "shell",
             "command": "python",
             "args": ["Debug/Scripts/debug.py", "MQTT_Example"]
+        },
+        {
+            "label": "Run - ITTCHIP_Example",
+            "group": "build",
+            "type": "shell",
+            "command": "python",
+            "args": ["Debug/Scripts/debug.py", "ITTCHIP_Example"]
         },
         {
             "label": "Run - HTTPS_Example",
