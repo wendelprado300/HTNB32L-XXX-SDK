@@ -25,8 +25,8 @@
  * \file main.h
  * \brief Main file of HTNB32L-XXX ITTCHIP Example. 
   * \author HT Micron Advanced R&D,
- *         Matheus Zorzeto,
- *         Hêndrick Bataglin Gonçalves
+ *         Matheus da Silva Zorzeto, Hêndrick Bataglin Gonçalves, Christian Roberto Lehmen, Felipe Kalinski Ferreira,
+ *         Leandro Borges, Mauricio Carlotto Ribeiro, Henrique Kuhn, Cleber Haack, Eduardo Mendel
  * 
  * \link https://github.com/htmicron
  * \version 1.0

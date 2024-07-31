@@ -25,7 +25,8 @@
  * \file HT_USART_Demo.h
  * \brief USART demonstration app. 
  * \author HT Micron Advanced R&D,
- *         Hêndrick Bataglin Gonçalves
+ *         Hêndrick Bataglin Gonçalves, Christian Roberto Lehmen,  Matheus da Silva Zorzeto, Felipe Kalinski Ferreira,
+ *         Leandro Borges, Mauricio Carlotto Ribeiro, Henrique Kuhn, Cleber Haack, Eduardo Mendel
  * 
  * \link https://github.com/htmicron
  * \version 1.0

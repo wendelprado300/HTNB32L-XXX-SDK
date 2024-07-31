@@ -25,7 +25,8 @@
  * \file main.h
  * \brief Main file of HTNB32L-XXX Sleep Example. 
   * \author HT Micron Advanced R&D,
- *         Hêndrick Bataglin Gonçalves,
+ *         Hêndrick Bataglin Gonçalves, Christian Roberto Lehmen,  Matheus da Silva Zorzeto, Felipe Kalinski Ferreira,
+ *         Leandro Borges, Mauricio Carlotto Ribeiro, Henrique Kuhn, Cleber Haack, Eduardo Mendel
  *         Gleiser Alvarez Arrojo
  * 
  * \link https://github.com/htmicron

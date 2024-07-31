@@ -25,7 +25,8 @@
  * \file main.h
  * \brief Driver Example main file. 
  * \author HT Micron Advanced R&D,
- *         Hêndrick Bataglin Gonçalves,
+ *         Hêndrick Bataglin Gonçalves, Christian Roberto Lehmen,  Matheus da Silva Zorzeto, Felipe Kalinski Ferreira,
+ *         Leandro Borges, Mauricio Carlotto Ribeiro, Henrique Kuhn, Cleber Haack, Eduardo Mendel
  *         Matheus da Silva Zorzeto
  * \link https://github.com/htmicron
  * \version 1.0

@@ -24,7 +24,8 @@
  * \file htnb32lxxx_hal_i2c.h
  * \brief I2C Driver for HTNB32L.
   * \author HT Micron Advanced R&D,
- *         Hêndrick Bataglin Gonçalves
+ *         Hêndrick Bataglin Gonçalves, Christian Roberto Lehmen,  Matheus da Silva Zorzeto, Felipe Kalinski Ferreira,
+ *         Leandro Borges, Mauricio Carlotto Ribeiro, Henrique Kuhn, Cleber Haack, Eduardo Mendel
  * 
  * \link https://github.com/htmicron
  * \version 1.0

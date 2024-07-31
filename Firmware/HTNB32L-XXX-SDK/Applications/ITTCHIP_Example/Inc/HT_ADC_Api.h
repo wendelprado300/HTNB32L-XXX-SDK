@@ -25,9 +25,10 @@
  * \file HT_ADC_Api.h
  * \brief ADC Thermal sensor. 
  * \author HT Micron Advanced R&D,
- *         Matheus Zorzeto
+ *         Matheus da Silva Zorzeto, Hêndrick Bataglin Gonçalves, Christian Roberto Lehmen, Felipe Kalinski Ferreira,
+ *         Leandro Borges, Mauricio Carlotto Ribeiro, Henrique Kuhn, Cleber Haack, Eduardo Mendel
  * 
- * \link https://github.com/htmicron
+  * \link https://github.com/htmicron
  * \version 0.1
  * \date March 08, 2024
  */

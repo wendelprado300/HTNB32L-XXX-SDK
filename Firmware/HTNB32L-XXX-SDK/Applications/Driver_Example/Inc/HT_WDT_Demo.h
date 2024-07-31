@@ -25,8 +25,8 @@
  * \file HT_WDT_Demo.h
  * \brief Watchdog demonstration app. 
  * \author HT Micron Advanced R&D,
- *         Matheus Zorzeto,
- *         Hêndrick Bataglin Gonçalves
+ *         Matheus da Silva Zorzeto, Hêndrick Bataglin Gonçalves, Christian Roberto Lehmen, Felipe Kalinski Ferreira,
+ *         Leandro Borges, Mauricio Carlotto Ribeiro, Henrique Kuhn, Cleber Haack, Eduardo Mendel
  * 
  * \link https://github.com/htmicron
  * \version 1.0

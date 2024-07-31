@@ -25,9 +25,10 @@
  * \file HT_Timer_Api.h
  * \brief Timer app. 
  * \author HT Micron Advanced R&D,
- *         Matheus Zorzeto
+ *         Matheus da Silva Zorzeto, Hêndrick Bataglin Gonçalves, Christian Roberto Lehmen, Felipe Kalinski Ferreira,
+ *         Leandro Borges, Mauricio Carlotto Ribeiro, Henrique Kuhn, Cleber Haack, Eduardo Mendel
  * 
- * \link https://github.com/htmicron
+  * \link https://github.com/htmicron
  * \version 1.0
  * \date April 26, 2024
  */

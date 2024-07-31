@@ -22,3 +22,14 @@ git clone git@github.com:htmicron/HTNB32L-XXX-SDK.git
 ```
 
 <hr>
+
+## Interested in our product? 
+
+Please contact our commercial department: imcp@htmicron.com.br
+
+<hr>
+
+## Support
+
+If you require technical support, please submit a ticket [here](https://forms.clickup.com/30922216/f/xfnf8-16347/KBY0CL3SXRGB73D0GR).
+
