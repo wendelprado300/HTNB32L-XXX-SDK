@@ -1,205 +1,205 @@
-2024-07-31 14:04:06,044 INFO     [FlashTop]    init
-2024-07-31 14:04:06,054 [Process-15572] INFO     [FlashTop]    do_main: cmd loadpara
-2024-07-31 14:04:06,054 [Process-15572] INFO     [Para]    exe path: C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK_DEV\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug
-2024-07-31 14:04:06,062 [Process-15572] INFO     [Para]    update digest file :C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK_DEV\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\cfg.digest, digest:b'\x45\xa1\x03\x78\x8b\xef\x2d\x9c\x45\x9d\x0b\x64\x13\x8a\xfc\x66\xce\x82\x31\x43\x65\xbb\x02\x19\xd2\x5a\xe3\x4e\xad\x21\x41\x31' 
-2024-07-31 14:04:06,062 [Process-15572] INFO     [Para]    LoadPara from cfgfile(C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK_DEV\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\htnb32l.ini) 
-2024-07-31 14:04:06,062 [Process-15572] WARNING  [Para]    Load para curdigest b'\x45\xa1\x03\x78\x8b\xef\x2d\x9c\x45\x9d\x0b\x64\x13\x8a\xfc\x66\xce\x82\x31\x43\x65\xbb\x02\x19\xd2\x5a\xe3\x4e\xad\x21\x41\x31'
-2024-07-31 14:04:06,062 [Process-15572] INFO     [FlashTop]    Load para sync success
-2024-07-31 14:04:06,062 [Process-15572] INFO     [FlashToolCLI]    Burnbatch Start, burn imglist ['bootloader', 'system'].
-2024-07-31 14:04:06,062 [Process-15572] INFO     [FlashTop]    do_main: cmd burnag, Thread0[3588]
-2024-07-31 14:04:06,062 [Process-15572] INFO     [Thread0]    ProcessStart[3588]
-2024-07-31 14:04:07,104 [Process-15572] INFO     [Thread0]    ResetBoard(Normal Mod) finish
-2024-07-31 14:04:07,221 [Process-15572] INFO     [Thread0]    args.ser.port :COM65
-2024-07-31 14:04:07,238 [Process-15572] INFO     [Image]    SetBaud 921600
-2024-07-31 14:04:07,238 [Process-15572] INFO     [Thread0]    TryDownload C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK_DEV\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\agentboot.bin start
-2024-07-31 14:04:07,244 [Process-15572] INFO     [Thread0]    image size=28568, hdsize=272
-2024-07-31 14:04:07,244 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:07,253 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:07,355 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:07,371 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:10,550 [Process-15572] INFO     [Thread0]    TryDownload agentboot success
-2024-07-31 14:04:10,676 [Process-15572] INFO     [Thread0]    agbaud: 921600
-2024-07-31 14:04:10,824 [Process-15572] INFO     [Thread0]    Burn OK!
-2024-07-31 14:04:10,824 [Process-15572] INFO     [Thread0]    ProcessEnd[3588]
-2024-07-31 14:04:10,824 [Process-15572] INFO     [FlashTop]    do_main: cmd burnone, Thread0[3588]
-2024-07-31 14:04:10,824 [Process-15572] INFO     [Thread0]    ProcessStart[3588]
-2024-07-31 14:04:10,824 [Process-15572] INFO     [Thread0]    args.ser.port :COM65
-2024-07-31 14:04:10,845 [Process-15572] INFO     [Thread0]    agentboot is downloaded already
-2024-07-31 14:04:10,845 [Process-15572] INFO     [Thread0]    TryDownload agentboot skip
-2024-07-31 14:04:10,963 [Process-15572] INFO     [Thread0]    agbaud: 921600
-2024-07-31 14:04:10,983 [Process-15572] INFO     [Thread0]    LPC Preamble Send
-2024-07-31 14:04:10,995 [Process-15572] INFO     [Thread0]    LPC Preamble Received Rsp
-2024-07-31 14:04:10,999 [Process-15572] INFO     [Thread0]    LPCSetSyncStat(1)
-2024-07-31 14:04:10,999 [Process-15572] INFO     [Thread0]    LPCSyncDetect: success
-2024-07-31 14:04:10,999 [Process-15572] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader)
-2024-07-31 14:04:10,999 [Process-15572] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader), burnaddr(0x0), imgid(0x4f424d49)
-2024-07-31 14:04:10,999 [Process-15572] INFO     [Thread0]    DownloadBurnOne file C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK_DEV\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin 
-2024-07-31 14:04:11,003 [Process-15572] INFO     [Thread0]    TryDownload C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK_DEV\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin start
-2024-07-31 14:04:11,003 [Process-15572] INFO     [Thread0]    LPCBurnOneTrig start       			******
-2024-07-31 14:04:11,011 [Process-15572] INFO     [Thread0]    LPCBurnOneTrig success
-2024-07-31 14:04:11,015 [Process-15572] INFO     [Thread0]    DLDPreSync Preamble Send
-2024-07-31 14:04:11,526 [Process-15572] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
-2024-07-31 14:04:11,526 [Process-15572] INFO     [Thread0]    image size=29248, hdsize=272
-2024-07-31 14:04:11,526 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:11,526 [Process-15572] INFO     [Thread0]    imginfo.size=29248, RemainLen=29248, Offset=0
-2024-07-31 14:04:11,526 [Process-15572] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
-2024-07-31 14:04:11,530 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:11,530 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:11,542 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:11,636 [Process-15572] INFO     [Thread0]    imginfo.size=29248, RemainLen=28976, Offset=272
-2024-07-31 14:04:11,640 [Process-15572] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
-2024-07-31 14:04:11,640 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:11,640 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:12,134 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:12,697 [Process-15572] INFO     [Thread0]    imginfo.size=29248, RemainLen=0, Offset=272
-2024-07-31 14:04:12,697 [Process-15572] INFO     [Thread0]    {bootloader.bin-percent files transferred   100%}
-2024-07-31 14:04:12,698 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:12,710 [Process-15572] INFO     [Thread0]    TryDownload success
-2024-07-31 14:04:12,833 [Process-15572] INFO     [Thread0]    Burn OK!
-2024-07-31 14:04:12,833 [Process-15572] INFO     [Thread0]    ProcessEnd[3588]
-2024-07-31 14:04:12,833 [Process-15572] INFO     [FlashTop]    do_main: cmd burnone, Thread0[3588]
-2024-07-31 14:04:12,833 [Process-15572] INFO     [Thread0]    ProcessStart[3588]
-2024-07-31 14:04:12,833 [Process-15572] INFO     [Thread0]    args.ser.port :COM65
-2024-07-31 14:04:12,841 [Process-15572] INFO     [Thread0]    agentboot is downloaded already
-2024-07-31 14:04:12,841 [Process-15572] INFO     [Thread0]    TryDownload agentboot skip
-2024-07-31 14:04:12,967 [Process-15572] INFO     [Thread0]    agbaud: 921600
-2024-07-31 14:04:12,984 [Process-15572] INFO     [Thread0]    LPC Preamble Send
-2024-07-31 14:04:13,000 [Process-15572] INFO     [Thread0]    LPC Preamble Received Rsp
-2024-07-31 14:04:13,003 [Process-15572] INFO     [Thread0]    LPCSyncDetect: success
-2024-07-31 14:04:13,003 [Process-15572] INFO     [Thread0]    DownloadBurnOne imgtype(system)
-2024-07-31 14:04:13,003 [Process-15572] INFO     [Thread0]    DownloadBurnOne imgtype(system), burnaddr(0x0), imgid(0x444b4249)
-2024-07-31 14:04:13,003 [Process-15572] INFO     [Thread0]    DownloadBurnOne file C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK_DEV\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/ITTCHIP_Example/HTNB32L-XXX-ITTCHIP_Example.bin 
-2024-07-31 14:04:13,020 [Process-15572] INFO     [Thread0]    TryDownload C:\Users\matheuszorzeto\Desktop\REPO\HTNB32L-XXX-SDK_DEV\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/ITTCHIP_Example/HTNB32L-XXX-ITTCHIP_Example.bin start
-2024-07-31 14:04:13,020 [Process-15572] INFO     [Thread0]    LPCBurnOneTrig start       			******
-2024-07-31 14:04:13,032 [Process-15572] INFO     [Thread0]    LPCBurnOneTrig success
-2024-07-31 14:04:13,032 [Process-15572] INFO     [Thread0]    DLDPreSync Preamble Send
-2024-07-31 14:04:13,560 [Process-15572] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
-2024-07-31 14:04:13,560 [Process-15572] INFO     [Thread0]    image size=1471376, hdsize=272
-2024-07-31 14:04:13,560 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:13,564 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=1471376, Offset=0
-2024-07-31 14:04:13,564 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   0%}
-2024-07-31 14:04:13,564 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:13,564 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:13,576 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:13,673 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=1471104, Offset=272
-2024-07-31 14:04:13,673 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   0%}
-2024-07-31 14:04:13,673 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:13,673 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:13,766 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:14,735 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=1405568, Offset=65808
-2024-07-31 14:04:14,735 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   4%}
-2024-07-31 14:04:14,736 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:14,736 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:14,744 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:15,701 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=1340032, Offset=131344
-2024-07-31 14:04:15,701 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   8%}
-2024-07-31 14:04:15,701 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:15,701 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:15,721 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:16,686 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=1274496, Offset=196880
-2024-07-31 14:04:16,686 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   13%}
-2024-07-31 14:04:16,686 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:16,686 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:16,694 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:17,652 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=1208960, Offset=262416
-2024-07-31 14:04:17,652 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   17%}
-2024-07-31 14:04:17,652 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:17,652 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:17,674 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:18,630 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=1143424, Offset=327952
-2024-07-31 14:04:18,630 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   22%}
-2024-07-31 14:04:18,630 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:18,630 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:18,647 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:19,610 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=1077888, Offset=393488
-2024-07-31 14:04:19,610 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   26%}
-2024-07-31 14:04:19,610 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:19,610 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:19,622 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:20,586 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=1012352, Offset=459024
-2024-07-31 14:04:20,586 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   31%}
-2024-07-31 14:04:20,586 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:20,586 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:20,602 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:21,555 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=946816, Offset=524560
-2024-07-31 14:04:21,555 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   35%}
-2024-07-31 14:04:21,555 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:21,555 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:21,575 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:22,539 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=881280, Offset=590096
-2024-07-31 14:04:22,539 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   40%}
-2024-07-31 14:04:22,539 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:22,539 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:22,551 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:23,506 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=815744, Offset=655632
-2024-07-31 14:04:23,507 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   44%}
-2024-07-31 14:04:23,507 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:23,507 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:23,527 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:24,493 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=750208, Offset=721168
-2024-07-31 14:04:24,494 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   49%}
-2024-07-31 14:04:24,494 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:24,494 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:24,506 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:25,462 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=684672, Offset=786704
-2024-07-31 14:04:25,462 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   53%}
-2024-07-31 14:04:25,462 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:25,462 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:25,482 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:26,436 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=619136, Offset=852240
-2024-07-31 14:04:26,436 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   57%}
-2024-07-31 14:04:26,436 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:26,436 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:26,456 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:27,419 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=553600, Offset=917776
-2024-07-31 14:04:27,419 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   62%}
-2024-07-31 14:04:27,419 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:27,419 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:27,431 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:28,390 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=488064, Offset=983312
-2024-07-31 14:04:28,390 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   66%}
-2024-07-31 14:04:28,390 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:28,390 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:28,410 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:29,360 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=422528, Offset=1048848
-2024-07-31 14:04:29,360 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   71%}
-2024-07-31 14:04:29,360 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:29,360 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:29,384 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:30,352 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=356992, Offset=1114384
-2024-07-31 14:04:30,352 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   75%}
-2024-07-31 14:04:30,352 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:30,352 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:30,362 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:31,316 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=291456, Offset=1179920
-2024-07-31 14:04:31,316 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   80%}
-2024-07-31 14:04:31,316 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:31,316 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:31,336 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:32,286 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=225920, Offset=1245456
-2024-07-31 14:04:32,286 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   84%}
-2024-07-31 14:04:32,286 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:32,286 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:32,314 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:33,279 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=160384, Offset=1310992
-2024-07-31 14:04:33,279 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   89%}
-2024-07-31 14:04:33,279 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:33,279 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:33,287 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:34,242 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=94848, Offset=1376528
-2024-07-31 14:04:34,242 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   93%}
-2024-07-31 14:04:34,242 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:34,242 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:34,266 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:35,227 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=29312, Offset=1442064
-2024-07-31 14:04:35,227 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   98%}
-2024-07-31 14:04:35,227 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:35,227 [Process-15572] INFO     [Thread0]    Preamble Send
-2024-07-31 14:04:35,611 [Process-15572] INFO     [Thread0]    Preamble Received Rsp
-2024-07-31 14:04:36,192 [Process-15572] INFO     [Thread0]    imginfo.size=1471376, RemainLen=0, Offset=1442064
-2024-07-31 14:04:36,192 [Process-15572] INFO     [Thread0]    {HTNB32L-XXX-ITTCHIP_Example.bin-percent files transferred   100%}
-2024-07-31 14:04:36,192 [Process-15572] INFO     [Thread0]    
-2024-07-31 14:04:36,203 [Process-15572] INFO     [Thread0]    TryDownload success
-2024-07-31 14:04:36,325 [Process-15572] INFO     [Thread0]    Burn OK!
-2024-07-31 14:04:36,325 [Process-15572] INFO     [Thread0]    ProcessEnd[3588]
-2024-07-31 14:04:36,325 [Process-15572] INFO     [FlashToolCLI]    Burnbatch OK, imglist ['bootloader', 'system']
+2025-06-13 20:37:38,911 INFO     [FlashTop]    init
+2025-06-13 20:37:38,919 [Process-11344] INFO     [FlashTop]    do_main: cmd loadpara
+2025-06-13 20:37:38,919 [Process-11344] INFO     [Para]    exe path: C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug
+2025-06-13 20:37:38,922 [Process-11344] INFO     [Para]    update digest file :C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\cfg.digest, digest:b'\x95\xaf\x7e\x3d\x46\xdd\x3a\xbe\xea\x1d\xe3\x59\x01\x93\x46\x51\x55\xdc\x16\x1b\x8a\x7b\xad\xc9\xcc\xe4\xde\x6d\x66\xeb\x63\x8b' 
+2025-06-13 20:37:38,923 [Process-11344] INFO     [Para]    LoadPara from cfgfile(C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\htnb32l.ini) 
+2025-06-13 20:37:38,923 [Process-11344] WARNING  [Para]    Load para curdigest b'\x95\xaf\x7e\x3d\x46\xdd\x3a\xbe\xea\x1d\xe3\x59\x01\x93\x46\x51\x55\xdc\x16\x1b\x8a\x7b\xad\xc9\xcc\xe4\xde\x6d\x66\xeb\x63\x8b'
+2025-06-13 20:37:38,924 [Process-11344] INFO     [FlashTop]    Load para sync success
+2025-06-13 20:37:38,924 [Process-11344] INFO     [FlashToolCLI]    Burnbatch Start, burn imglist ['bootloader', 'system'].
+2025-06-13 20:37:38,924 [Process-11344] INFO     [FlashTop]    do_main: cmd burnag, Thread0[6036]
+2025-06-13 20:37:38,925 [Process-11344] INFO     [Thread0]    ProcessStart[6036]
+2025-06-13 20:37:40,051 [Process-11344] INFO     [Thread0]    ResetBoard(Normal Mod) finish
+2025-06-13 20:37:40,056 [Process-11344] INFO     [Thread0]    args.ser.port :COM3
+2025-06-13 20:37:40,157 [Process-11344] INFO     [Image]    SetBaud 921600
+2025-06-13 20:37:40,157 [Process-11344] INFO     [Thread0]    TryDownload C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\agentboot.bin start
+2025-06-13 20:37:40,158 [Process-11344] INFO     [Thread0]    image size=28568, hdsize=272
+2025-06-13 20:37:40,158 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:40,218 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:40,293 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:40,410 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:43,225 [Process-11344] INFO     [Thread0]    TryDownload agentboot success
+2025-06-13 20:37:43,228 [Process-11344] INFO     [Thread0]    agbaud: 921600
+2025-06-13 20:37:43,332 [Process-11344] INFO     [Thread0]    Burn OK!
+2025-06-13 20:37:43,332 [Process-11344] INFO     [Thread0]    ProcessEnd[6036]
+2025-06-13 20:37:43,332 [Process-11344] INFO     [FlashTop]    do_main: cmd burnone, Thread0[6036]
+2025-06-13 20:37:43,332 [Process-11344] INFO     [Thread0]    ProcessStart[6036]
+2025-06-13 20:37:43,334 [Process-11344] INFO     [Thread0]    args.ser.port :COM3
+2025-06-13 20:37:43,432 [Process-11344] INFO     [Thread0]    agentboot is downloaded already
+2025-06-13 20:37:43,432 [Process-11344] INFO     [Thread0]    TryDownload agentboot skip
+2025-06-13 20:37:43,440 [Process-11344] INFO     [Thread0]    agbaud: 921600
+2025-06-13 20:37:43,538 [Process-11344] INFO     [Thread0]    LPC Preamble Send
+2025-06-13 20:37:43,596 [Process-11344] INFO     [Thread0]    LPC Preamble Received Rsp
+2025-06-13 20:37:43,625 [Process-11344] INFO     [Thread0]    LPCSetSyncStat(1)
+2025-06-13 20:37:43,625 [Process-11344] INFO     [Thread0]    LPCSyncDetect: success
+2025-06-13 20:37:43,626 [Process-11344] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader)
+2025-06-13 20:37:43,626 [Process-11344] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader), burnaddr(0x0), imgid(0x4f424d49)
+2025-06-13 20:37:43,626 [Process-11344] INFO     [Thread0]    DownloadBurnOne file C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin 
+2025-06-13 20:37:43,627 [Process-11344] INFO     [Thread0]    TryDownload C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin start
+2025-06-13 20:37:43,627 [Process-11344] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2025-06-13 20:37:43,634 [Process-11344] INFO     [Thread0]    LPCBurnOneTrig success
+2025-06-13 20:37:43,634 [Process-11344] INFO     [Thread0]    DLDPreSync Preamble Send
+2025-06-13 20:37:44,201 [Process-11344] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2025-06-13 20:37:44,233 [Process-11344] INFO     [Thread0]    image size=29248, hdsize=272
+2025-06-13 20:37:44,233 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:44,234 [Process-11344] INFO     [Thread0]    imginfo.size=29248, RemainLen=29248, Offset=0
+2025-06-13 20:37:44,234 [Process-11344] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2025-06-13 20:37:44,234 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:44,234 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:44,293 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:44,341 [Process-11344] INFO     [Thread0]    imginfo.size=29248, RemainLen=28976, Offset=272
+2025-06-13 20:37:44,342 [Process-11344] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2025-06-13 20:37:44,342 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:44,342 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:44,867 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:45,381 [Process-11344] INFO     [Thread0]    imginfo.size=29248, RemainLen=0, Offset=272
+2025-06-13 20:37:45,382 [Process-11344] INFO     [Thread0]    {bootloader.bin-percent files transferred   100%}
+2025-06-13 20:37:45,382 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:45,387 [Process-11344] INFO     [Thread0]    TryDownload success
+2025-06-13 20:37:45,391 [Process-11344] INFO     [Thread0]    Burn OK!
+2025-06-13 20:37:45,391 [Process-11344] INFO     [Thread0]    ProcessEnd[6036]
+2025-06-13 20:37:45,391 [Process-11344] INFO     [FlashTop]    do_main: cmd burnone, Thread0[6036]
+2025-06-13 20:37:45,391 [Process-11344] INFO     [Thread0]    ProcessStart[6036]
+2025-06-13 20:37:45,392 [Process-11344] INFO     [Thread0]    args.ser.port :COM3
+2025-06-13 20:37:45,492 [Process-11344] INFO     [Thread0]    agentboot is downloaded already
+2025-06-13 20:37:45,492 [Process-11344] INFO     [Thread0]    TryDownload agentboot skip
+2025-06-13 20:37:45,500 [Process-11344] INFO     [Thread0]    agbaud: 921600
+2025-06-13 20:37:45,598 [Process-11344] INFO     [Thread0]    LPC Preamble Send
+2025-06-13 20:37:45,660 [Process-11344] INFO     [Thread0]    LPC Preamble Received Rsp
+2025-06-13 20:37:45,688 [Process-11344] INFO     [Thread0]    LPCSyncDetect: success
+2025-06-13 20:37:45,688 [Process-11344] INFO     [Thread0]    DownloadBurnOne imgtype(system)
+2025-06-13 20:37:45,689 [Process-11344] INFO     [Thread0]    DownloadBurnOne imgtype(system), burnaddr(0x0), imgid(0x444b4249)
+2025-06-13 20:37:45,689 [Process-11344] INFO     [Thread0]    DownloadBurnOne file C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/MQTT_Example/HTNB32L-XXX-MQTT_Example.bin 
+2025-06-13 20:37:45,704 [Process-11344] INFO     [Thread0]    TryDownload C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/MQTT_Example/HTNB32L-XXX-MQTT_Example.bin start
+2025-06-13 20:37:45,704 [Process-11344] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2025-06-13 20:37:45,710 [Process-11344] INFO     [Thread0]    LPCBurnOneTrig success
+2025-06-13 20:37:45,710 [Process-11344] INFO     [Thread0]    DLDPreSync Preamble Send
+2025-06-13 20:37:46,279 [Process-11344] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2025-06-13 20:37:46,310 [Process-11344] INFO     [Thread0]    image size=1469984, hdsize=272
+2025-06-13 20:37:46,310 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:46,310 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=1469984, Offset=0
+2025-06-13 20:37:46,311 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   0%}
+2025-06-13 20:37:46,311 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:46,311 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:46,370 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:46,418 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=1469712, Offset=272
+2025-06-13 20:37:46,419 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   0%}
+2025-06-13 20:37:46,419 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:46,420 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:46,526 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:47,458 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=1404176, Offset=65808
+2025-06-13 20:37:47,458 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   4%}
+2025-06-13 20:37:47,458 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:47,459 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:47,515 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:48,440 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=1338640, Offset=131344
+2025-06-13 20:37:48,440 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   8%}
+2025-06-13 20:37:48,441 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:48,441 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:48,498 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:49,423 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=1273104, Offset=196880
+2025-06-13 20:37:49,423 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   13%}
+2025-06-13 20:37:49,423 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:49,424 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:49,481 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:50,405 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=1207568, Offset=262416
+2025-06-13 20:37:50,405 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   17%}
+2025-06-13 20:37:50,406 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:50,406 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:50,463 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:51,389 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=1142032, Offset=327952
+2025-06-13 20:37:51,389 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   22%}
+2025-06-13 20:37:51,389 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:51,389 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:51,446 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:52,368 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=1076496, Offset=393488
+2025-06-13 20:37:52,368 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   26%}
+2025-06-13 20:37:52,368 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:52,368 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:52,426 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:53,350 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=1010960, Offset=459024
+2025-06-13 20:37:53,350 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   31%}
+2025-06-13 20:37:53,350 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:53,351 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:53,407 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:54,335 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=945424, Offset=524560
+2025-06-13 20:37:54,335 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   35%}
+2025-06-13 20:37:54,335 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:54,335 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:54,393 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:55,327 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=879888, Offset=590096
+2025-06-13 20:37:55,327 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   40%}
+2025-06-13 20:37:55,327 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:55,328 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:55,385 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:56,305 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=814352, Offset=655632
+2025-06-13 20:37:56,305 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   44%}
+2025-06-13 20:37:56,305 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:56,305 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:56,363 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:57,284 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=748816, Offset=721168
+2025-06-13 20:37:57,284 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   49%}
+2025-06-13 20:37:57,285 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:57,285 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:57,342 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:58,264 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=683280, Offset=786704
+2025-06-13 20:37:58,265 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   53%}
+2025-06-13 20:37:58,265 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:58,265 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:58,323 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:37:59,246 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=617744, Offset=852240
+2025-06-13 20:37:59,246 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   57%}
+2025-06-13 20:37:59,247 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:37:59,247 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:37:59,305 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:38:00,226 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=552208, Offset=917776
+2025-06-13 20:38:00,226 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   62%}
+2025-06-13 20:38:00,226 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:38:00,227 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:38:00,284 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:38:01,211 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=486672, Offset=983312
+2025-06-13 20:38:01,211 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   66%}
+2025-06-13 20:38:01,212 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:38:01,212 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:38:01,269 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:38:02,195 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=421136, Offset=1048848
+2025-06-13 20:38:02,195 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   71%}
+2025-06-13 20:38:02,195 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:38:02,195 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:38:02,252 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:38:03,173 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=355600, Offset=1114384
+2025-06-13 20:38:03,173 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   75%}
+2025-06-13 20:38:03,174 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:38:03,174 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:38:03,231 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:38:04,157 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=290064, Offset=1179920
+2025-06-13 20:38:04,157 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   80%}
+2025-06-13 20:38:04,157 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:38:04,159 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:38:04,215 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:38:05,137 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=224528, Offset=1245456
+2025-06-13 20:38:05,137 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   84%}
+2025-06-13 20:38:05,138 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:38:05,138 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:38:05,196 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:38:06,114 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=158992, Offset=1310992
+2025-06-13 20:38:06,114 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   89%}
+2025-06-13 20:38:06,114 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:38:06,114 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:38:06,172 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:38:07,095 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=93456, Offset=1376528
+2025-06-13 20:38:07,095 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   93%}
+2025-06-13 20:38:07,095 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:38:07,096 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:38:07,153 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:38:08,076 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=27920, Offset=1442064
+2025-06-13 20:38:08,076 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   98%}
+2025-06-13 20:38:08,076 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:38:08,077 [Process-11344] INFO     [Thread0]    Preamble Send
+2025-06-13 20:38:08,451 [Process-11344] INFO     [Thread0]    Preamble Received Rsp
+2025-06-13 20:38:08,962 [Process-11344] INFO     [Thread0]    imginfo.size=1469984, RemainLen=0, Offset=1442064
+2025-06-13 20:38:08,962 [Process-11344] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   100%}
+2025-06-13 20:38:08,962 [Process-11344] INFO     [Thread0]    
+2025-06-13 20:38:08,967 [Process-11344] INFO     [Thread0]    TryDownload success
+2025-06-13 20:38:08,971 [Process-11344] INFO     [Thread0]    Burn OK!
+2025-06-13 20:38:08,971 [Process-11344] INFO     [Thread0]    ProcessEnd[6036]
+2025-06-13 20:38:08,971 [Process-11344] INFO     [FlashToolCLI]    Burnbatch OK, imglist ['bootloader', 'system']
