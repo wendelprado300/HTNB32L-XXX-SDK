@@ -1,18 +1,3 @@
-/**
- *
- * Copyright (c) 2023 HT Micron Semicondutores S.A.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
 #include "main.h"
 #include "ps_lib_api.h"
 #include "flash_qcx212.h"
@@ -51,8 +36,8 @@ static void HT_SetConnectioParameters(void) {
     }
 
     apnSetting.cid = 0;
-    apnSetting.apnLength = strlen("nbiot.gsim");
-    strcpy((char *)apnSetting.apnStr, "nbiot.gsim");
+    apnSetting.apnLength = strlen("iot.datatem.com.br");
+    strcpy((char *)apnSetting.apnStr, "iot.datatem.com.br");
     apnSetting.pdnType = CMI_PS_PDN_TYPE_IP_V4V6;
     ret = appSetAPNSettingSync(&apnSetting, &cid);
 }
@@ -168,26 +153,31 @@ static void HT_MQTTExampleTask(void *arg){
                                                                       ((UINT8 *)&gNetworkInfo.body.netInfoRet.netifInfo.ipv4Info.ipv4Addr.addr)[3]);
                     ret = appGetLocationInfoSync(&tac, &cellID);
                     HT_TRACE(UNILOG_MQTT, mqttAppTask4, P_INFO, 3, "tac=%d, cellID=%d ret=%d", tac, cellID, ret);
-                    //edrxModeValue = CMI_MM_ENABLE_EDRX_AND_ENABLE_IND;
-                    actType = CMI_MM_EDRX_NB_IOT;
+                    // edrxModeValue = CMI_MM_ENABLE_EDRX_AND_ENABLE_IND;
+                    // actType = CMI_MM_EDRX_NB_IOT;
+                    actType = CMI_MM_EDRX_NO_ACT_OR_NOT_USE_EDRX;
                     //reqEdrxValueMs = 20480;
-                    // appSetEDRXSettingSync(edrxModeValue, actType, reqEdrxValueMs);
+                    ret = appSetEDRXSettingSync(CMI_MM_DISABLE_EDRX, actType, 0);
                     ret = appGetEDRXSettingSync(&actType, &nwEdrxValueMs, &nwPtwMs);
                     HT_TRACE(UNILOG_MQTT, mqttAppTask5, P_INFO, 4, "actType=%d, nwEdrxValueMs=%d nwPtwMs=%d ret=%d", actType, nwEdrxValueMs, nwPtwMs, ret);
+                    printf("actType=%d, nwEdrxValueMs=%d nwPtwMs=%d ret=%d\n", actType, nwEdrxValueMs, nwPtwMs, ret);
 
-                    psmMode = 1;
-                    tauTime = 4000;
-                    activeTime = 30;
+                    psmMode = 0;
+                    tauTime = 0;
+                    activeTime = 0;
 
                     {
+                        appSetPSMSettingSync(psmMode, tauTime, activeTime);
                         appGetPSMSettingSync(&psmMode, &tauTime, &activeTime);
                         HT_TRACE(UNILOG_MQTT, mqttAppTask6, P_INFO, 3, "Get PSM info mode=%d, TAU=%d, ActiveTime=%d", psmMode, tauTime, activeTime);
+                        printf("Get PSM info mode=%d, TAU=%d, ActiveTime=%d\n", psmMode, tauTime, activeTime);
                     }
 
                     HT_Fsm();
                
                     break;
                 case QMSG_ID_NW_DISCONNECT:
+                    printf("NB Disconected\n");
                     break;
 
                 default:
@@ -195,6 +185,7 @@ static void HT_MQTTExampleTask(void *arg){
             }
             free(queueItem);
         }
+        osDelay(pdMS_TO_TICKS(10));
     }
 
 }
@@ -227,6 +218,7 @@ void main_entry(void) {
 
     BSP_CommonInit();
     HT_GPIO_LedInit();
+    HT_GPIO_ButtonInit();
 
     osKernelInitialize();
 

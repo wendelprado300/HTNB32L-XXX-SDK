@@ -107,7 +107,7 @@ typedef enum {
  *
  * \retval none
  *******************************************************************/
-void HT_FSM_SetSubscribeBuff(uint8_t *buff, uint8_t payload_len);
+void HT_FSM_SetSubscribeBuff(MessageData *msg);
 
 /*!******************************************************************
  * \fn void HT_Fsm(void)
