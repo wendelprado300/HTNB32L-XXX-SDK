@@ -28,10 +28,10 @@ void HT_GPIO_App(void) {
     while(1) {
         HT_GPIO_WritePin(LED_GPIO_PIN, LED_INSTANCE, LED_ON);
         ht_printf("LED ON\n");
-        Delay_ms(5000); // 1 segundo
+        Delay_ms(1000); // 1 segundo
         
         HT_GPIO_WritePin(LED_GPIO_PIN, LED_INSTANCE, LED_OFF);
         ht_printf("LED OFF\n");
-        Delay_ms(5000); // 1 segundo
+        Delay_ms(1000); // 1 segundo
     }
 }

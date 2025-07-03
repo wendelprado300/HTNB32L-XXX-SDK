@@ -15,331 +15,196 @@
 #include "HT_bsp.h"
 #include "stdint.h"
 
-//#include "HT_USART_Demo.h"
+
+#include <stdio.h>
+#include "bsp.h"
+ 
+#include "main.h"
+#include "pad_qcx212.h"
+#include "HT_gpio_qcx212.h"
+#include "ic_qcx212.h"
+#include "HT_ic_qcx212.h"
 #include "htnb32lxxx_hal_usart.h"
 
-volatile uint32_t blink_interval = 0;  // 0 = desligado, >0 = intervalo em ms
-static TaskHandle_t xBlinkTaskHandle = NULL;
+#include "HT_bsp.h"
+#include <stdio.h>
+#include <stdbool.h> 
 
+#include "htnb32lxxx_hal_usart.h"
+#include "slpman_qcx212.h"
+#include "HT_Peripheral_Config.h"
+#include "HT_usart_unilog.h"
 extern USART_HandleTypeDef huart1;
-static uint8_t rx_buffer_usart_1;
+// =================================================================
+// ============== INÍCIO DO CÓDIGO PARA O SENSOR DHT22 ==============
+// =================================================================
 
-char cmdRxBuffer[255] = {0};
-int cmdRxBufferIdx = 0;
+// Definições para o pino do DHT22 
+#define DHT22_INSTANCE              0
+#define DHT22_PIN                   10
+#define DHT22_PAD_ID                25
+#define DHT22_PAD_ALT_FUNC          PAD_MuxAlt0
 
-volatile uint8_t rx_callback_usart_1 = 0;
-volatile uint8_t tx_callback_usart_1 = 0;
-
-extern uint8_t *usart_tx_buffer;
-extern uint8_t *usart_rx_buffer;;  // PODE PRECISAR DOS
+// Variável externa do sistema que contém o clock da CPU em Hz
+extern uint32_t SystemCoreClock;
 
 
-static uint32_t uart_cntrl = (ARM_USART_MODE_ASYNCHRONOUS | ARM_USART_DATA_BITS_8 | ARM_USART_PARITY_NONE |
-                                 ARM_USART_STOP_BITS_1 | ARM_USART_FLOW_CONTROL_NONE);
-
-void HT_USART_Callback(uint32_t event) {
-    rx_callback_usart_1 = 1;
+void precise_delay_us(uint32_t us) {
+   
+    uint32_t cycles_per_us = SystemCoreClock / 1000000 / 8;
+    for (volatile uint32_t i = 0; i < us * cycles_per_us; ++i) {
+        __asm__("nop"); // 
+    }
 }
 
-int Count_time = 0 ;
-int Count_task2= 0;
-
-//GPIO10 - BUTTON
-#define BUTTON_INSTANCE             0
-#define BUTTON_PIN                  10
-#define BUTTON_PAD_ID               25
-#define BUTTON_PAD_ALT_FUNC         PAD_MuxAlt0
-
-//GPIO3 - LED
-#define LED_INSTANCE              0
-#define LED_GPIO_PIN              3
-#define LED_PAD_ID                14
-#define LED_PAD_ALT_FUNC          PAD_MuxAlt0
-
-//*********************/
-
-
-//GPIO5 - LED CONTROLe VAI UART
-#define LED_INSTANCE3              0
-#define LED_GPIO_PIN3             5
-#define LED_PAD_ID3                16
-#define LED_PAD_ALT_FUNC          PAD_MuxAlt0
-
-//GPIO4 - LED CONTROLADO PELO BOTÃO
-#define LED_INSTANCE2              0
-#define LED_GPIO_PIN2              4
-#define LED_PAD_ID2                15
-#define LED_PAD_ALT_FUNC          PAD_MuxAlt0
-
-
-#define LED_ON                    1
-#define LED_OFF                   0
-#define DEMO_ADC_CHANNEL ADC_ChannelAio2 
-
-static volatile uint32_t callback = 0;
-static volatile uint32_t user_adc_channel = 0;
-
-volatile bool button_state = false;
-QueueHandle_t xFila;
-static adc_config_t adcConfig;
-
-static void HT_ADC_ConversionCallback(uint32_t result) {
-    //printf("Adc callback: %d", result);
-    callback |= DEMO_ADC_CHANNEL;
-    user_adc_channel = result;
+/**
+ * @brief Cria um delay em milissegundos.
+ * @param ms Número de milissegundos para esperar.
+ */
+void delay_ms(uint32_t ms) {
+    for (uint32_t i = 0; i < ms; ++i) {
+        precise_delay_us(1000);
+    }
 }
 
-static void  HT_ADC_Init(uint8_t channel) {
-
-    ADC_GetDefaultConfig(&adcConfig);
-
-    adcConfig.channelConfig.aioResDiv = ADC_AioResDivRatio3Over16; 
-
-    ADC_ChannelInit(channel, ADC_UserAPP, &adcConfig, HT_ADC_ConversionCallback);
-}
-
-
-static void HT_GPIO_InitButton(void) {    ////////////// BOTTTTTTT
-    
+// Funções auxiliares para reconfigurar o pino do DHT22
+static void dht22_pin_as_output() {
     GPIO_InitType GPIO_InitStruct = {0};
+    GPIO_InitStruct.af = DHT22_PAD_ALT_FUNC;
+    GPIO_InitStruct.pad_id = DHT22_PAD_ID;
+    GPIO_InitStruct.gpio_pin = DHT22_PIN;
+    GPIO_InitStruct.pin_direction = GPIO_DirectionOutput;
+    GPIO_InitStruct.init_output = 1; 
+    GPIO_InitStruct.pull = PAD_AutoPull;
+    GPIO_InitStruct.instance = DHT22_INSTANCE;
+    HT_GPIO_Init(&GPIO_InitStruct);
+}
 
-    GPIO_InitStruct.af = PAD_MuxAlt0;
-    GPIO_InitStruct.pad_id = BUTTON_PAD_ID;
-    GPIO_InitStruct.gpio_pin = BUTTON_PIN;
+static void dht22_pin_as_input() {
+    GPIO_InitType GPIO_InitStruct = {0};
+    GPIO_InitStruct.af = DHT22_PAD_ALT_FUNC;
+    GPIO_InitStruct.pad_id = DHT22_PAD_ID;
+    GPIO_InitStruct.gpio_pin = DHT22_PIN;
     GPIO_InitStruct.pin_direction = GPIO_DirectionInput;
     GPIO_InitStruct.pull = PAD_InternalPullUp;
-    GPIO_InitStruct.instance = BUTTON_INSTANCE;
-    GPIO_InitStruct.exti = GPIO_EXTI_DISABLED;
-    GPIO_InitStruct.interrupt_config = GPIO_InterruptFallingEdge;
-
+    GPIO_InitStruct.instance = DHT22_INSTANCE;
     HT_GPIO_Init(&GPIO_InitStruct);
 }
 
-static void HT_GPIO_InitLed(int pin, int id) {   ///////////////  LEDDDDD  LDRRR
-    GPIO_InitType GPIO_InitStruct = {0};
+/**
+ * @brief Lê os dados do sensor DHT22 de forma robusta com timeouts.
+ * @param humidity Ponteiro para a variável float que armazenará a umidade.
+ * @param temperature Ponteiro para a variável float que armazenará a temperatura.
+ * @return true se a leitura foi bem-sucedida, false caso contrário.
+ */
+bool dht22_read(float* humidity, float* temperature) {
+    uint8_t data[5] = {0, 0, 0, 0, 0};
+    uint32_t timeout_counter;
 
-    GPIO_InitStruct.af = PAD_MuxAlt0;
-    GPIO_InitStruct.pad_id = id;
-    GPIO_InitStruct.gpio_pin = pin;
-    GPIO_InitStruct.pin_direction = GPIO_DirectionOutput;
-    GPIO_InitStruct.init_output = 0;
-    GPIO_InitStruct.pull = PAD_AutoPull;
-    GPIO_InitStruct.instance = LED_INSTANCE;
-    GPIO_InitStruct.exti = GPIO_EXTI_DISABLED;
+    __disable_irq(); 
 
-    HT_GPIO_Init(&GPIO_InitStruct);
+    // 1. Envia o sinal de início
+    dht22_pin_as_output();
+    HT_GPIO_WritePin(DHT22_PIN, DHT22_INSTANCE, 0); // LOW
+    delay_ms(18); // Delay de 18ms
 
-    GPIO_InitStruct.af = PAD_MuxAlt0;
-    GPIO_InitStruct.pad_id = LED_PAD_ID2;
-    GPIO_InitStruct.gpio_pin = LED_GPIO_PIN2;
-    GPIO_InitStruct.pin_direction = GPIO_DirectionOutput;
-    GPIO_InitStruct.init_output = 0;
-    GPIO_InitStruct.pull = PAD_AutoPull;
-    GPIO_InitStruct.instance = LED_INSTANCE2;
-    GPIO_InitStruct.exti = GPIO_EXTI_DISABLED;
+    HT_GPIO_WritePin(DHT22_PIN, DHT22_INSTANCE, 1); // HIGH
+    dht22_pin_as_input();
+    precise_delay_us(40);
 
-    HT_GPIO_Init(&GPIO_InitStruct);
+    // 2. Aguarda a resposta do sensor (com timeout)
+    timeout_counter = 10000;
+    while(HT_GPIO_PinRead(DHT22_INSTANCE, DHT22_PIN) == 1) { if (timeout_counter-- == 0) { __enable_irq(); return false; } }
 
-    GPIO_InitStruct.af = PAD_MuxAlt0;
-    GPIO_InitStruct.pad_id = LED_PAD_ID3;
-    GPIO_InitStruct.gpio_pin = LED_GPIO_PIN3;
-    GPIO_InitStruct.pin_direction = GPIO_DirectionOutput;
-    GPIO_InitStruct.init_output = 0;
-    GPIO_InitStruct.pull = PAD_AutoPull;
-    GPIO_InitStruct.instance = LED_INSTANCE3;
-    GPIO_InitStruct.exti = GPIO_EXTI_DISABLED;
+    timeout_counter = 10000;
+    while(HT_GPIO_PinRead(DHT22_INSTANCE, DHT22_PIN) == 0) { if (timeout_counter-- == 0) { __enable_irq(); return false; } }
 
-    HT_GPIO_Init(&GPIO_InitStruct);
+    timeout_counter = 10000;
+    while(HT_GPIO_PinRead(DHT22_INSTANCE, DHT22_PIN) == 1) { if (timeout_counter-- == 0) { __enable_irq(); return false; } }
 
+    // 3. Lê os 40 bits de dados (com timeouts)
+    for (int j = 0; j < 5; j++) {
+        for (int i = 0; i < 8; i++) {
+            timeout_counter = 10000;
+            while(HT_GPIO_PinRead(DHT22_INSTANCE, DHT22_PIN) == 0) { if (timeout_counter-- == 0) { __enable_irq(); return false; } }
 
-
-}
-
-void Task0(void *pvParameters) {
-    while (1) {
-        callback = 0;
-        HT_ADC_StartConversion(DEMO_ADC_CHANNEL, ADC_UserAPP);
-
-        while (callback != DEMO_ADC_CHANNEL) {
-            vTaskDelay(pdMS_TO_TICKS(10));
-        }
-
-        uint16_t adcValue = user_adc_channel;
-        //printf("ADC Value: %d\n", adcValue);
-
-        if (adcValue > 200) {
-            HT_GPIO_WritePin(LED_GPIO_PIN, LED_INSTANCE, LED_OFF);
-        } else {
-            HT_GPIO_WritePin(LED_GPIO_PIN, LED_INSTANCE, LED_ON);
-        }
-        vTaskDelay(pdMS_TO_TICKS(500));
-    }
-}
-
-void Task1(void *pvParameters) {
-    int button_state = 0;
-    int last_button_state = 0;
-    BaseType_t xStatus;
-    
-    while (1) {
-        // Lê o estado do botão (invertido por causa do pull-up)
-        button_state = !HT_GPIO_PinRead(BUTTON_INSTANCE, BUTTON_PIN);
-        
-    
-        if (button_state ==1 && last_button_state == 0) {
-             //uint8_t comando = LED_ON;
-            printf("Botão pressionado\n");
-            Count_time = 0;
-        }
-     
-        if (button_state == 1){
-            Count_time += 10; 
-        }
-        if (button_state == 0 && last_button_state == 1){
-            // botão solto e envia os dados
-            printf("tempo: %d ms\n",Count_time); 
-            xQueueSend(xFila,&Count_time,0);
-        }
-        
-        last_button_state = button_state;
-        vTaskDelay(pdMS_TO_TICKS(10));
-        
-    }
-         
-
-}
-
-void Task2(void *pvParameters) {
-    int comandoRecebido;
-    BaseType_t xStatus;
-    
-    while (1) {
-        // Espera por um comando na fila (timeout máximo)
-        xStatus = xQueueReceive(xFila, &comandoRecebido, portMAX_DELAY);
-                printf(xStatus);
-
-                HT_GPIO_WritePin(LED_GPIO_PIN2, LED_INSTANCE2, LED_ON); 
-                printf("tempo recebido na task 2 : %d ms\n",comandoRecebido); 
-                printf("tempo recebido na task 2 : %d ms\n",Count_time);
-                Count_task2 = Count_time;
-                vTaskDelay(pdMS_TO_TICKS(comandoRecebido));
-                HT_GPIO_WritePin(LED_GPIO_PIN2, LED_INSTANCE2, LED_OFF);
-                //vTaskDelay(pdMS_TO_TICKS(2000));
-
-                printf("LED OFF\n");
-            }
-        }
-    
-/*void Task3(void *pvParameters) {
-    while(1) {
-        // Recebe um caractere via UART (bloqueante)
-        HAL_USART_ReceivePolling(&huart1, &rx_buffer_usart_1, 1);
-
-        // Armazena no buffer e verifica fim de comando
-        cmdRxBuffer[cmdRxBufferIdx++] = rx_buffer_usart_1;
-        
-        if (rx_buffer_usart_1 == '\r') {
-            // Processa o comando recebido
-            if (strstr(cmdRxBuffer, "LED_1s") != NULL) {
-                while(1){
-                HT_GPIO_WritePin(LED_GPIO_PIN3, LED_INSTANCE3, LED_ON);
-                vTaskDelay(pdMS_TO_TICKS(1000));
-                HT_GPIO_WritePin(LED_GPIO_PIN3, LED_INSTANCE3, LED_OFF);
-                vTaskDelay(pdMS_TO_TICKS(1000));
-                printf("LED5 1 seg ligado via UART\n");
-                }
-                
-            } 
-            else if (strstr(cmdRxBuffer, "LED_2s") != NULL) {
-                 while(1){
-                 HT_GPIO_WritePin(LED_GPIO_PIN3, LED_INSTANCE3, LED_ON);
-                vTaskDelay(pdMS_TO_TICKS(2000));
-                HT_GPIO_WritePin(LED_GPIO_PIN3, LED_INSTANCE3, LED_OFF);
-                vTaskDelay(pdMS_TO_TICKS(2000));
-                printf("LED5 2  UART\n");
-                 }
-            }
+            precise_delay_us(35);
             
-            // Limpa buffer para próximo comando
-            memset(cmdRxBuffer, 0, sizeof(cmdRxBuffer));
-            cmdRxBufferIdx = 0;
+            data[j] <<= 1;
+            if (HT_GPIO_PinRead(DHT22_INSTANCE, DHT22_PIN) == 1) {
+                data[j] |= 1;
+                timeout_counter = 10000;
+                while(HT_GPIO_PinRead(DHT22_INSTANCE, DHT22_PIN) == 1) { if (timeout_counter-- == 0) { __enable_irq(); return false; } }
+            }
         }
     }
-}*/
 
-void Task3(void *pvParameters) {
-    while(1) {
-        // Recebe um caractere via UART (bloqueante)
-        HAL_USART_ReceivePolling(&huart1, &rx_buffer_usart_1, 1);
+    __enable_irq(); // Reabilita as interrupções globais
 
-        // Armazena no buffer e verifica fim de comando
-        cmdRxBuffer[cmdRxBufferIdx++] = rx_buffer_usart_1;
-        
-        if (rx_buffer_usart_1 == '\r') {
-            // Processa o comando recebido
-            if (strstr(cmdRxBuffer, "LED_1s") != NULL) {
-                blink_interval = 1000;  // 1 segundo
-                printf("Blink 1s ativado\n");
-            } 
-            else if (strstr(cmdRxBuffer, "LED_2s") != NULL) {
-                blink_interval = 2000;  // 2 segundos
-                printf("Blink 2s ativado\n");
-            }
-            else if (strstr(cmdRxBuffer, "LED_off") != NULL) {
-                blink_interval = 0;  // Desliga o LED
-                HT_GPIO_WritePin(LED_GPIO_PIN3, LED_INSTANCE3, LED_OFF);
-                printf("LED desligado\n");
-            }
-            
-            // Limpa buffer para próximo comando
-            memset(cmdRxBuffer, 0, sizeof(cmdRxBuffer));
-            cmdRxBufferIdx = 0;
-        }
+    // 4. Verifica o Checksum
+    uint8_t checksum = (data[0] + data[1] + data[2] + data[3]) & 0xFF;
+    if (checksum != data[4]) {
+        return false;
     }
+
+    // 5. Decodifica os dados
+    *humidity = ((data[0] << 8) | data[1]) / 10.0f;
+    *temperature = (((data[2] & 0x7F) << 8) | data[3]) / 10.0f;
+    if (data[2] & 0x80) {
+        *temperature *= -1;
+    }
+
+    return true;
 }
 
-
-void Task4(void *pvParameters) {
-    while(1) {
-        if (blink_interval > 0) {
-           
-            printf("Blink TASK 4 n");
-            HT_GPIO_WritePin(LED_GPIO_PIN3, LED_INSTANCE3, LED_ON);
-            vTaskDelay(pdMS_TO_TICKS(blink_interval));  
-            printf("AI SIM  \n");
-        
-            HT_GPIO_WritePin(LED_GPIO_PIN3, LED_INSTANCE3, LED_OFF);
-            vTaskDelay(pdMS_TO_TICKS(blink_interval));
-            
-        }
-        else {
-        
-            vTaskDelay(pdMS_TO_TICKS(100));
-        }
-    }
-}
-
+// Função principal de entrada
 void main_entry(void) {
+    
     BSP_CommonInit();
     slpManNormalIOVoltSet(IOVOLT_3_30V);
+    uint32_t uart_cntrl = (ARM_USART_MODE_ASYNCHRONOUS | ARM_USART_DATA_BITS_8 | ARM_USART_PARITY_NONE |
+                           ARM_USART_STOP_BITS_1 | ARM_USART_FLOW_CONTROL_NONE);
     HAL_USART_InitPrint(&huart1, GPR_UART1ClkSel_26M, uart_cntrl, 115200);
-    printf("Exemplo FreeRTOS \n");
-    
-    HT_GPIO_InitLed(LED_GPIO_PIN, LED_PAD_ID);
-    HT_GPIO_InitButton();                     
-    HT_ADC_Init(DEMO_ADC_CHANNEL);            
 
-    xFila = xQueueCreate(5, sizeof(int));
-    if (xFila != NULL) {
-        xTaskCreate(Task0, "Task0", 256, NULL, 1, NULL); 
-        xTaskCreate(Task1, "Task1", 256, NULL, 2, NULL); 
-        xTaskCreate(Task2, "Task2", 256, NULL, 1, NULL);
-        xTaskCreate(Task3, "Task3", 256, NULL, 1, NULL);
-        xTaskCreate(Task4, "Task4", 256, NULL, 3, NULL);
+  
 
-        vTaskStartScheduler();
+    printf(">>> Sistema Bare-Metal DHT22 Iniciado <<<\n");
+    printf("System Core Clock: %lu Hz\n", SystemCoreClock);
+
+    // Inicializa o pino do DHT22 como entrada para um estado seguro
+    dht22_pin_as_input();
+    delay_ms(2000); // Delay inicial para o sensor estabilizar
+
+   
+    while(1) {
+        while(1) {
+        float humidity = 0.0f;
+        float temperature = 0.0f;
+
+       
+        if (dht22_read(&humidity, &temperature)) {
+            
+
+            // Separa a parte inteira e a fracionária para imprimir
+            int temp_int = (int)temperature;
+            int temp_frac = (int)((temperature - temp_int) * 10);
+
+            int hum_int = (int)humidity;
+            int hum_frac = (int)((humidity - hum_int) * 10);
+
+            // Garante que a parte fracionária seja sempre positiva para a impressão
+            if (temp_frac < 0) temp_frac = -temp_frac;
+            if (hum_frac < 0) hum_frac = -hum_frac;
+
+            printf("Leitura OK -> Temp: %d.%d C, Umidade: %d.%d %%\n", temp_int, temp_frac, hum_int, hum_frac);
+
+        } else {
+         
+            printf("!!! Falha ao ler o sensor DHT22 !!!\n");
+        }
+
+        // Espera antes da próxima leitura
+        delay_ms(3000);
     }
-
-    printf("Nao deve chegar aqui.\n");
-    while(1);
+    }
 }
