@@ -413,56 +413,6 @@ static void HT_FSM_CheckSocketState(void) {
     subscribe_callback = 0;
 }
 
-void HT_Fsm(void) {
 
-    // Initialize MQTT Client and Connect to MQTT Broker defined in global variables
-    if(HT_FSM_MQTTConnect() == HT_NOT_CONNECTED) {
-        printf("\n MQTT Connection Error!\n");
-        while(1);
-    }
-
-    // Init irqn after connection
-    HT_GPIO_ButtonInit();
-    
-    // Get led status from the Python software
-    HT_FSM_UpdateUserLedState();
-
-    // Led to sinalize connection stablished
-    HT_LED_GreenLedTask(NULL);
-
-    printf("Executing fsm...\n");
-
-    while (1) {
-        
-        switch (state) {
-        case HT_CHECK_SOCKET_STATE:
-            // Check if some message arrived
-            HT_FSM_CheckSocketState();
-            break;
-        case HT_WAIT_FOR_BUTTON_STATE:
-            // Check if some button was pressed
-            HT_FSM_WaitForButtonState();
-            break;
-        case HT_PUSH_BUTTON_HANDLE_STATE:
-            // Defines which button was pressed
-            HT_FSM_PushButtonHandleState();
-            break;
-        case HT_MQTT_SUBSCRIBE_STATE:
-            // Subscribe to MQTT Topic defined in global variables
-            HT_FSM_MQTTSubscribeState();
-            break;
-        case HT_MQTT_PUBLISH_STATE:
-            // Publish MQTT Message: pressed button color
-            HT_FSM_MQTTPublishState();
-            break;
-        case HT_SUBSCRIBE_HANDLE_STATE:
-            HT_FSM_SubscribeHandleState();
-            break;
-        default:
-            break;
-        }
-
-    }
-}
 
 /************************ HT Micron Semicondutores S.A *****END OF FILE****/

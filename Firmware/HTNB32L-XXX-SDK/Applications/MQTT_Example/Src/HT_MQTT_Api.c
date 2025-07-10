@@ -22,6 +22,7 @@ extern volatile uint8_t subscribe_callback;
 static MQTTPacket_connectData connectData = MQTTPacket_connectData_initializer;
 
 #if  MQTT_TLS_ENABLE == 1
+
 static MqttClientContext mqtt_client_ctx;
 #endif
 
@@ -30,7 +31,7 @@ uint8_t HT_MQTT_Connect(MQTTClient *mqtt_client, Network *mqtt_network, char *ad
                                         uint32_t sendbuf_size, uint8_t *readbuf, uint32_t readbuf_size) {
 
 
-#if  MQTT_TLS_ENABLE == 1
+#if  MQTT_TLS_ENABLE == 1  /// modificado wendel
     mqtt_client_ctx.caCertLen = 0;
     mqtt_client_ctx.port = port;
     mqtt_client_ctx.host = addr;

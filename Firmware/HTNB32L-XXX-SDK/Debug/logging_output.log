@@ -1,125 +1,135 @@
-2025-07-03 14:35:04,803 INFO     [FlashTop]    init
-2025-07-03 14:35:04,868 [Process-3228] INFO     [FlashTop]    do_main: cmd loadpara
-2025-07-03 14:35:04,869 [Process-3228] INFO     [Para]    exe path: C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug
-2025-07-03 14:35:04,877 [Process-3228] INFO     [Para]    update digest file :C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\cfg.digest, digest:b'\x95\xaf\x7e\x3d\x46\xdd\x3a\xbe\xea\x1d\xe3\x59\x01\x93\x46\x51\x55\xdc\x16\x1b\x8a\x7b\xad\xc9\xcc\xe4\xde\x6d\x66\xeb\x63\x8b' 
-2025-07-03 14:35:04,878 [Process-3228] INFO     [Para]    LoadPara from cfgfile(C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\htnb32l.ini) 
-2025-07-03 14:35:04,885 [Process-3228] WARNING  [Para]    Load para curdigest b'\x95\xaf\x7e\x3d\x46\xdd\x3a\xbe\xea\x1d\xe3\x59\x01\x93\x46\x51\x55\xdc\x16\x1b\x8a\x7b\xad\xc9\xcc\xe4\xde\x6d\x66\xeb\x63\x8b'
-2025-07-03 14:35:04,887 [Process-3228] INFO     [FlashTop]    Load para sync success
-2025-07-03 14:35:04,890 [Process-3228] INFO     [FlashToolCLI]    Burnbatch Start, burn imglist ['bootloader', 'system'].
-2025-07-03 14:35:04,891 [Process-3228] INFO     [FlashTop]    do_main: cmd burnag, Thread0[14848]
-2025-07-03 14:35:04,895 [Process-3228] INFO     [Thread0]    ProcessStart[14848]
-2025-07-03 14:35:05,985 [Process-3228] INFO     [Thread0]    ResetBoard(Normal Mod) finish
-2025-07-03 14:35:05,989 [Process-3228] INFO     [Thread0]    args.ser.port :COM7
-2025-07-03 14:35:06,058 [Process-3228] INFO     [Image]    SetBaud 921600
-2025-07-03 14:35:06,061 [Process-3228] INFO     [Thread0]    TryDownload C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\agentboot.bin start
-2025-07-03 14:35:06,064 [Process-3228] INFO     [Thread0]    image size=28568, hdsize=272
-2025-07-03 14:35:06,072 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:06,087 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:06,137 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:06,203 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:08,905 [Process-3228] INFO     [Thread0]    TryDownload agentboot success
-2025-07-03 14:35:08,908 [Process-3228] INFO     [Thread0]    agbaud: 921600
-2025-07-03 14:35:08,969 [Process-3228] INFO     [Thread0]    Burn OK!
-2025-07-03 14:35:08,970 [Process-3228] INFO     [Thread0]    ProcessEnd[14848]
-2025-07-03 14:35:08,971 [Process-3228] INFO     [FlashTop]    do_main: cmd burnone, Thread0[14848]
-2025-07-03 14:35:08,972 [Process-3228] INFO     [Thread0]    ProcessStart[14848]
-2025-07-03 14:35:08,974 [Process-3228] INFO     [Thread0]    args.ser.port :COM7
-2025-07-03 14:35:09,035 [Process-3228] INFO     [Thread0]    agentboot is downloaded already
-2025-07-03 14:35:09,036 [Process-3228] INFO     [Thread0]    TryDownload agentboot skip
-2025-07-03 14:35:09,039 [Process-3228] INFO     [Thread0]    agbaud: 921600
-2025-07-03 14:35:09,101 [Process-3228] INFO     [Thread0]    LPC Preamble Send
-2025-07-03 14:35:09,109 [Process-3228] INFO     [Thread0]    LPC Preamble Received Rsp
-2025-07-03 14:35:09,116 [Process-3228] INFO     [Thread0]    LPCSetSyncStat(1)
-2025-07-03 14:35:09,117 [Process-3228] INFO     [Thread0]    LPCSyncDetect: success
-2025-07-03 14:35:09,119 [Process-3228] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader)
-2025-07-03 14:35:09,119 [Process-3228] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader), burnaddr(0x0), imgid(0x4f424d49)
-2025-07-03 14:35:09,120 [Process-3228] INFO     [Thread0]    DownloadBurnOne file C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin 
-2025-07-03 14:35:09,124 [Process-3228] INFO     [Thread0]    TryDownload C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin start
-2025-07-03 14:35:09,126 [Process-3228] INFO     [Thread0]    LPCBurnOneTrig start       			******
-2025-07-03 14:35:09,133 [Process-3228] INFO     [Thread0]    LPCBurnOneTrig success
-2025-07-03 14:35:09,134 [Process-3228] INFO     [Thread0]    DLDPreSync Preamble Send
-2025-07-03 14:35:09,648 [Process-3228] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
-2025-07-03 14:35:09,653 [Process-3228] INFO     [Thread0]    image size=29248, hdsize=272
-2025-07-03 14:35:09,654 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:09,654 [Process-3228] INFO     [Thread0]    imginfo.size=29248, RemainLen=29248, Offset=0
-2025-07-03 14:35:09,657 [Process-3228] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
-2025-07-03 14:35:09,657 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:09,658 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:09,673 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:09,692 [Process-3228] INFO     [Thread0]    imginfo.size=29248, RemainLen=28976, Offset=272
-2025-07-03 14:35:09,694 [Process-3228] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
-2025-07-03 14:35:09,694 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:09,695 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:10,215 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:10,713 [Process-3228] INFO     [Thread0]    imginfo.size=29248, RemainLen=0, Offset=272
-2025-07-03 14:35:10,718 [Process-3228] INFO     [Thread0]    {bootloader.bin-percent files transferred   100%}
-2025-07-03 14:35:10,720 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:10,724 [Process-3228] INFO     [Thread0]    TryDownload success
-2025-07-03 14:35:10,727 [Process-3228] INFO     [Thread0]    Burn OK!
-2025-07-03 14:35:10,729 [Process-3228] INFO     [Thread0]    ProcessEnd[14848]
-2025-07-03 14:35:10,733 [Process-3228] INFO     [FlashTop]    do_main: cmd burnone, Thread0[14848]
-2025-07-03 14:35:10,736 [Process-3228] INFO     [Thread0]    ProcessStart[14848]
-2025-07-03 14:35:10,740 [Process-3228] INFO     [Thread0]    args.ser.port :COM7
-2025-07-03 14:35:10,804 [Process-3228] INFO     [Thread0]    agentboot is downloaded already
-2025-07-03 14:35:10,807 [Process-3228] INFO     [Thread0]    TryDownload agentboot skip
-2025-07-03 14:35:10,812 [Process-3228] INFO     [Thread0]    agbaud: 921600
-2025-07-03 14:35:10,885 [Process-3228] INFO     [Thread0]    LPC Preamble Send
-2025-07-03 14:35:10,899 [Process-3228] INFO     [Thread0]    LPC Preamble Received Rsp
-2025-07-03 14:35:10,903 [Process-3228] INFO     [Thread0]    LPCSyncDetect: success
-2025-07-03 14:35:10,905 [Process-3228] INFO     [Thread0]    DownloadBurnOne imgtype(system)
-2025-07-03 14:35:10,905 [Process-3228] INFO     [Thread0]    DownloadBurnOne imgtype(system), burnaddr(0x0), imgid(0x444b4249)
-2025-07-03 14:35:10,906 [Process-3228] INFO     [Thread0]    DownloadBurnOne file C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/MQTT_Example/HTNB32L-XXX-MQTT_Example.bin 
-2025-07-03 14:35:10,921 [Process-3228] INFO     [Thread0]    TryDownload C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/MQTT_Example/HTNB32L-XXX-MQTT_Example.bin start
-2025-07-03 14:35:10,924 [Process-3228] INFO     [Thread0]    LPCBurnOneTrig start       			******
-2025-07-03 14:35:10,932 [Process-3228] INFO     [Thread0]    LPCBurnOneTrig success
-2025-07-03 14:35:10,933 [Process-3228] INFO     [Thread0]    DLDPreSync Preamble Send
-2025-07-03 14:35:11,464 [Process-3228] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
-2025-07-03 14:35:11,469 [Process-3228] INFO     [Thread0]    image size=439296, hdsize=272
-2025-07-03 14:35:11,470 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:11,471 [Process-3228] INFO     [Thread0]    imginfo.size=439296, RemainLen=439296, Offset=0
-2025-07-03 14:35:11,472 [Process-3228] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   0%}
-2025-07-03 14:35:11,473 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:11,473 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:11,486 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:11,505 [Process-3228] INFO     [Thread0]    imginfo.size=439296, RemainLen=439024, Offset=272
-2025-07-03 14:35:11,506 [Process-3228] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   0%}
-2025-07-03 14:35:11,508 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:11,509 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:11,601 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:12,518 [Process-3228] INFO     [Thread0]    imginfo.size=439296, RemainLen=373488, Offset=65808
-2025-07-03 14:35:12,521 [Process-3228] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   14%}
-2025-07-03 14:35:12,522 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:12,523 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:12,565 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:13,466 [Process-3228] INFO     [Thread0]    imginfo.size=439296, RemainLen=307952, Offset=131344
-2025-07-03 14:35:13,469 [Process-3228] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   29%}
-2025-07-03 14:35:13,470 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:13,472 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:13,524 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:14,430 [Process-3228] INFO     [Thread0]    imginfo.size=439296, RemainLen=242416, Offset=196880
-2025-07-03 14:35:14,436 [Process-3228] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   44%}
-2025-07-03 14:35:14,437 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:14,439 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:14,472 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:15,380 [Process-3228] INFO     [Thread0]    imginfo.size=439296, RemainLen=176880, Offset=262416
-2025-07-03 14:35:15,385 [Process-3228] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   59%}
-2025-07-03 14:35:15,386 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:15,387 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:15,436 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:16,347 [Process-3228] INFO     [Thread0]    imginfo.size=439296, RemainLen=111344, Offset=327952
-2025-07-03 14:35:16,351 [Process-3228] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   74%}
-2025-07-03 14:35:16,352 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:16,354 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:16,393 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:17,293 [Process-3228] INFO     [Thread0]    imginfo.size=439296, RemainLen=45808, Offset=393488
-2025-07-03 14:35:17,296 [Process-3228] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   89%}
-2025-07-03 14:35:17,297 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:17,301 [Process-3228] INFO     [Thread0]    Preamble Send
-2025-07-03 14:35:17,701 [Process-3228] INFO     [Thread0]    Preamble Received Rsp
-2025-07-03 14:35:18,397 [Process-3228] INFO     [Thread0]    imginfo.size=439296, RemainLen=0, Offset=393488
-2025-07-03 14:35:18,402 [Process-3228] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   100%}
-2025-07-03 14:35:18,403 [Process-3228] INFO     [Thread0]    
-2025-07-03 14:35:18,407 [Process-3228] INFO     [Thread0]    TryDownload success
-2025-07-03 14:35:18,411 [Process-3228] INFO     [Thread0]    Burn OK!
-2025-07-03 14:35:18,412 [Process-3228] INFO     [Thread0]    ProcessEnd[14848]
-2025-07-03 14:35:18,414 [Process-3228] INFO     [FlashToolCLI]    Burnbatch OK, imglist ['bootloader', 'system']
+2025-07-09 20:29:52,240 INFO     [FlashTop]    init
+2025-07-09 20:29:52,251 [Process-14704] INFO     [FlashTop]    do_main: cmd loadpara
+2025-07-09 20:29:52,251 [Process-14704] INFO     [Para]    exe path: C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug
+2025-07-09 20:29:52,251 [Process-14704] INFO     [Para]    update digest file :C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\cfg.digest, digest:b'\x95\xaf\x7e\x3d\x46\xdd\x3a\xbe\xea\x1d\xe3\x59\x01\x93\x46\x51\x55\xdc\x16\x1b\x8a\x7b\xad\xc9\xcc\xe4\xde\x6d\x66\xeb\x63\x8b' 
+2025-07-09 20:29:52,251 [Process-14704] INFO     [Para]    LoadPara from cfgfile(C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\htnb32l.ini) 
+2025-07-09 20:29:52,251 [Process-14704] WARNING  [Para]    Load para curdigest b'\x95\xaf\x7e\x3d\x46\xdd\x3a\xbe\xea\x1d\xe3\x59\x01\x93\x46\x51\x55\xdc\x16\x1b\x8a\x7b\xad\xc9\xcc\xe4\xde\x6d\x66\xeb\x63\x8b'
+2025-07-09 20:29:52,267 [Process-14704] INFO     [FlashTop]    Load para sync success
+2025-07-09 20:29:52,268 [Process-14704] INFO     [FlashToolCLI]    Burnbatch Start, burn imglist ['bootloader', 'system'].
+2025-07-09 20:29:52,268 [Process-14704] INFO     [FlashTop]    do_main: cmd burnag, Thread0[17496]
+2025-07-09 20:29:52,270 [Process-14704] INFO     [Thread0]    ProcessStart[17496]
+2025-07-09 20:29:53,334 [Process-14704] INFO     [Thread0]    ResetBoard(Normal Mod) finish
+2025-07-09 20:29:53,334 [Process-14704] INFO     [Thread0]    args.ser.port :COM7
+2025-07-09 20:29:53,401 [Process-14704] INFO     [Image]    SetBaud 921600
+2025-07-09 20:29:53,401 [Process-14704] INFO     [Thread0]    TryDownload C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\agentboot.bin start
+2025-07-09 20:29:53,401 [Process-14704] INFO     [Thread0]    image size=28568, hdsize=272
+2025-07-09 20:29:53,401 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:29:53,420 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:29:53,469 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:29:53,534 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:29:56,284 [Process-14704] INFO     [Thread0]    TryDownload agentboot success
+2025-07-09 20:29:56,284 [Process-14704] INFO     [Thread0]    agbaud: 921600
+2025-07-09 20:29:56,366 [Process-14704] INFO     [Thread0]    Burn OK!
+2025-07-09 20:29:56,367 [Process-14704] INFO     [Thread0]    ProcessEnd[17496]
+2025-07-09 20:29:56,367 [Process-14704] INFO     [FlashTop]    do_main: cmd burnone, Thread0[17496]
+2025-07-09 20:29:56,367 [Process-14704] INFO     [Thread0]    ProcessStart[17496]
+2025-07-09 20:29:56,367 [Process-14704] INFO     [Thread0]    args.ser.port :COM7
+2025-07-09 20:29:56,435 [Process-14704] INFO     [Thread0]    agentboot is downloaded already
+2025-07-09 20:29:56,435 [Process-14704] INFO     [Thread0]    TryDownload agentboot skip
+2025-07-09 20:29:56,435 [Process-14704] INFO     [Thread0]    agbaud: 921600
+2025-07-09 20:29:56,501 [Process-14704] INFO     [Thread0]    LPC Preamble Send
+2025-07-09 20:29:56,516 [Process-14704] INFO     [Thread0]    LPC Preamble Received Rsp
+2025-07-09 20:29:56,532 [Process-14704] INFO     [Thread0]    LPCSetSyncStat(1)
+2025-07-09 20:29:56,533 [Process-14704] INFO     [Thread0]    LPCSyncDetect: success
+2025-07-09 20:29:56,534 [Process-14704] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader)
+2025-07-09 20:29:56,534 [Process-14704] INFO     [Thread0]    DownloadBurnOne imgtype(bootloader), burnaddr(0x0), imgid(0x4f424d49)
+2025-07-09 20:29:56,534 [Process-14704] INFO     [Thread0]    DownloadBurnOne file C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin 
+2025-07-09 20:29:56,537 [Process-14704] INFO     [Thread0]    TryDownload C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\bootloader.bin start
+2025-07-09 20:29:56,537 [Process-14704] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2025-07-09 20:29:56,537 [Process-14704] INFO     [Thread0]    LPCBurnOneTrig success
+2025-07-09 20:29:56,537 [Process-14704] INFO     [Thread0]    DLDPreSync Preamble Send
+2025-07-09 20:29:57,066 [Process-14704] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2025-07-09 20:29:57,067 [Process-14704] INFO     [Thread0]    image size=29248, hdsize=272
+2025-07-09 20:29:57,067 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:29:57,067 [Process-14704] INFO     [Thread0]    imginfo.size=29248, RemainLen=29248, Offset=0
+2025-07-09 20:29:57,067 [Process-14704] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2025-07-09 20:29:57,067 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:29:57,067 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:29:57,086 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:29:57,119 [Process-14704] INFO     [Thread0]    imginfo.size=29248, RemainLen=28976, Offset=272
+2025-07-09 20:29:57,119 [Process-14704] INFO     [Thread0]    {bootloader.bin-percent files transferred   0%}
+2025-07-09 20:29:57,119 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:29:57,119 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:29:57,633 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:29:58,133 [Process-14704] INFO     [Thread0]    imginfo.size=29248, RemainLen=0, Offset=272
+2025-07-09 20:29:58,133 [Process-14704] INFO     [Thread0]    {bootloader.bin-percent files transferred   100%}
+2025-07-09 20:29:58,133 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:29:58,133 [Process-14704] INFO     [Thread0]    TryDownload success
+2025-07-09 20:29:58,133 [Process-14704] INFO     [Thread0]    Burn OK!
+2025-07-09 20:29:58,133 [Process-14704] INFO     [Thread0]    ProcessEnd[17496]
+2025-07-09 20:29:58,133 [Process-14704] INFO     [FlashTop]    do_main: cmd burnone, Thread0[17496]
+2025-07-09 20:29:58,133 [Process-14704] INFO     [Thread0]    ProcessStart[17496]
+2025-07-09 20:29:58,133 [Process-14704] INFO     [Thread0]    args.ser.port :COM7
+2025-07-09 20:29:58,201 [Process-14704] INFO     [Thread0]    agentboot is downloaded already
+2025-07-09 20:29:58,201 [Process-14704] INFO     [Thread0]    TryDownload agentboot skip
+2025-07-09 20:29:58,216 [Process-14704] INFO     [Thread0]    agbaud: 921600
+2025-07-09 20:29:58,284 [Process-14704] INFO     [Thread0]    LPC Preamble Send
+2025-07-09 20:29:58,299 [Process-14704] INFO     [Thread0]    LPC Preamble Received Rsp
+2025-07-09 20:29:58,315 [Process-14704] INFO     [Thread0]    LPCSyncDetect: success
+2025-07-09 20:29:58,317 [Process-14704] INFO     [Thread0]    DownloadBurnOne imgtype(system)
+2025-07-09 20:29:58,317 [Process-14704] INFO     [Thread0]    DownloadBurnOne imgtype(system), burnaddr(0x0), imgid(0x444b4249)
+2025-07-09 20:29:58,318 [Process-14704] INFO     [Thread0]    DownloadBurnOne file C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/MQTT_Example/HTNB32L-XXX-MQTT_Example.bin 
+2025-07-09 20:29:58,322 [Process-14704] INFO     [Thread0]    TryDownload C:\HTNB32L-XXX-SDK\Firmware\HTNB32L-XXX-SDK\Debug\../Build/MQTT_Example/HTNB32L-XXX-MQTT_Example.bin start
+2025-07-09 20:29:58,322 [Process-14704] INFO     [Thread0]    LPCBurnOneTrig start       			******
+2025-07-09 20:29:58,335 [Process-14704] INFO     [Thread0]    LPCBurnOneTrig success
+2025-07-09 20:29:58,335 [Process-14704] INFO     [Thread0]    DLDPreSync Preamble Send
+2025-07-09 20:29:58,853 [Process-14704] INFO     [Thread0]    DLDPreSync Preamble Received Rsp
+2025-07-09 20:29:58,853 [Process-14704] INFO     [Thread0]    image size=566364, hdsize=272
+2025-07-09 20:29:58,853 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:29:58,853 [Process-14704] INFO     [Thread0]    imginfo.size=566364, RemainLen=566364, Offset=0
+2025-07-09 20:29:58,866 [Process-14704] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   0%}
+2025-07-09 20:29:58,866 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:29:58,866 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:29:58,885 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:29:58,916 [Process-14704] INFO     [Thread0]    imginfo.size=566364, RemainLen=566092, Offset=272
+2025-07-09 20:29:58,917 [Process-14704] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   0%}
+2025-07-09 20:29:58,917 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:29:58,917 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:29:59,017 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:29:59,922 [Process-14704] INFO     [Thread0]    imginfo.size=566364, RemainLen=500556, Offset=65808
+2025-07-09 20:29:59,923 [Process-14704] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   11%}
+2025-07-09 20:29:59,924 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:29:59,925 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:29:59,986 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:30:00,887 [Process-14704] INFO     [Thread0]    imginfo.size=566364, RemainLen=435020, Offset=131344
+2025-07-09 20:30:00,888 [Process-14704] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   23%}
+2025-07-09 20:30:00,889 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:30:00,890 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:30:00,939 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:30:01,837 [Process-14704] INFO     [Thread0]    imginfo.size=566364, RemainLen=369484, Offset=196880
+2025-07-09 20:30:01,837 [Process-14704] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   34%}
+2025-07-09 20:30:01,838 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:30:01,838 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:30:01,892 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:30:02,792 [Process-14704] INFO     [Thread0]    imginfo.size=566364, RemainLen=303948, Offset=262416
+2025-07-09 20:30:02,793 [Process-14704] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   46%}
+2025-07-09 20:30:02,793 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:30:02,793 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:30:02,844 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:30:03,738 [Process-14704] INFO     [Thread0]    imginfo.size=566364, RemainLen=238412, Offset=327952
+2025-07-09 20:30:03,739 [Process-14704] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   57%}
+2025-07-09 20:30:03,740 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:30:03,740 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:30:03,794 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:30:04,687 [Process-14704] INFO     [Thread0]    imginfo.size=566364, RemainLen=172876, Offset=393488
+2025-07-09 20:30:04,687 [Process-14704] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   69%}
+2025-07-09 20:30:04,688 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:30:04,688 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:30:04,746 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:30:05,633 [Process-14704] INFO     [Thread0]    imginfo.size=566364, RemainLen=107340, Offset=459024
+2025-07-09 20:30:05,634 [Process-14704] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   81%}
+2025-07-09 20:30:05,634 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:30:05,634 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:30:05,693 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:30:06,587 [Process-14704] INFO     [Thread0]    imginfo.size=566364, RemainLen=41804, Offset=524560
+2025-07-09 20:30:06,587 [Process-14704] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   92%}
+2025-07-09 20:30:06,588 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:30:06,588 [Process-14704] INFO     [Thread0]    Preamble Send
+2025-07-09 20:30:06,959 [Process-14704] INFO     [Thread0]    Preamble Received Rsp
+2025-07-09 20:30:07,589 [Process-14704] INFO     [Thread0]    imginfo.size=566364, RemainLen=0, Offset=524560
+2025-07-09 20:30:07,591 [Process-14704] INFO     [Thread0]    {HTNB32L-XXX-MQTT_Example.bin-percent files transferred   100%}
+2025-07-09 20:30:07,591 [Process-14704] INFO     [Thread0]    
+2025-07-09 20:30:07,594 [Process-14704] INFO     [Thread0]    TryDownload success
+2025-07-09 20:30:07,597 [Process-14704] INFO     [Thread0]    Burn OK!
+2025-07-09 20:30:07,598 [Process-14704] INFO     [Thread0]    ProcessEnd[17496]
+2025-07-09 20:30:07,600 [Process-14704] INFO     [FlashToolCLI]    Burnbatch OK, imglist ['bootloader', 'system']

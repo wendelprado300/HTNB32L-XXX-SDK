@@ -46,7 +46,9 @@
         "hal_adc.h": "c",
         "bsp.h": "c",
         "freertos.h": "c",
-        "gpio_qcx212.h": "c"
+        "gpio_qcx212.h": "c",
+        "mqttclient.h": "c",
+        "ht_led_task.h": "c"
     },
     "python.autoComplete.extraPaths": [
         "${workspaceFolder}/sources/poky/bitbake/lib",
