@@ -1,3 +1,18 @@
+/**
+ *
+ * Copyright (c) 2023 HT Micron Semicondutores S.A.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 #include "HT_Fsm.h"
 #include "hal_adc.h"
 #include "HT_adc_qcx212.h"
@@ -51,12 +66,6 @@ static StaticTask_t led_thread;
 static uint8_t ledTaskStack[1024*4];
 static StaticTask_t ldr_thread;
 static uint8_t ldrTaskStack[1024*4];
-
-static StaticTask_t btn_white_thread;
-static uint8_t btn_white_TaskStack[1024*4];
-
-
-
 
 //Subcribe callback flag
 volatile uint8_t subscribe_callback = 0;
@@ -279,28 +288,12 @@ static void HT_LdrThread(void *arg) {
         // TAREFA EXTRA: Implementar mutex aqui para evitar chamar o HT_MQTT_Publish em dois lugares simultaneamente.
         HT_MQTT_Publish(&mqttClient, topic_ldr, ldrPayload, strlen((char *)ldrPayload), QOS0, 0, 0, 0);
         
-        osDelay(pdMS_TO_TICKS(60000));
+        osDelay(pdMS_TO_TICKS(6000));
     }
 }
 
 static void HT_BtnThread(void *arg) {
-
-    while (1) {
-         printf("BTN Task Started\n");
-    
-    static int last_white_button_state = 0;  
-        
-        int current_white_state = !HT_GPIO_PinRead(WHITE_BUTTON_INSTANCE, WHITE_BUTTON_PIN);
-        
-        // 2. Detecção de borda de descida (pressionado)
-        if (current_white_state == 1 && last_white_button_state == 0) {
-            printf("Botão pressionado!\n");
-            
-        }
-        last_white_button_state = current_white_state;
-        
-        osDelay(pdMS_TO_TICKS(20));
-}
+    // IMPLEMENTAR ESSA FUNCAO
 }
 
 static void HT_Yield_Thread_Start(void *arg) {
@@ -349,19 +342,7 @@ static void HT_Ldr_Thread_Start(void *arg) {
 }
 
 static void HT_Btn_Thread_Start(void *arg) {
-        osThreadAttr_t task_attr;
-
-  memset(&task_attr,0,sizeof(task_attr));
-    memset(btn_white_TaskStack, 0xA5,LED_TASK_STACK_SIZE);
-    task_attr.name = "btn_white_thread";
-    task_attr.stack_mem = btn_white_TaskStack;
-    task_attr.stack_size = LED_TASK_STACK_SIZE;
-    task_attr.priority = osPriorityAboveNormal5;
-    task_attr.cb_mem = &btn_white_thread;
-    task_attr.cb_size = sizeof(StaticTask_t);
-
-    osThreadNew(HT_BtnThread, NULL, &task_attr);
-   
+    // IMPLEMENTAR ESSA FUNCAO
 }
 
 static HT_ConnectionStatus HT_FSM_MQTTConnect(void) {
