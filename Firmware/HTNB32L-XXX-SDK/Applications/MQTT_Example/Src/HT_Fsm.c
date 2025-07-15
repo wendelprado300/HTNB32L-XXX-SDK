@@ -288,7 +288,7 @@ static void HT_LdrThread(void *arg) {
         // TAREFA EXTRA: Implementar mutex aqui para evitar chamar o HT_MQTT_Publish em dois lugares simultaneamente.
         HT_MQTT_Publish(&mqttClient, topic_ldr, ldrPayload, strlen((char *)ldrPayload), QOS0, 0, 0, 0);
         
-        osDelay(pdMS_TO_TICKS(60000));
+        osDelay(pdMS_TO_TICKS(6000));
     }
 }
 
