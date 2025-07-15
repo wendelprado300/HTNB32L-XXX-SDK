@@ -22,8 +22,8 @@
 */
 
 /*!
- * \file HT_GPIO_Api.h
- * \brief GPIO API used for HTNB32L-XXX MQTT Example. 
+ * \file HT_MQTT_Api.h
+ * \brief MQTT API that implements all MQTT features used in this example. 
   * \author HT Micron Advanced R&D,
  *         Hêndrick Bataglin Gonçalves, Christian Roberto Lehmen,  Matheus da Silva Zorzeto, Felipe Kalinski Ferreira,
  *         Leandro Borges, Mauricio Carlotto Ribeiro, Henrique Kuhn, Cleber Haack, Eduardo Mendel
@@ -34,127 +34,90 @@
  * \date February 23, 2023
  */
 
-#ifndef __HT_GPIO_API_H__
-#define __HT_GPIO_API_H__
+#ifndef __HT_MQTT_API_H__
+#define __HT_MQTT_API_H__
 
 #include "stdint.h"
 #include "main.h"
-#include "pad_qcx212.h"
-#include "gpio_qcx212.h"
-#include "HT_Fsm.h"
+#include "MQTTClient.h"
+#include "uart_qcx212.h"
 
-/* Defines  ------------------------------------------------------------------*/
+#define MQTT_TLS_ENABLE 0
 
-#define BUTTON_PAD_ALT_FUNC      PAD_MuxAlt0                                    /**</ Button pin alternate function. */
-#define LED_PAD_ALT_FUNC         PAD_MuxAlt0                                    /**</ LED pin alternate function. */
-
-#define LED_ON  1                                                               /**</ LED state enable. */
-#define LED_OFF 0                                                               /**</ LED state disable. */
-
-/*
-----------------------------------------------------  Table 1. GPIO Table. -------------------------------------------------------------
-___________________________________________________________________________________________________________________________________________________________________________________________
-| Pad ID |       GPIO Number    |  Pin Number  | Instance | Pull (default:options) |       AF0      |      AF1      |    AF2      |      AF3      |  AF4 |   AF5  |   AF6  |      AF7      |
-|--------|----------------------|--------------|----------|------------------------|----------------|---------------|-------------|---------------|------|--------|--------|---------------|
-|   12   |        GPIO1         |      1       |    0     |      B-PU:nppd         |  GPIO1         |      –	      |  UART2_TXD  |      –        |   –  |    –   |    –   |      –        | 
-|   13   |        GPIO2         |      2       |    0     |      B-PU:nppd         |  GPIO2/Timer0  |  UART0_RTSn   |  UART2_RXD  |    SPI1_SSn0  |   –  |  PWM0  |    –   |      –        |
-|   14   |        GPIO3         |      3       |    0     |      B-PU:nppd         |  GPIO3         |  UART0_CTSn   |  UART2_TXD  |    SPI1_MOSI  |   –  |  PWM1  |    –   |      –        |
-|   15   |        GPIO4         |      4       |    0     |      B-PU:nppd         |  GPIO4         |  UART0_RXD    |  I2C1_SDA   |    SPI1_MISO  |   –  |  PWM2  |    –   |      –        |
-|   16   |        GPIO5         |      5       |    0     |      B-PU:nppd         |  GPIO5         |  UART0_TXD    |  I2C1_SCL   |    SPI1_SCLK  |   –  |  PWM3  |    –   |      –        |
-|   17   |        GPIO6         |      6       |    0     |      B-PU:nppd         |  GPIO6/Timer1  |  SPI0_SSn0    |  I2C0_SDA   |    UART1_RTSn |   –  |  PWM4  |    –   |      –        |
-|   18   |        GPIO7         |      7       |    0     |      B-PU:nppd         |  GPIO7         |  SPI0_MOSI    |  I2C0_SCL   |    UART1_CTSn |   –  |  PWM5  |    –   |      –        |
-|   19   |        GPIO13        |      13      |    0     |      B-PU:nppd         |  GPIO13        |  SPI0_MISO    |  I2C1_SDA   |    UART1_RXD  |   –  |  PWM0  |    –   |      –        |
-|   20   |        GPIO12        |      12      |    0     |      B-PU:nppd         |  GPIO12        |  SPI0_SCLK    |  I2C1_SCL   |    UART1_TXD  |   –  |  PWM1  |    –   |      –        |
-|   25   |        GPIO10        |      10      |    0     |      B-PU:nppd         |  GPIO10/Timer3 |  I2C0_SCL     |      –      |    SPI1_SSn1  |   –  |  PWM0  |    –   |      –        |
-|   9    |        SWCLK         |      2       |    1     |      B-PU:nppd         |  SWCLK         |      –        |  UART2_RXD  |    UART1_RTSn |   –  |  PWM4  |    –   |    GPIO18     |
-|   10   |        SWDIO         |      3       |    1     |      B-PU:nppd         |  SWDIO         |      –        |  UART2_TXD  |    UART1_CTSn |   –  |  PWM5  |    –   |    GPIO19     |
-|   31   |   AON_GPIO0 (GPIO20)	|      4       |    1     |      DIO-PD:nppu       |  GPIO20/Timer5 |      –        |      –      |      –        |   –  |    –   |    –   |      –        |
-____________________________________________________________________________________________________________________________________________________________________________________________
-
--> B  : Bidirectional digital with CMOS input		
--> DIO: Digital input output		
--> NP : pdpu = default no-pull with programmable options following the colon (:)		
--> PD : nppu = default pull-down with programmable options following the colon (:)		
--> PU : nppd = default pull-up with programmable options following the colon (:)		
-*/
-
-//GPIO6 - BLUE BUTTON
-#define BLUE_BUTTON_INSTANCE          0                                         /**</ Blue button pin instance. */
-#define BLUE_BUTTON_PIN               6                                         /**</ Blue button pin number. */
-#define BLUE_BUTTON_PAD_ID            17                                        /**</ Blue button Pad ID. */
-#define BLUE_BUTTON_MASK              (uint32_t)(1 << BLUE_BUTTON_PIN)          /**</ Blue button mask. */
-
-//GPIO7 - WHITE BUTTON
-#define WHITE_BUTTON_INSTANCE          0                                        /**</ White button pin instance. */
-#define WHITE_BUTTON_PIN               7                                        /**</ White button pin number. */
-#define WHITE_BUTTON_PAD_ID            18                                       /**</ White button Pad ID. */
-#define WHITE_BUTTON_MASK              (uint32_t)(1 << WHITE_BUTTON_PIN)        /**</ White button mask. */
-
-//GPIO3 - BLUE LED
-#define BLUE_LED_INSTANCE             0                                         /**</ Blue LED pin instance. */
-#define BLUE_LED_PIN                  3                                         /**</ Blue LED pin number. */
-#define BLUE_LED_PAD_ID               14                                        /**</ Blue LED Pad ID. */
-
-//GPIO4 - WHITE LED
-#define WHITE_LED_INSTANCE             0                                        /**</ White LED pin instance. */
-#define WHITE_LED_PIN                  4                                        /**</ White LED pin number. */
-#define WHITE_LED_PAD_ID               15                                       /**</ White LED Pad ID. */
-
-//GPIO5 - GREEN LED
-#define GREEN_LED_INSTANCE             0                                        /**</ Green LED pin instance. */
-#define GREEN_LED_PIN                  5                                        /**</ Green LED pin number. */
-#define GREEN_LED_PAD_ID               16                                       /**</ Green LED Pad ID. */
-
-/* Typedefs  ------------------------------------------------------------------*/
-
-/**
- * \enum HT_Led_Type
- * \brief HTNB32L-XXX Demo Board leds.
- */
-typedef enum {
-    HT_BLUE_LED = 0,
-    HT_WHITE_LED,
-    HT_GREEN_LED
-} HT_Led_Type;
+#define MQTT_GENERAL_TIMEOUT 60000
 
 /* Functions ------------------------------------------------------------------*/
 
 /*!******************************************************************
- * \fn void HT_GPIO_ButtonInit(void)
- * \brief Initialize blue and white buttons in the GPIO pins
- *        with internal pull-up resistors.
+ * \fn uint8_t HT_MQTT_Connect(MQTTClient *mqtt_client, Network *mqtt_network, char *addr, int32_t port, uint32_t send_timeout, uint32_t rcv_timeout, char *clientID, 
+                                        char *username, char *password, uint8_t mqtt_version, uint32_t keep_alive_interval)
+ * \brief Connect device to a MQTT broker.
  *
- * \param[in]  none
- * \param[out] none
- *
+ * \param[in] MQTTClient *mqtt_client           MQTT client handle.
+ * \param[in] Network *mqtt_network             Network handle.
+ * \param[in] char *addr                        MQTT broker host.          
+ * \param[in] int32_t port                      MQTT port.
+ * \param[in] uint32_t send_timeout             TX timeout.
+ * \param[in] int32_t rcv_timeout               RX timeout.
+ * \param[in] char *clientID                    MQTT client ID.
+ * \param[in] char *username                    MQTT username of this device.
+ * \param[in] char *password                    Password to access MQTT topic.
+ * \param[in] uint8_t mqtt_version              MQTT version.
+ * \param[in] uint32_t keep_alive_interval      MQTT keep alive interval.
+ * \param[in] uint32_t sendbuf                  Buffer allocated for TX process.
+ * \param[in] uint32_t sendbuf_size             Size of TX buffer.
+ * \param[in] uint32_t readbuf                  Buffer allocated for RX process.
+ * \param[in] uint32_t readbuf_size             Size of RX buffer.
+ * 
  * \retval none
  *******************************************************************/
-void HT_GPIO_ButtonInit(void);
+uint8_t HT_MQTT_Connect(MQTTClient *mqtt_client, Network *mqtt_network, char *addr, int32_t port, uint32_t send_timeout, uint32_t rcv_timeout, char *clientID, 
+                                        char *username, char *password, uint8_t mqtt_version, uint32_t keep_alive_interval, uint8_t *sendbuf, 
+                                        uint32_t sendbuf_size, uint8_t *readbuf, uint32_t readbuf_size);
 
 /*!******************************************************************
- * \fn void HT_GPIO_LedInit(void)
- * \brief Initialize blue, white and green LEDs in the GPIO pins.
+ * \fn void HT_MQTT_Publish(MQTTClient *mqtt_client, char *topic, uint8_t *payload, uint32_t len, enum QoS qos, uint8_t retained, uint16_t id, uint8_t dup)
+
+ * \brief Send an MQTT publish packet and wait for all acks, depending on the QoSs option.
  *
- * \param[in]  none
- * \param[out] none
- *
+ * \param[in] MQTTClient *mqtt_client           MQTT client handle.
+ * \param[in] char *topic                       MQTT topic publish to.
+ * \param[in] uint8_t *payload                  Payload that will be sent to the topic.          
+ * \param[in] uint32_t len                      Payload length.
+ * \param[in] enum QoS qos                      QoS option.
+ * \param[in] uint8_t retained                  Retained messages option.
+ * \param[in] uint16_t id                       Message ID.
+ * \param[in] uint8_t dup                       DUP flag.
+ * 
+ * 
  * \retval none
  *******************************************************************/
-void HT_GPIO_LedInit(void);
+void HT_MQTT_Publish(MQTTClient *mqtt_client, char *topic, uint8_t *payload, uint32_t len, enum QoS qos, uint8_t retained, uint16_t id, uint8_t dup);
 
 /*!******************************************************************
- * \fn void HT_GPIO_WritePin(uint16_t pin, uint32_t instance, uint16_t value)
- * \brief Writes the value in pin of instance. Used to turn on/off LEDs.
+ * \fn void HT_MQTT_SubscribeCallback(MessageData *msg)
+
+ * \brief MQTT subscribe callback function.
  *
- * \param[in] uint16_t pin                              GPIO port number
- * \param[in] uint32_t instance                         GPIO instance
- * \param[in] uint16_t value                            value to write
- * \param[out] none
- *
+ * \param[in] MessageData *msg                  Message received from subscribe.
+ * 
  * \retval none
  *******************************************************************/
-void HT_GPIO_WritePin(uint16_t pin, uint32_t instance, uint16_t value);
+void HT_MQTT_SubscribeCallback(MessageData *msg);
 
-#endif /* __HT_GPIO_API_H__ */
+/*!******************************************************************
+ * \fn void HT_MQTT_Subscribe(MQTTClient *mqtt_client, char *topic, enum QoS qos)
+
+ * \brief Subscribe a MQTT topic.
+ *
+ * \param[in] MQTTClient *mqtt_client           MQTT client handle.
+ * \param[in] char *topic                       MQTT topic to subscribe to.
+ * \param[in] enum QoS qos                      QoS option.
+ *  
+ * \retval none
+ *******************************************************************/
+void HT_MQTT_Subscribe(MQTTClient *mqtt_client, char *topic, enum QoS qos);
+
+#endif /* __HT_MQTT_API_H__ */
 
 /************************ HT Micron Semicondutores S.A *****END OF FILE****/
