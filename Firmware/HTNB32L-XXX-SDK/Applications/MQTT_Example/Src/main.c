@@ -67,7 +67,42 @@ void HT_Fsm(void) {
         printf("\n MQTT Connection Error!\n");
         while(1);
     }
+    printf("conexão feitaaaaaaaaaaaaa");
+
 }
+
+
+
+// Fila para dados do sensor
+osMessageQueueId_t xSensorDataQueue;
+
+// Estrutura para dados do sensor
+typedef struct {
+    float temperature;
+    float humidity;
+} SensorData_t;
+
+// Handles para threads
+static osThreadId_t dht22_thread_id = NULL;
+static osThreadId_t mqtt_thread_id = NULL;
+static osThreadId_t yield_thread_id = NULL;
+
+
+// =================================================================
+// ===================== THREAD DE YIELD MQTT ======================
+// =================================================================
+
+static void yield_thread(void *arg) {
+    while (1) {
+        // Processa mensagens MQTT
+        MQTTYield(&mqttClient, 10);
+        osDelay(10);
+    }
+}
+
+
+
+
 
 
 
@@ -89,11 +124,7 @@ void HT_Fsm(void) {
 // Fila para comunicação entre threads
 QueueHandle_t xSensorDataQueue;
 
-// Estrutura para os dados do sensor
-typedef struct {
-    float temperature;
-    float humidity;
-} SensorData_t;
+
 
 // =================================================================
 // ===================== FUNÇÕES DO DHT22 ==========================
@@ -213,60 +244,66 @@ bool dht22_read(float* humidity, float* temperature) {
 
     return true;
 }
+   
 
-// =================================================================
-// ===================== THREAD DE LEITURA DHT22 ===================
-// =================================================================
-
-void dht22_thread(void *pvParameters) {
-    SensorData_t sensorData;
-    
-    // Inicializa o pino do DHT22
-    dht22_pin_as_input();
-    vTaskDelay(pdMS_TO_TICKS(2000)); // Espera inicial para estabilização
-    
-    while(1) {
-        if (dht22_read(&sensorData.humidity, &sensorData.temperature)) {
-            // Envia os dados para a fila
-            if (xQueueSend(xSensorDataQueue, &sensorData, portMAX_DELAY) != pdPASS) {
-                printf("Erro ao enviar dados para a fila!\n");
-            }
-        } else {
-            printf("Falha na leitura do DHT22\n");
-        }
-        
-        // Espera 3 segundos antes da próxima leitura
-        vTaskDelay(pdMS_TO_TICKS(5000));
-    }
-}
 
 // =================================================================
 // ===================== THREAD DE ENVIO MQTT ======================
 // =================================================================
 
-void mqtt_thread(void *pvParameters) {
+static void mqtt_publish_thread(void *arg) {
     SensorData_t receivedData;
-    char tempPayload[20]; // Buffer para temperatura
-    char humPayload[20];  // Buffer para umidade
+    char tempPayload[20];
+    char humPayload[20];
+
+    printf("Thread do MQTT iniciada\n");
     
-    while(1) {
-        // Aguarda dados da fila (bloqueante)
-        if (xQueueReceive(xSensorDataQueue, &receivedData, portMAX_DELAY) == pdPASS) {
-            // Formata os dados para impressão (simulando envio MQTT)
-            
+    while (1) {
+        // Aguarda dados da fila
+        if (osMessageQueueGet(xSensorDataQueue, &receivedData, NULL, osWaitForever) == osOK) {
             snprintf(tempPayload, sizeof(tempPayload), "%.1f", receivedData.temperature);
             snprintf(humPayload, sizeof(humPayload), "%.1f", receivedData.humidity);
-           
             
-            HT_MQTT_Publish(&mqttClient, "hana/mesanino/senseclima/01/Temperature", (uint8_t *)tempPayload, 
-                          strlen(tempPayload), QOS0, 0, 0, 0);
-                         
-            HT_MQTT_Publish(&mqttClient, "hana/mesanino/senseclima/01/Humidade", (uint8_t *)humPayload, 
-                          strlen(humPayload), QOS0, 0, 0, 0);
-             printf("Dados enviados: Temp=%s°C, Umidade=%s%%\n", tempPayload, humPayload);              
+            // Publica os dados
+            HT_MQTT_Publish(&mqttClient, topic_Temperatura, 
+                          (uint8_t *)tempPayload, strlen(tempPayload), 
+                          QOS0, 0, 0, 0);
+            
+            HT_MQTT_Publish(&mqttClient, topic_Humidade, 
+                          (uint8_t *)humPayload, strlen(humPayload), 
+                          QOS0, 0, 0, 0);
+            
+            printf("Dados enviados para o servidorrrr agoraaaaa: Temp=%s°C, Umidade=%s%%\n", tempPayload, humPayload);
         }
     }
 }
+
+// =================================================================
+// ===================== THREAD DE LEITURA DHT22 ===================
+// =================================================================
+
+static void dht22_thread(void *arg) {
+    SensorData_t sensorData;
+    
+    // Inicializa o pino do DHT22
+    dht22_pin_as_input();
+    osDelay(2000); // Espera inicial para estabilização
+    printf("Thread iniciada  DHT22\n");
+    
+    while(1) {
+        if (dht22_read(&sensorData.humidity, &sensorData.temperature)) {
+            // Envia os dados para a fila
+            osMessageQueuePut(xSensorDataQueue, &sensorData, 0, osWaitForever);
+        } else {
+            printf("Falha na leitura do DHT22\n");
+        }
+        osDelay(5000); // Espera 5 segundos
+    }
+}
+
+
+
+
 
 // =================================================================
 // ===================== FUNÇÃO PRINCIPAL ==========================
@@ -277,7 +314,7 @@ void main_entry(void) {
     
     BSP_CommonInit();
     slpManNormalIOVoltSet(IOVOLT_3_30V);
-    void HT_Fsm(void);
+   
     
     
     // Configuração da UART para logging
@@ -292,17 +329,31 @@ void main_entry(void) {
     // 1. Estabelece conexão MQTT primeiro
     HT_Fsm();
     
-    // Cria a fila para comunicação entre threads
-    xSensorDataQueue = xQueueCreate(5, sizeof(SensorData_t));
-    if (xSensorDataQueue == NULL) {
-        printf("Erro ao criar a fila de dados!\n");
-        while(1);
-    }
+     // Cria fila para dados do sensor
+    xSensorDataQueue = osMessageQueueNew(5, sizeof(SensorData_t), NULL);
     
+    // Cria threads
+    const osThreadAttr_t dht22_thread_attr = {
+        .name = "DHT22_Thread",
+        .stack_size = DHT22_THREAD_STACK_SIZE,
+        .priority = osPriorityNormal,
+    };
     
-    // Cria as threads
-    xTaskCreate(dht22_thread, "DHT22_Thread", DHT22_THREAD_STACK_SIZE, NULL, 3, NULL);
-    xTaskCreate(mqtt_thread, "MQTT_Thread", MQTT_THREAD_STACK_SIZE, NULL, 2, NULL);
+    const osThreadAttr_t mqtt_thread_attr = {
+        .name = "MQTT_Publish_Thread",
+        .stack_size = MQTT_THREAD_STACK_SIZE,
+        .priority = osPriorityBelowNormal,
+    };
+    
+    const osThreadAttr_t yield_thread_attr = {
+        .name = "MQTT_Yield_Thread",
+        .stack_size = 512,
+        .priority = osPriorityLow,
+    };
+    
+    dht22_thread_id = osThreadNew(dht22_thread, NULL, &dht22_thread_attr);
+    mqtt_thread_id = osThreadNew(mqtt_publish_thread, NULL, &mqtt_thread_attr);
+    yield_thread_id = osThreadNew(yield_thread, NULL, &yield_thread_attr);
     
     // Inicia o escalonador do FreeRTOS
     vTaskStartScheduler();

@@ -116,7 +116,8 @@ void HT_MQTT_Publish(MQTTClient *mqtt_client, char *topic, uint8_t *payload, uin
     message.payload = payload;
     message.payloadlen = len;
 
-    MQTTPublish(mqtt_client, topic, &message);
+    int result = MQTTPublish(mqtt_client, topic, &message);
+    printf("mqtt status %d\n", result);
 }
 
 void HT_MQTT_SubscribeCallback(MessageData *msg) {
